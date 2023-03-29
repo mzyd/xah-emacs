@@ -21,6 +21,37 @@
 
 (xah-fly-keys 1)
 
+(global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
+
+
+;; (defun mzy-escape ()
+  ;; "Activate `xah-fly-command-mode' by typing 'k' and 'j' quickly."
+  ;; (interactive)
+  ;; (let ((timeout 0.2)
+        ;; (keys "")
+        ;; (timer nil))
+    ;; (setq timer (run-with-timer timeout nil
+                                ;; (lambda ()
+                                  ;; (when (string= keys "kj")
+                                    ;; (xah-fly-command-mode-activate))))
+          ;; keys "")
+    ;; (set-transient-map
+     ;; (let ((map (make-sparse-keymap)))
+       ;; (define-key map (kbd "k")
+         ;; (lambda ()
+           ;; (setq keys (concat keys "k"))))
+       ;; (define-key map (kbd "j")
+         ;; (lambda ()
+           ;; (setq keys (concat keys "j"))))
+       ;; map))))
+
+
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode t))
+
+
 (use-package exec-path-from-shell
   :ensure t)
 (when (memq window-system '(mac ns x))
@@ -119,7 +150,7 @@
 ;; (define-key xah-fly-command-map (kbd "Spc w o") 'counsel-git)
 (define-key xah-fly-command-map (kbd "n") 'swiper-thing-at-point)
 
-(global-set-key (kbd "C-j") 'xah-fly-command-mode-activate)
+;; (global-set-key (kbd "C-j") 'xah-fly-command-mode-activate)
 ;; (define-key xah-fly-insert-map (kbd "kj") 'xah-fly-command-mode-activate)
 
 (use-package git-gutter
@@ -169,6 +200,34 @@
 (use-package typescript-mode
   :ensure t)
 
+(use-package js2-mode
+  :ensure t
+  :config
+  (setq js2-basic-offset 2)
+  (setq-default js-indent-level 2)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;; Better imenu
+  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+  (add-hook 'js2-mode-hook #'flycheck-mode)
+  ;;  (setq js2-mode-hook
+  ;;	(setq-default indent-tabs-mode nil)
+  )
+
+(use-package web-mode
+  :ensure t
+  :config
+  ;; (add-hook 'css-mode-hook 'rainbow-mode)
+  (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
+  (setq web-mode-css-indent-offset 2)    ; web-mode, css in html file
+  (setq web-mode-code-indent-offset 2)   ; web-mode, js code in html file
+  (setq auto-mode-alist
+        (append
+         '(("\\.js\\'" . js2-mode))
+         '(("\\.html\\'" . web-mode))
+         '(("\\.wxml\\'" . web-mode))
+         '(("\\.css\\'" . scss-mode))
+         auto-mode-alist)))
+
 (use-package tide
   :ensure t)
 (defun setup-tide-mode ()
@@ -193,5 +252,5 @@
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 ;; if you use treesitter based typescript-ts-mode (emacs 29+)
 ;; (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
-
+(add-hook 'javascript-mode-hook #'setup-tide-mode)
 
