@@ -3127,7 +3127,7 @@ Version 2022-10-31"
        ;; mzy
        (", r" . counsel-git)
        (", l" . counsel-git-grep)
-
+       (", ," . youdao-dictionary-search-at-point-tooltip)
        
        ;; - / ; = [
        ("\\" . toggle-input-method)

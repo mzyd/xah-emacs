@@ -32,8 +32,6 @@
  '(default ((t (:height 150 :family "Source Code Pro")))))
 
 (fringe-mode 0)
-(global-linum-mode 1)
-(setq linum-format " %d ")
 (global-hl-line-mode 1)
 (setq ring-bell-function 'ignore)
 
@@ -46,8 +44,7 @@
 (use-package which-key
   :ensure t
   :config (which-key-mode)
-  (setq which-key-idle-delay 0.1)
-  )
+  (setq which-key-idle-delay 0.1))
 
 (use-package restart-emacs
   :ensure t)
@@ -77,8 +74,6 @@
 (use-package youdao-dictionary
   :ensure t)
 
-(define-key xah-fly-command-map (kbd "C-w s") 'youdao-dictionary-search-at-point-tooltip)
-
 (use-package company
   :ensure t
   :config
@@ -89,8 +84,7 @@
   :bind
   (:map company-active-map
         ([tab] . smarter-yas-expand-next-field-complete)
-        ("TAB" . smarter-yas-expand-next-field-complete))
-  )
+        ("TAB" . smarter-yas-expand-next-field-complete)))
 
 (use-package auto-complete
   :ensure t
@@ -99,16 +93,14 @@
   (setq ac-auto-show-menu 0.02)
   (setq ac-use-menu-map t)
   (define-key ac-menu-map "C-n" 'ac-next)
-  (define-key ac-menu-map "C-p" 'ac-previous)
-  )
+  (define-key ac-menu-map "C-p" 'ac-previous))
 
 (use-package symbol-overlay
   :ensure t
   :config
   :bind ("M-i" . symbol-overlay-put)
   :bind ("M-n" . symbol-overlay-jump-next)
-  :bind ("M-p" . symbol-overlay-jump-prev)
-  )
+  :bind ("M-p" . symbol-overlay-jump-prev))
 (define-key xah-fly-command-map (kbd "C-w 8") 'symbol-overlay-remove-all)
 
 (use-package swiper
@@ -128,23 +120,40 @@
 (global-set-key (kbd "C-j") 'xah-fly-command-mode-activate)
 ;; (define-key xah-fly-insert-map (kbd "kj") 'xah-fly-command-mode-activate)
 
+(use-package git-gutter
+  :ensure t)
 
-
-
-
-
-
-
-
-
-
-
-
+(global-git-gutter-mode +1)
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(auto-complete company youdao-dictionary counsel ivy typescript-mode web-mode vue-mode evil-escape xah-fly-keys)))
+ '(git-gutter:window-width 2)
+ '(git-gutter:modified-sign "♣ ")
+ '(git-gutter:added-sign "♦ ")
+ '(git-gutter:deleted-sign "✘ ")
+ '(git-gutter:lighter "GG")
+ )
+;; (set-face-background 'git-gutter:modified "yellow") ;; background color
+(set-face-foreground 'git-gutter:modified "black")
+(set-face-foreground 'git-gutter:added "green")
+(set-face-foreground 'git-gutter:deleted "#cc0000")
+
+;; the global-linum-mode must be placed behind git-gutter
+;; even that, there's still have problem: when you changed something, and then, you have move your cursor over the screen
+;; and the git-gutter will refresh it's state, else, it won't fucking do anything. of course, this is the god linum-mode's problem.
+;; (global-linum-mode 1)
+;; (setq linum-format " %d ")
+
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-default-theme))
+
+(use-package nyan-mode
+  :ensure t
+  :config (nyan-mode 1))
+
+(require 'zone)
+(zone-when-idle 600)
+
+
+
 
