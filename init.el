@@ -107,26 +107,26 @@
 (use-package youdao-dictionary
   :ensure t)
 
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode t)
-  (setq company-prefix 1)
-  (setq company-idle-delay 0.1)
-  (setq company-minimum-prefix-length 1)
-  :bind
-  (:map company-active-map
-        ([tab] . smarter-yas-expand-next-field-complete)
-        ("TAB" . smarter-yas-expand-next-field-complete)))
+;; (use-package company
+  ;; :ensure t
+  ;; :config
+  ;; (global-company-mode t)
+  ;; (setq company-prefix 1)
+  ;; (setq company-idle-delay 0.1)
+  ;; (setq company-minimum-prefix-length 1)
+  ;; :bind
+  ;; (:map company-active-map
+        ;; ([tab] . smarter-yas-expand-next-field-complete)
+        ;; ("TAB" . smarter-yas-expand-next-field-complete)))
 
-(use-package auto-complete
-  :ensure t
-  :config
-  (ac-config-default)
-  (setq ac-auto-show-menu 0.02)
-  (setq ac-use-menu-map t)
-  (define-key ac-menu-map "C-n" 'ac-next)
-  (define-key ac-menu-map "C-p" 'ac-previous))
+;; (use-package auto-complete
+  ;; :ensure t
+  ;; :config
+  ;; (ac-config-default)
+  ;; (setq ac-auto-show-menu 0.02)
+  ;; (setq ac-use-menu-map t)
+  ;; (define-key ac-menu-map "C-n" 'ac-next)
+  ;; (define-key ac-menu-map "C-p" 'ac-previous))
 
 (use-package symbol-overlay
   :ensure t
@@ -187,15 +187,29 @@
 (require 'zone)
 (zone-when-idle 600)
 
-(use-package flycheck
-  :ensure t
-  :config
-  (global-flycheck-mode))
+;; (use-package flycheck
+  ;; :ensure t
+  ;; :config
+  ;; (global-flycheck-mode))
 
-(use-package flycheck-posframe
+;; (use-package flycheck-posframe
+  ;; :ensure t
+  ;; :after flycheck
+  ;; :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+
+(use-package markdown-mode
   :ensure t
-  :after flycheck
-  :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+         ("C-c C-e" . markdown-do)))
+
+(require 'posframe)
+
+(add-to-list 'load-path "~/AppData/Roaming/lsp-bridge")
+(require 'lsp-bridge)
+(global-lsp-bridge-mode)
+
 
 (use-package typescript-mode
   :ensure t)
