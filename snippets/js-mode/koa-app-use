@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: koa-app-use
+# key: use
+# --
+app.use(async (ctx, next) => {
+  $1
+})

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: m-classname
+# key: cll
+# --
+className={ classes.$1 }

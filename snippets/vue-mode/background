@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: background
+# key: bg
+# --
+background: $1;

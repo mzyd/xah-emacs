@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: bold
+# key: bold
+# --
+*$1*

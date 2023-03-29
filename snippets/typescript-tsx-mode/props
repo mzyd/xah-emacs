@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: props
+# key: pr
+# --
+$1={ $2 }

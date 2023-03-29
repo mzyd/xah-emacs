@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: className-nextjs
+# key: nn
+# --
+className={styles.$1}

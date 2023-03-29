@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: defun
+# key: defun
+# --
+(defun $1 ($2)
+  ($3)
+  )

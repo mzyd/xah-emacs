@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: item_index
+# key: ite
+# --
+(item, index) => {
+  $1
+}

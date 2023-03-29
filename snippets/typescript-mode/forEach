@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: forEach
+# key: ff
+# --
+$1.forEach(item => {
+  $2
+})

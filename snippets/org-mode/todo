@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: todo
+# key: t
+# --
+** TODO $1

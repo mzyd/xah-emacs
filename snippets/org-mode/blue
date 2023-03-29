@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: highlight
+# key: ll
+# --
+[[$1]]

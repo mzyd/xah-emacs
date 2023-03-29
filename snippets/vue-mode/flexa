@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: flex-align-items
+# key: flexa
+# --
+align-items: center;

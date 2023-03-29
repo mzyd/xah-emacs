@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: simple-fn
+# key: sf
+# --
+(item$1) => $2

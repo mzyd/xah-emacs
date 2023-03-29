@@ -1,8 +1,10 @@
+
 (require 'package)
 
 (setq pacakge-enable-startup nil)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
+
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -19,23 +21,23 @@
 
 (xah-fly-keys 1)
 
+(use-package exec-path-from-shell
+  :ensure t)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
-
-;; (require 'evil-escape)
-;; (evil-escape-mode 1)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 150 :family "Source Code Pro")))))
+ '(default ((t (:height 160 :weight normal :family "Source Code Pro")))))
 
 (fringe-mode 0)
 (global-hl-line-mode 1)
 (setq ring-bell-function 'ignore)
-
-(set-background-color "#F0FFF2")
+;; (set-background-color "#F0FFF2")
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq dired-recursive-deletes 'always)
@@ -154,6 +156,42 @@
 (require 'zone)
 (zone-when-idle 600)
 
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
 
+(use-package flycheck-posframe
+  :ensure t
+  :after flycheck
+  :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+
+(use-package typescript-mode
+  :ensure t)
+
+(use-package tide
+  :ensure t)
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+;; if you use typescript-mode
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+;; if you use treesitter based typescript-ts-mode (emacs 29+)
+;; (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
 
 

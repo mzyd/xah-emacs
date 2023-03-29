@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: classname
+# key: cl
+# --
+className={ $1 }

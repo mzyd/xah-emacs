@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: item
+# key: it
+# --
+$1 => {
+  $2
+}

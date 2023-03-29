@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: template-for-ts
+# key: ttt
+# --
+
+<template>
+  <div class="$1">
+
+  </div>
+</template>
+
+<script setup lang="ts" name="$2">
+// import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+
+</script>
+
+<style scoped lang="scss">
+
+</style>

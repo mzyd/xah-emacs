@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: article-template
+# key: atemplate
+# --
+title: 文章标题
+catalog: 是否显示段落目录
+date: 文章日期
+subtitle: 子标题
+header-img: 顶部背景图片
+top: 是否置顶
+tags: 标签
+categories: 分类

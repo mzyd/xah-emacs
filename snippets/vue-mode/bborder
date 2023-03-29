@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: blue-border
+# key: blueb
+# --
+border: 1px solid blue;

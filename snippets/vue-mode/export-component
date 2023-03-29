@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: export-component
+# key: ee
+# --
+export default {$1}
