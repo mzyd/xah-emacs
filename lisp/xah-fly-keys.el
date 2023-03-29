@@ -3757,9 +3757,7 @@ Version: 2022-07-06"
     (modify-all-frames-parameters '((cursor-type . bar)))
     ;; (set-face-background 'cursor "black")
     (setq mode-line-front-space xah-fly-insert-mode-indicator))
-  (force-mode-line-update)
-  (evil-escape-mode t)
-)
+  (force-mode-line-update))
 
 (defun xah-fly-mode-toggle ()
   "Switch between {insertion, command} modes."
