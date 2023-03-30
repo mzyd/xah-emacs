@@ -64,6 +64,19 @@
 (use-package better-defaults
   :ensure t)
 
+;; org-mode stuff
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook #'org-bullets-mode))
+;; 中文换行问题
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+
+;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
+
+(use-package keyfreq
+  :ensure t)
+
 (use-package counsel
   :ensure t)
 
