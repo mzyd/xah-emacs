@@ -22,42 +22,9 @@
 (xah-fly-keys 1)
 
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
+(define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
 
-
-;; (defun mzy-escape ()
-  ;; "Activate `xah-fly-command-mode' by typing 'k' and 'j' quickly."
-  ;; (interactive)
-  ;; (let ((timeout 0.2)
-        ;; (keys "")
-        ;; (timer nil))
-    ;; (setq timer (run-with-timer timeout nil
-                                ;; (lambda ()
-                                  ;; (when (string= keys "kj")
-                                    ;; (xah-fly-command-mode-activate))))
-          ;; keys "")
-    ;; (set-transient-map
-     ;; (let ((map (make-sparse-keymap)))
-       ;; (define-key map (kbd "k")
-         ;; (lambda ()
-           ;; (setq keys (concat keys "k"))))
-       ;; (define-key map (kbd "j")
-         ;; (lambda ()
-           ;; (setq keys (concat keys "j"))))
-       ;; map))))
-
-
-(use-package smartparens
-  :ensure t
-  :config
-  (smartparens-global-mode t))
-
-
-(use-package exec-path-from-shell
-  :ensure t)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-
+;; ========================== basic setting =============================
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -74,13 +41,25 @@
 (setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
 
+;; =================== packages ===================
+
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode t))
+
+(use-package exec-path-from-shell
+  :ensure t)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 (use-package which-key
   :ensure t
   :config (which-key-mode)
   (setq which-key-idle-delay 0.1))
 
-(use-package restart-emacs
-  :ensure t)
+;; (use-package restart-emacs
+  ;; :ensure t)
 
 (use-package better-defaults
   :ensure t)
@@ -88,45 +67,60 @@
 (use-package counsel
   :ensure t)
 
-(use-package avy
-  :ensure t)
+;; (use-package avy
+;;   :ensure t)
 
-(use-package recentf
-  :ensure t
-  :config
-  (recentf-mode 1)
-  (setq recentf-max-menu-item 20))
+;; (use-package recentf
+;;   :ensure t
+;;   :config
+;;   (recentf-mode 1)
+;;   (setq recentf-max-menu-item 20))
 
 (use-package yasnippet
   :ensure t
   :config
-  (add-to-list 'load-path
-               "~/.emacs.d/yasnippet")
+  (add-to-list 'load-path "~/.emacs.d/yasnippet")
   (yas-global-mode 1))
 
 (use-package youdao-dictionary
   :ensure t)
 
-;; (use-package company
-  ;; :ensure t
-  ;; :config
-  ;; (global-company-mode t)
-  ;; (setq company-prefix 1)
-  ;; (setq company-idle-delay 0.1)
-  ;; (setq company-minimum-prefix-length 1)
-  ;; :bind
-  ;; (:map company-active-map
-        ;; ([tab] . smarter-yas-expand-next-field-complete)
-        ;; ("TAB" . smarter-yas-expand-next-field-complete)))
+(use-package fasd
+  :ensure t
+  :init (global-fasd-mode 1))
 
+(use-package mwim
+  :ensure t
+  :bind ("C-a" . mwim-beginning)
+  :bind ("C-e" . mwim-end))
+
+;; (use-package company
+;;   :ensure t
+;;   :config
+;;   (global-company-mode t)
+;;   (setq company-prefix 1)
+;;   (setq company-idle-delay 0.1)
+;;   (setq company-minimum-prefix-length 1)
+;;   :bind
+;;   (:map company-active-map
+;;         ([tab] . smarter-yas-expand-next-field-complete)
+;;         ("TAB" . smarter-yas-expand-next-field-complete)))
 ;; (use-package auto-complete
-  ;; :ensure t
-  ;; :config
-  ;; (ac-config-default)
-  ;; (setq ac-auto-show-menu 0.02)
-  ;; (setq ac-use-menu-map t)
-  ;; (define-key ac-menu-map "C-n" 'ac-next)
-  ;; (define-key ac-menu-map "C-p" 'ac-previous))
+;;   :ensure t
+;;   :config
+;;   (ac-config-default)
+;;   (setq ac-auto-show-menu 0.02)
+;;   (setq ac-use-menu-map t)
+;;   (define-key ac-menu-map "C-n" 'ac-next)
+;;   (define-key ac-menu-map "C-p" 'ac-previous))
+;; (use-package flycheck
+;;   :ensure t
+;;   :config
+;;   (global-flycheck-mode))
+;; (use-package flycheck-posframe
+;;   :ensure t
+;;   :after flycheck
+;;   :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
 
 (use-package symbol-overlay
   :ensure t
@@ -149,9 +143,7 @@
     ))
 ;; (define-key xah-fly-command-map (kbd "Spc w o") 'counsel-git)
 (define-key xah-fly-command-map (kbd "n") 'swiper-thing-at-point)
-
-;; (global-set-key (kbd "C-j") 'xah-fly-command-mode-activate)
-;; (define-key xah-fly-insert-map (kbd "kj") 'xah-fly-command-mode-activate)
+(define-key xah-fly-insert-map (kbd "C-;") 'xah-fly-command-mode-activate)
 
 (use-package git-gutter
   :ensure t)
@@ -170,8 +162,8 @@
 (set-face-foreground 'git-gutter:deleted "#cc0000")
 
 ;; the global-linum-mode must be placed behind git-gutter
-;; even that, there's still have problem: when you changed something, and then, you have move your cursor over the screen
-;; and the git-gutter will refresh it's state, else, it won't fucking do anything. of course, this is the god linum-mode's problem.
+;; even that, there's still have a problem: when you changed something, you have move your cursor over the screen
+;; and the git-gutter will refresh its state, else, it won't fucking do anything. of course, this is the god damn linum-mode's problem.
 ;; (global-linum-mode 1)
 ;; (setq linum-format " %d ")
 
@@ -187,16 +179,6 @@
 (require 'zone)
 (zone-when-idle 600)
 
-;; (use-package flycheck
-  ;; :ensure t
-  ;; :config
-  ;; (global-flycheck-mode))
-
-;; (use-package flycheck-posframe
-  ;; :ensure t
-  ;; :after flycheck
-  ;; :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
-
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
@@ -206,26 +188,14 @@
 
 (require 'posframe)
 
-(add-to-list 'load-path "~/AppData/Roaming/lsp-bridge")
+(if (file-exists-p "~/AppData/Roaming/lsp-bridge")
+    (add-to-list 'load-path "~/AppData/Roaming/lsp-bridge")
+  (add-to-list 'load-path "~/lsp-bridge"))
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
 
-
 (use-package typescript-mode
   :ensure t)
-
-(use-package js2-mode
-  :ensure t
-  :config
-  (setq js2-basic-offset 2)
-  (setq-default js-indent-level 2)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  ;; Better imenu
-  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
-  (add-hook 'js2-mode-hook #'flycheck-mode)
-  ;;  (setq js2-mode-hook
-  ;;	(setq-default indent-tabs-mode nil)
-  )
 
 (use-package web-mode
   :ensure t
@@ -236,35 +206,50 @@
   (setq web-mode-code-indent-offset 2)   ; web-mode, js code in html file
   (setq auto-mode-alist
         (append
-         '(("\\.js\\'" . js2-mode))
+         '(("\\.js\\'" . javascript-mode))
          '(("\\.html\\'" . web-mode))
          '(("\\.wxml\\'" . web-mode))
          '(("\\.css\\'" . scss-mode))
          auto-mode-alist)))
 
-(use-package tide
+(use-package emmet-mode
+  :ensure t
+  :config
+  (add-hook 'html-mode-hook 'emmet-mode)
+  (add-hook 'web-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook 'emmet-mode))
+
+(use-package scss-mode
+  :ensure t
+  :config
+  (setq css-indent-offset 2)
+  (add-hook 'css-mode-hook
+            '(lambda()
+               (setq tab-width 4))))
+
+(use-package vue-mode
   :ensure t)
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1))
 
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
-
-;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
-
-;; if you use typescript-mode
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
-;; if you use treesitter based typescript-ts-mode (emacs 29+)
-;; (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
-(add-hook 'javascript-mode-hook #'setup-tide-mode)
+;; (use-package tide
+;;   :ensure t)
+;; (defun setup-tide-mode ()
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   ;; company is an optional dependency. You have to
+;;   ;; install it separately via package-install
+;;   ;; `M-x package-install [ret] company`
+;;   (company-mode +1))
+;; ;; aligns annotation to the right hand side
+;; (setq company-tooltip-align-annotations t)
+;; ;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+;; ;; if you use typescript-mode
+;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
+;; ;; if you use treesitter based typescript-ts-mode (emacs 29+)
+;; ;; (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+;; (add-hook 'javascript-mode-hook #'setup-tide-mode)
 
