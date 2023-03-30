@@ -210,6 +210,7 @@
          '(("\\.html\\'" . web-mode))
          '(("\\.wxml\\'" . web-mode))
          '(("\\.css\\'" . scss-mode))
+         '(("\\.vue\\'" . web-mode))
          auto-mode-alist)))
 
 (use-package emmet-mode
@@ -227,8 +228,8 @@
             '(lambda()
                (setq tab-width 4))))
 
-(use-package vue-mode
-  :ensure t)
+;; (use-package vue-mode
+  ;; :ensure t)
 
 ;; (use-package tide
 ;;   :ensure t)
