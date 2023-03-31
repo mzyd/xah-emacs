@@ -12,7 +12,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'xah-fly-keys)
-
+;; (require 'git-timemachine)
 ;; specify a layout
 (xah-fly-keys-set-layout "qwerty")
 
@@ -23,6 +23,8 @@
 
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 (define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
+
+;; (define-key git-timemachine-mode-map (kbd "C-p") git-timemachine-visit) 
 
 ;; ========================== basic setting =============================
 (custom-set-faces
@@ -69,7 +71,16 @@
   :ensure t
   :config
   (add-hook 'org-mode-hook #'org-bullets-mode))
-;; 中文换行问题
+
+(use-package eslint-fix
+  :ensure t
+  :config
+  (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
+  (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
+  (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))  
+  )
+
+;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
 ;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
@@ -157,6 +168,7 @@
 ;; (define-key xah-fly-command-map (kbd "Spc w o") 'counsel-git)
 (define-key xah-fly-command-map (kbd "n") 'swiper-thing-at-point)
 (define-key xah-fly-insert-map (kbd "C-;") 'xah-fly-command-mode-activate)
+(define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
 
 (use-package git-gutter
   :ensure t)
@@ -267,3 +279,6 @@
 ;; ;; (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
 ;; (add-hook 'javascript-mode-hook #'setup-tide-mode)
 
+;; (add-to-list 'load-path "~/emacs-application-framework/")
+;; (require 'eaf)
+;; (require 'eaf-browser)
