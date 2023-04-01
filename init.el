@@ -60,8 +60,8 @@
   :config (which-key-mode)
   (setq which-key-idle-delay 0.1))
 
-;; (use-package restart-emacs
-  ;; :ensure t)
+(use-package restart-emacs
+  :ensure t)
 
 (use-package better-defaults
   :ensure t)
@@ -77,7 +77,7 @@
   :config
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))  
+  ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))  
   )
 
 ;; org 中文换行问题
@@ -86,7 +86,9 @@
 ;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
 
 (use-package keyfreq
-  :ensure t)
+  :ensure t
+  :config
+  (keyfreq-mode 1))
 
 (use-package counsel
   :ensure t)
@@ -253,8 +255,8 @@
             '(lambda()
                (setq tab-width 4))))
 
-;; (use-package vue-mode
-  ;; :ensure t)
+(use-package vue-mode
+  :ensure t)
 
 ;; (use-package tide
 ;;   :ensure t)
