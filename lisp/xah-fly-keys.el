@@ -3128,6 +3128,7 @@ Version 2022-10-31"
        (", r" . counsel-git)
        (", l" . counsel-git-grep)
        (", ," . youdao-dictionary-search-at-point-tooltip)
+       (", p" . revert-buffer)
        
        ;; - / ; = [
        ("\\" . toggle-input-method)

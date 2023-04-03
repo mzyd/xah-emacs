@@ -236,7 +236,7 @@
          '(("\\.html\\'" . web-mode))
          '(("\\.wxml\\'" . web-mode))
          '(("\\.css\\'" . scss-mode))
-         '(("\\.vue\\'" . web-mode))
+         ;; '(("\\.vue\\'" . web-mode))
          auto-mode-alist)))
 
 (use-package emmet-mode
