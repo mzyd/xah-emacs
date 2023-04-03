@@ -96,12 +96,6 @@
 ;; (use-package avy
 ;;   :ensure t)
 
-;; (use-package recentf
-;;   :ensure t
-;;   :config
-;;   (recentf-mode 1)
-;;   (setq recentf-max-menu-item 20))
-
 (use-package yasnippet
   :ensure t
   :config
@@ -266,3 +260,33 @@
 ;; (add-to-list 'load-path "~/emacs-application-framework/")
 ;; (require 'eaf)
 ;; (require 'eaf-browser)
+
+
+;; -------- Practical Function --------
+(defun remove-dos-eol ()
+  "Replace DOS eolns CR LF with Unix eolns CR"
+  (interactive)
+  (goto-char (point-min))
+  (while (search-forward "\r" nil t) (replace-match "")))
+
+(defun hidden-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (unless buffer-display-table
+    (setq buffer-display-table (make-display-table)))
+  (aset buffer-display-table ?\^M []))
+
+
+;; (defun my-web-mode-indent-setup ()
+;;   (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
+;;   (setq web-mode-css-indent-offset 2)    ; web-mode, css in html file
+;;   (setq web-mode-code-indent-offset 2)   ; web-mode, js code in html file
+;;   )
+;; (add-hook 'web-mode-hook 'my-web-mode-indent-setup)
+
+(defun open-emacs-dotfile()
+  (interactive)
+  (if (file-exists-p "~/.emacs.d/init.el")
+      (find-file "~/.emacs.d/init.el")
+    (find-file "~/AppData/Roaming/.emacs.d/init.el")
+    ))
