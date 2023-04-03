@@ -3,6 +3,8 @@ history
 elpa/
 backups/
 auto-save-list/
+url/
 bookmarks
 *.dat
 places
+
