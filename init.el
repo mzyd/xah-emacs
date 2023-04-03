@@ -76,7 +76,7 @@
   :ensure t
   :config
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
+  ;; (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))  
   )
 
@@ -107,7 +107,8 @@
 
 (use-package fasd
   :ensure t
-  :init (global-fasd-mode 1))
+  :config
+  (global-fasd-mode 1))
 
 (use-package mwim
   :ensure t
@@ -167,20 +168,23 @@
 (define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
 
 (use-package git-gutter
-  :ensure t)
-
-(global-git-gutter-mode +1)
-(custom-set-variables
- '(git-gutter:window-width 2)
- '(git-gutter:modified-sign "♣ ")
- '(git-gutter:added-sign "♦ ")
- '(git-gutter:deleted-sign "✘ ")
- '(git-gutter:lighter "GG")
- )
-;; (set-face-background 'git-gutter:modified "yellow") ;; background color
-(set-face-foreground 'git-gutter:modified "black")
-(set-face-foreground 'git-gutter:added "green")
-(set-face-foreground 'git-gutter:deleted "#cc0000")
+  :ensure t
+  :config
+  (progn
+    (global-git-gutter-mode +1)
+    (custom-set-variables
+     '(git-gutter:window-width 2)
+     '(git-gutter:modified-sign "♣ ")
+     '(git-gutter:added-sign "♦ ")
+     '(git-gutter:deleted-sign "✘ ")
+     '(git-gutter:lighter "GG")
+     )
+    ;; (set-face-background 'git-gutter:modified "yellow") ;; background color
+    (set-face-foreground 'git-gutter:modified "black")
+    (set-face-foreground 'git-gutter:added "green")
+    (set-face-foreground 'git-gutter:deleted "#cc0000")
+    )
+  )
 
 ;; the global-linum-mode must be placed behind git-gutter
 ;; even that, there's still have a problem: when you changed something, you have move your cursor over the screen
