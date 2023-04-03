@@ -9,7 +9,7 @@
  '(git-gutter:modified-sign "♣ ")
  '(git-gutter:window-width 2)
  '(package-selected-packages
-   '(vue-mode youdao-dictionary yasnippet which-key web-mode use-package typescript-mode symbol-overlay smartparens scss-mode restart-emacs powerline posframe org-bullets nyan-mode mwim markdown-mode keyfreq git-gutter fasd exec-path-from-shell eslint-fix emmet-mode counsel better-defaults)))
+   '(keyfreq eslint-fix org-bullets youdao-dictionary yasnippet xah-fly-keys which-key web-mode vue-mode use-package typescript-mode tide symbol-overlay smartparens scss-mode restart-emacs powerline nyan-mode mwim markdown-mode js2-mode git-gutter flycheck-posframe fasd exec-path-from-shell evil-escape emmet-mode diff-hl counsel company better-defaults avy auto-complete)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
