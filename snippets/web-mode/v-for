@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: v-for
+# key: vfor
+# --
+<div
+  v-for="(item, index) in $1"
+  :key="index"
+  class="$2"
+>
+  $3
+</div>

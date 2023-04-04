@@ -243,7 +243,7 @@
          '(("\\.html\\'" . web-mode))
          '(("\\.wxml\\'" . web-mode))
          '(("\\.css\\'" . scss-mode))
-         ;; '(("\\.vue\\'" . web-mode))
+         '(("\\.vue\\'" . web-mode))
          auto-mode-alist)))
 
 (use-package emmet-mode
@@ -314,3 +314,36 @@
     (keyboard-quit)
     ))
 
+
+(setq ek-list '())
+
+(defun kkk ()
+  (interactive)
+  (message "kkk")
+  (if (> (length ek-list) 0)
+      (setq ek-list '())
+      )
+  (add-to-list 'ek-list "k")
+  (insert "k")
+  )
+
+(defun jjj ()
+  (interactive)
+  (and (equal (nth 0 ek-list) "k") (equal (nth 1 ek-list) "j")
+       (progn
+         (xah-fly-command-mode-activate t)
+         )
+       (progn
+         (setq ek-list '())
+         (insert "j")
+         )
+       )
+  )
+
+
+;; (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
+;;                                                (define-key xah-fly-insert-map (kbd "k") 'kkk)
+;;                                                ))
+;; (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
+;;                                                (define-key xah-fly-insert-map (kbd "j") 'jjj)
+;;                                                ))

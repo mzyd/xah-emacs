@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: setup
+# key: setup
+# --
+async setup() {
+  const res = await $1($2)
+  console.log('--->>>', res)
+},

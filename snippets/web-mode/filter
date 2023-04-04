@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: filter
+# key: filter
+# --
+$1.filter(item => $2)

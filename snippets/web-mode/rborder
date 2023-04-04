@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: red-border
+# key: redb
+# --
+border: 1px solid red;

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: nextTick
+# key: nt
+# --
+this.$nextTick(() => {
+  $1
+})

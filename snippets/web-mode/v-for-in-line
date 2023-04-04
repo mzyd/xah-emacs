@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: v-for-in-line
+# key: vf
+# --
+v-for="(item, index) in $1" :key="index"
