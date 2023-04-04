@@ -1,9 +1,11 @@
+;; M-x package-refresh-contents
 
 (require 'package)
 
 (setq pacakge-enable-startup nil)
+
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -186,6 +188,11 @@
     )
   )
 
+;; (use-package magit
+;;   :ensure t
+;;   :bind (("C-x g" . magit-status)
+;;          ("C-x C-g" . magit-status)))
+
 ;; the global-linum-mode must be placed behind git-gutter
 ;; even that, there's still have a problem: when you changed something, you have move your cursor over the screen
 ;; and the git-gutter will refresh its state, else, it won't fucking do anything. of course, this is the god damn linum-mode's problem.
@@ -295,7 +302,7 @@
     (find-file "~/AppData/Roaming/.emacs.d/init.el")
     ))
 
-(defun mzy-underline-word ()
+(defun mzy/insert-something-on-both-sides ()
   (interactive)
   (let ((s (read-from-minibuffer "Enter your symbol:"))
         (start (region-beginning))
