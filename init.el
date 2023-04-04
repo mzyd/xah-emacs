@@ -166,7 +166,7 @@
     ))
 ;; (define-key xah-fly-command-map (kbd "Spc w o") 'counsel-git)
 (define-key xah-fly-command-map (kbd "n") 'swiper-thing-at-point)
-(define-key xah-fly-insert-map (kbd "C-;") 'xah-fly-command-mode-activate)
+;; (define-key xah-fly-insert-map (kbd "C-;") 'xah-fly-command-mode-activate)
 (define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
 
 (use-package git-gutter
@@ -216,7 +216,7 @@
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
-         ("C-c C-e" . markdown-do)))
+              ("C-c C-e" . markdown-do)))
 
 (use-package posframe
   :ensure t)
@@ -287,7 +287,6 @@
     (setq buffer-display-table (make-display-table)))
   (aset buffer-display-table ?\^M []))
 
-
 ;; (defun my-web-mode-indent-setup ()
 ;;   (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
 ;;   (setq web-mode-css-indent-offset 2)    ; web-mode, css in html file
@@ -299,8 +298,7 @@
   (interactive)
   (if (file-exists-p "~/.emacs.d/init.el")
       (find-file "~/.emacs.d/init.el")
-    (find-file "~/AppData/Roaming/.emacs.d/init.el")
-    ))
+    (find-file "~/AppData/Roaming/.emacs.d/init.el")))
 
 (defun mzy/insert-something-on-both-sides ()
   (interactive)
@@ -311,39 +309,32 @@
     (insert s)
     (goto-char (+ end 1))
     (insert s)
-    (keyboard-quit)
-    ))
+    (keyboard-quit)))
 
-
-(setq ek-list '())
-
-(defun kkk ()
+(setq escape-key-sequence '())
+(setq escape-timer nil)
+(defun mzy/monitor-k ()
   (interactive)
-  (message "kkk")
-  (if (> (length ek-list) 0)
-      (setq ek-list '())
-      )
-  (add-to-list 'ek-list "k")
+  (setq escape-key-sequence '("k"))
   (insert "k")
-  )
+  (setq escape-timer (run-with-timer 0.1 nil (lambda ()
+                                               (unless (equal 2 (length escape-key-sequence))
+                                                 (progn
+                                                   (setq escape-key-sequence '())
+                                                   (cancel-timer escape-timer)))))))
 
-(defun jjj ()
+(defun mzy/monitor-j ()
   (interactive)
-  (and (equal (nth 0 ek-list) "k") (equal (nth 1 ek-list) "j")
-       (progn
-         (xah-fly-command-mode-activate t)
-         )
-       (progn
-         (setq ek-list '())
-         (insert "j")
-         )
-       )
-  )
+  (if (equal (nth 0 escape-key-sequence) "k")
+      (progn
+        (delete-backward-char 1)
+        (setq escape-key-sequence '())
+        (xah-fly-command-mode-activate))
+    (progn
+      (setq escape-key-sequence '())
+      (insert "j"))))
 
+(add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
+                                               (define-key xah-fly-insert-map (kbd "k") 'mzy/monitor-k)
+                                               (define-key xah-fly-insert-map (kbd "j") 'mzy/monitor-j)))
 
-;; (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
-;;                                                (define-key xah-fly-insert-map (kbd "k") 'kkk)
-;;                                                ))
-;; (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
-;;                                                (define-key xah-fly-insert-map (kbd "j") 'jjj)
-;;                                                ))
