@@ -294,3 +294,16 @@
       (find-file "~/.emacs.d/init.el")
     (find-file "~/AppData/Roaming/.emacs.d/init.el")
     ))
+
+(defun mzy-underline-word ()
+  (interactive)
+  (let ((s (read-from-minibuffer "Enter your symbol:"))
+        (start (region-beginning))
+        (end (region-end)))
+    (goto-char start)
+    (insert s)
+    (goto-char (+ end 1))
+    (insert s)
+    (keyboard-quit)
+    ))
+
