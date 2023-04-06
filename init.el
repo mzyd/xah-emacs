@@ -360,6 +360,7 @@
 (define-key xah-fly-command-map (kbd "A") 'mzy/move-to-end-line-and-insert)
 
 ;; Simulate pressing O in vim
+;; todo: there're some problem in this function
 (defun mzy/move-to-previous-line-and-insert ()
   (interactive)
   (xah-beginning-of-line-or-block)
@@ -368,4 +369,12 @@
   (newline)
   (xah-fly-insert-mode-activate))
 (define-key xah-fly-command-map (kbd "O") 'mzy/move-to-previous-line-and-insert)
+
+;; Simulate pressing o in vim
+(defun mzy/move-to-next-line-and-insert ()
+  (interactive)
+  (xah-end-of-line-or-block)
+  (newline)
+  (xah-fly-insert-mode-activate))
+(define-key xah-fly-command-map (kbd "p") 'mzy/move-to-next-line-and-insert)
 
