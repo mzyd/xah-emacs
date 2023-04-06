@@ -95,6 +95,19 @@
 (use-package counsel
   :ensure t)
 
+(use-package dot-mode
+  :ensure t
+  :config
+  (global-dot-mode t))
+
+;; you also can pressing d in command mode to excute this function
+(defun mzy/dot-mode-excute ()
+  (interactive)
+  (xah-fly-insert-mode-activate)
+  (dot-mode-execute)
+  (xah-fly-command-mode-activate))
+(global-set-key (kbd "C-;") 'mzy/dot-mode-excute)
+
 ;; (use-package avy
 ;;   :ensure t)
 
@@ -194,7 +207,7 @@
 ;;          ("C-x C-g" . magit-status)))
 
 ;; the global-linum-mode must be placed behind git-gutter
-;; even that, there's still have a problem: when you changed something, you have move your cursor over the screen
+;; even that, there's still have a problem: when you changed something, you have to move your cursor over the screen
 ;; and the git-gutter will refresh its state, else, it won't fucking do anything. of course, this is the god damn linum-mode's problem.
 ;; (global-linum-mode 1)
 ;; (setq linum-format " %d ")
@@ -301,6 +314,7 @@
     (find-file "~/AppData/Roaming/.emacs.d/init.el")))
 
 (defun mzy/insert-something-on-both-sides ()
+  "insert something to both sides of your selected region"
   (interactive)
   (let ((s (read-from-minibuffer "Enter your symbol:"))
         (start (region-beginning))
@@ -337,4 +351,21 @@
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd "k") 'mzy/monitor-k)
                                                (define-key xah-fly-insert-map (kbd "j") 'mzy/monitor-j)))
+
+;; Simulate pressing A in vim
+(defun mzy/move-to-end-line-and-insert ()
+  (interactive)
+  (xah-end-of-line-or-block)
+  (xah-fly-insert-mode-activate))
+(define-key xah-fly-command-map (kbd "A") 'mzy/move-to-end-line-and-insert)
+
+;; Simulate pressing O in vim
+(defun mzy/move-to-previous-line-and-insert ()
+  (interactive)
+  (xah-beginning-of-line-or-block)
+  (previous-line)
+  (xah-end-of-line-or-block)
+  (newline)
+  (xah-fly-insert-mode-activate))
+(define-key xah-fly-command-map (kbd "O") 'mzy/move-to-previous-line-and-insert)
 
