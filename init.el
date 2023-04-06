@@ -45,6 +45,9 @@
 (setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
 
+;; org 中文换行问题
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+
 ;; =================== packages ===================
 
 (use-package smartparens
@@ -81,9 +84,6 @@
   ;; (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))  
   )
-
-;; org 中文换行问题
-(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
 ;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
 
