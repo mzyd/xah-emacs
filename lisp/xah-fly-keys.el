@@ -3085,9 +3085,10 @@ Version 2022-10-31"
 
     (xah-fly--define-keys
      (define-prefix-command 'xah-fly-leader-key-map)
-     '(("SPC" . xah-fly-insert-mode-activate)
-       ("RET" . execute-extended-command)
-
+     ;; '(("SPC" . xah-fly-insert-mode-activate)
+     ;; ("RET" . execute-extended-command)
+     '(("SPC" . execute-extended-command)
+       ("RET" . counsel-git)
        ;; This keymap I've not used. things are here experimentally.
        ;; The TAB key is not in a very good ergonomic position on average keyboards, so 【leader tab ‹somekey›】 probably should not be used much.
        ;; Currently (2018-03-13), these are commands related to completion or indent, and I basically never use any of these (except sometimes complete-symbol).
@@ -3198,7 +3199,8 @@ Version 2022-10-31"
        ("e w" . xah-insert-angle-bracket)
        ("e y" . xah-insert-double-angle-quote)
 
-       ("f" . xah-search-current-word)
+       ;; ("f" . xah-search-current-word)
+       ("f" . swiper-isearch-thing-at-point)
        ("g" . xah-save-close-current-buffer)
 
        ("h a" . apropos-command)
@@ -3408,7 +3410,8 @@ Version 2022-10-31"
        ("j" . xah-copy-line-or-region)
        ("k" . xah-paste-or-paste-previous)
        ;; ("l" . xah-fly-insert-mode-activate-space-before)
-       ("l" . xah-insert-space-before)
+       ;; ("l" . xah-insert-space-before)
+       ("l" . mzy/move-to-next-line-and-insert)
        ("m" . xah-backward-left-bracket)
        ("n" . forward-char)
        ("o" . open-line)

@@ -45,6 +45,8 @@
 (setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
 
+(define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
+
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
@@ -99,6 +101,7 @@
   :ensure t
   :config
   (global-dot-mode t))
+;; (define-key 'xah-fly-insert-map (kbd "C-.") 'dot-mode-execute)
 
 ;; you also can pressing d in command mode to excute this function
 (defun mzy/dot-mode-excute ()
@@ -106,7 +109,6 @@
   (xah-fly-insert-mode-activate)
   (dot-mode-execute)
   (xah-fly-command-mode-activate))
-(global-set-key (kbd "C-;") 'mzy/dot-mode-excute)
 
 ;; (use-package avy
 ;;   :ensure t)
@@ -175,12 +177,8 @@
     (setq enable-recursive-minibuffers t)
     ;; enable this if you want `swiper' to use it
     ;; (setq search-default-mode #'char-fold-to-regexp)
-    ;; (define-key xah-fly-command-map (kbd "n") 'swiper)
+    (define-key xah-fly-command-map (kbd "n") 'swiper)
     ))
-;; (define-key xah-fly-command-map (kbd "Spc w o") 'counsel-git)
-(define-key xah-fly-command-map (kbd "n") 'swiper-thing-at-point)
-;; (define-key xah-fly-insert-map (kbd "C-;") 'xah-fly-command-mode-activate)
-(define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
 
 (use-package git-gutter
   :ensure t
@@ -198,8 +196,7 @@
     (set-face-foreground 'git-gutter:modified "black")
     (set-face-foreground 'git-gutter:added "green")
     (set-face-foreground 'git-gutter:deleted "#cc0000")
-    )
-  )
+    ))
 
 ;; (use-package magit
 ;;   :ensure t
@@ -325,13 +322,14 @@
     (insert s)
     (keyboard-quit)))
 
+;; xah-escape
 (setq escape-key-sequence '())
 (setq escape-timer nil)
 (defun mzy/monitor-k ()
   (interactive)
   (setq escape-key-sequence '("k"))
   (insert "k")
-  (setq escape-timer (run-with-timer 0.1 nil (lambda ()
+  (setq escape-timer (run-with-timer 0.2 nil (lambda ()
                                                (unless (equal 2 (length escape-key-sequence))
                                                  (progn
                                                    (setq escape-key-sequence '())
@@ -351,24 +349,6 @@
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd "k") 'mzy/monitor-k)
                                                (define-key xah-fly-insert-map (kbd "j") 'mzy/monitor-j)))
-
-;; Simulate pressing A in vim
-(defun mzy/move-to-end-line-and-insert ()
-  (interactive)
-  (xah-end-of-line-or-block)
-  (xah-fly-insert-mode-activate))
-(define-key xah-fly-command-map (kbd "A") 'mzy/move-to-end-line-and-insert)
-
-;; Simulate pressing O in vim
-;; todo: there're some problem in this function
-(defun mzy/move-to-previous-line-and-insert ()
-  (interactive)
-  (xah-beginning-of-line-or-block)
-  (previous-line)
-  (xah-end-of-line-or-block)
-  (newline)
-  (xah-fly-insert-mode-activate))
-(define-key xah-fly-command-map (kbd "O") 'mzy/move-to-previous-line-and-insert)
 
 ;; Simulate pressing o in vim
 (defun mzy/move-to-next-line-and-insert ()
