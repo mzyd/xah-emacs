@@ -282,6 +282,8 @@
 ;; (require 'eaf)
 ;; (require 'eaf-browser)
 
+(use-package edit-at-point
+  :ensure)
 
 ;; -------- Practical Function --------
 (defun remove-dos-eol ()
@@ -357,4 +359,12 @@
   (newline)
   (xah-fly-insert-mode-activate))
 (define-key xah-fly-command-map (kbd "p") 'mzy/move-to-next-line-and-insert)
+
+;; (defun mzy/lsp-bridge-is-xah-command-state ()
+  ;; "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
+  ;; (interactive)
+  ;; (if xah-fly-insert-state-p
+      ;; t
+    ;; nil)
+  ;; )
 

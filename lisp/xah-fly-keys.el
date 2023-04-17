@@ -3228,7 +3228,9 @@ Version 2022-10-31"
        ("i" . kill-line)
        ("j" . xah-copy-all-or-region)
 
-       ("l" . recenter-top-bottom)
+       ;; ("l" . recenter-top-bottom)
+       ;; mzy
+       ("l" . edit-at-point-word-paste)
        ("m" . dired-jump)
 
        ;; dvorak n. commands here are “harmless”, they don't modify text etc. they turn on modes, change display, prompt, start shell, etc.
