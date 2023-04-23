@@ -16,8 +16,8 @@
 (require 'xah-fly-keys)
 ;; (require 'git-timemachine)
 ;; specify a layout
+;; (xah-fly-keys-set-layout "dvorak")
 (xah-fly-keys-set-layout "qwerty")
-
 ;; possible values
 ;; adnw , azerty , azerty-be , beopy , bepo , carpalx-qfmlwy , carpalx-qgmlwb , carpalx-qgmlwy , colemak , colemak-dhm , colemak-dhm-angle , colemak-dhk , dvorak , koy , neo2 , norman , programer-dvorak , pt-nativo , qwerty , qwerty-abnt , qwerty-no (qwerty Norwegian) , qwertz , workman
 
@@ -177,6 +177,7 @@
     (setq enable-recursive-minibuffers t)
     ;; enable this if you want `swiper' to use it
     ;; (setq search-default-mode #'char-fold-to-regexp)
+    ;; (define-key xah-fly-command-map (kbd "b") 'swiper)
     (define-key xah-fly-command-map (kbd "n") 'swiper)
     ))
 
@@ -327,30 +328,34 @@
 ;; xah-escape
 (setq escape-key-sequence '())
 (setq escape-timer nil)
-(defun mzy/monitor-k ()
+;; (setq first-key "n")
+;; (setq second-key "h")
+(setq first-key "k")
+(setq second-key "j")
+(defun mzy/escape ()
   (interactive)
-  (setq escape-key-sequence '("k"))
-  (insert "k")
+  (setq escape-key-sequence (list first-key))
+  (insert first-key)
   (setq escape-timer (run-with-timer 0.2 nil (lambda ()
                                                (unless (equal 2 (length escape-key-sequence))
                                                  (progn
                                                    (setq escape-key-sequence '())
                                                    (cancel-timer escape-timer)))))))
 
-(defun mzy/monitor-j ()
+(defun mzy/monitor-escape-trigger-key ()
   (interactive)
-  (if (equal (nth 0 escape-key-sequence) "k")
+  (if (equal (nth 0 escape-key-sequence) first-key)
       (progn
         (delete-backward-char 1)
         (setq escape-key-sequence '())
         (xah-fly-command-mode-activate))
     (progn
       (setq escape-key-sequence '())
-      (insert "j"))))
+      (insert second-key))))
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
-                                               (define-key xah-fly-insert-map (kbd "k") 'mzy/monitor-k)
-                                               (define-key xah-fly-insert-map (kbd "j") 'mzy/monitor-j)))
+                                               (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
+                                               (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))
 
 ;; Simulate pressing o in vim
 (defun mzy/move-to-next-line-and-insert ()
