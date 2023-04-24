@@ -16,8 +16,8 @@
 (require 'xah-fly-keys)
 ;; (require 'git-timemachine)
 ;; specify a layout
-;; (xah-fly-keys-set-layout "dvorak")
-(xah-fly-keys-set-layout "qwerty")
+(xah-fly-keys-set-layout "dvorak")
+;; (xah-fly-keys-set-layout "qwerty")
 ;; possible values
 ;; adnw , azerty , azerty-be , beopy , bepo , carpalx-qfmlwy , carpalx-qgmlwb , carpalx-qgmlwy , colemak , colemak-dhm , colemak-dhm-angle , colemak-dhk , dvorak , koy , neo2 , norman , programer-dvorak , pt-nativo , qwerty , qwerty-abnt , qwerty-no (qwerty Norwegian) , qwertz , workman
 
@@ -164,8 +164,8 @@
   :ensure t
   :config
   :bind ("M-i" . symbol-overlay-put)
-  :bind ("M-n" . symbol-overlay-jump-next)
-  :bind ("M-p" . symbol-overlay-jump-prev))
+  :bind ("M-c" . symbol-overlay-jump-next)
+  :bind ("M-t" . symbol-overlay-jump-prev))
 (define-key xah-fly-command-map (kbd "C-w 8") 'symbol-overlay-remove-all)
 
 (use-package swiper
@@ -177,9 +177,12 @@
     (setq enable-recursive-minibuffers t)
     ;; enable this if you want `swiper' to use it
     ;; (setq search-default-mode #'char-fold-to-regexp)
-    ;; (define-key xah-fly-command-map (kbd "b") 'swiper)
-    (define-key xah-fly-command-map (kbd "n") 'swiper)
+    (define-key xah-fly-command-map (kbd "b") 'swiper)
+    ;; (define-key xah-fly-command-map (kbd "n") 'swiper)
     ))
+
+(use-package find-file-in-project
+  :ensure t)
 
 (use-package git-gutter
   :ensure t
@@ -328,10 +331,10 @@
 ;; xah-escape
 (setq escape-key-sequence '())
 (setq escape-timer nil)
-;; (setq first-key "n")
-;; (setq second-key "h")
-(setq first-key "k")
-(setq second-key "j")
+(setq first-key "n")
+(setq second-key "h")
+;; (setq first-key "k")
+;; (setq second-key "j")
 (defun mzy/escape ()
   (interactive)
   (setq escape-key-sequence (list first-key))
