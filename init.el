@@ -101,7 +101,6 @@
   :ensure t
   :config
   (global-dot-mode t))
-;; (define-key 'xah-fly-insert-map (kbd "C-.") 'dot-mode-execute)
 
 ;; you also can pressing d in command mode to excute this function
 (defun mzy/dot-mode-excute ()
@@ -130,7 +129,7 @@
 (use-package mwim
   :ensure t
   :bind ("C-a" . mwim-beginning)
-  :bind ("C-e" . mwim-end))
+  :bind ("C-." . mwim-end))
 
 ;; (use-package company
 ;;   :ensure t
@@ -186,6 +185,8 @@
 
 (use-package git-gutter
   :ensure t
+  ;; :bind ("M-<up>" . git-gutter:previous-hunk)
+  ;; :bind ("M-<down>" . git-gutter:next-hunk)
   :config
   (progn
     (global-git-gutter-mode +1)
@@ -201,6 +202,9 @@
     (set-face-foreground 'git-gutter:added "green")
     (set-face-foreground 'git-gutter:deleted "#cc0000")
     ))
+
+(global-set-key (kbd "<s-up>") 'git-gutter:previous-hunk)
+(global-set-key (kbd "<s-down>") 'git-gutter:next-hunk)
 
 ;; (use-package magit
 ;;   :ensure t

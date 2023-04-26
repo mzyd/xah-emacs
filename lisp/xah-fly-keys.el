@@ -3132,6 +3132,8 @@ Version 2022-10-31"
        (", ," . youdao-dictionary-search-at-point-tooltip)
        (", p" . revert-buffer)
        (", g" . mzy/insert-something-on-both-sides)
+       (", <up>" . git-gutter:previous-hunk)
+       (", <down>" . git-gutter:next-hunk)
 
        ;; - / ; = [
        ("\\" . toggle-input-method)
