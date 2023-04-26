@@ -164,8 +164,8 @@
   :ensure t
   :config
   :bind ("M-i" . symbol-overlay-put)
-  :bind ("M-c" . symbol-overlay-jump-next)
-  :bind ("M-t" . symbol-overlay-jump-prev))
+  :bind ("M-t" . symbol-overlay-jump-next)
+  :bind ("M-c" . symbol-overlay-jump-prev))
 (define-key xah-fly-command-map (kbd "C-w 8") 'symbol-overlay-remove-all)
 
 (use-package swiper
