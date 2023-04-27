@@ -50,15 +50,15 @@
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-(sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
-(sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-
 ;; =================== packages ===================
 
 (use-package smartparens
   :ensure t
   :config
   (smartparens-global-mode t))
+
+(sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
+(sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
 
 (use-package exec-path-from-shell
   :ensure t)
