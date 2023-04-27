@@ -50,6 +50,9 @@
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
+(sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
+(sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+
 ;; =================== packages ===================
 
 (use-package smartparens
@@ -244,6 +247,10 @@
   (add-to-list 'load-path "~/lsp-bridge"))
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
+(setq lsp-bridge-enable-auto-format-code t)
+(setq acm-completion-backend-merge-order '("template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
+
+;; (setq acm-completion-backend-merge-order '("template-second-part-candidates" "template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "mode-second-part-candidates"))
 
 (use-package typescript-mode
   :ensure t)
@@ -443,13 +450,14 @@ end tell
   (xah-fly-insert-mode-activate))
 (define-key xah-fly-command-map (kbd "p") 'mzy/move-to-next-line-and-insert)
 
-;; (defun mzy/lsp-bridge-is-xah-command-state ()
-  ;; "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
-  ;; (interactive)
-  ;; (if xah-fly-insert-state-p
-      ;; t
-    ;; nil)
-  ;; )
+(defun mzy/lsp-bridge-is-xah-command-state ()
+  "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
+  (interactive)
+  (if xah-fly-insert-state-p
+      t
+    nil)
+  )
+(setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
 
 
 (defun mzy/kill-and-edit-line ()
