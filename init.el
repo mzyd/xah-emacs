@@ -129,7 +129,7 @@
 (use-package mwim
   :ensure t
   :bind ("C-a" . mwim-beginning)
-  :bind ("C-." . mwim-end))
+  :bind ("C-e" . mwim-end))
 
 ;; (use-package company
 ;;   :ensure t
@@ -439,3 +439,10 @@ end tell
     ;; nil)
   ;; )
 
+
+(defun mzy/kill-and-edit-line ()
+  (interactive)
+  (xah-beginning-of-line-or-block)
+  (kill-line)
+  (xah-fly-insert-mode-init)
+  (xah-fly-insert-mode-activate))

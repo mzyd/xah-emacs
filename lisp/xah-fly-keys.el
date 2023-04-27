@@ -3228,7 +3228,8 @@ Version 2022-10-31"
        ("h x" . describe-command) ; emacs 28
        ("h z" . describe-coding-system)
 
-       ("i" . kill-line)
+       ;; ("i" . kill-line)
+       ("i" . mzy/kill-and-edit-line)
        ("j" . xah-copy-all-or-region)
 
        ;; ("l" . recenter-top-bottom)
