@@ -391,6 +391,18 @@ end tell
     (insert s)
     (keyboard-quit)))
 
+(defun mzy/insert-underline-on-both-sides ()
+  "insert something to both sides of your selected region"
+  (interactive)
+  (let ((s "_")
+        (start (region-beginning))
+        (end (region-end)))
+    (goto-char start)
+    (insert s)
+    (goto-char (+ end 1))
+    (insert s)
+    (keyboard-quit)))
+
 ;; xah-escape
 (setq escape-key-sequence '())
 (setq escape-timer nil)
