@@ -210,7 +210,6 @@
 (global-set-key (kbd "<s-down>") 'git-gutter:next-hunk)
 
 (require 'mac-key-mode)
-(define-key mac-key-mode-map [(alt t)] 'git-gutter)
 (mac-key-mode t)
 
 
