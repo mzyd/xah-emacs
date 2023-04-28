@@ -209,6 +209,11 @@
 (global-set-key (kbd "<s-up>") 'git-gutter:previous-hunk)
 (global-set-key (kbd "<s-down>") 'git-gutter:next-hunk)
 
+(require 'mac-key-mode)
+(define-key mac-key-mode-map [(alt t)] 'git-gutter)
+(mac-key-mode t)
+
+
 ;; (use-package magit
 ;;   :ensure t
 ;;   :bind (("C-x g" . magit-status)
