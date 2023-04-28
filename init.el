@@ -251,10 +251,9 @@
   (add-to-list 'load-path "~/lsp-bridge"))
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
-(setq lsp-bridge-enable-auto-format-code t)
-(setq acm-completion-backend-merge-order '("template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
+;; (setq lsp-bridge-enable-auto-format-code t)
+;; (setq acm-completion-backend-merge-order '("template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
 
-;; (setq acm-completion-backend-merge-order '("template-second-part-candidates" "template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "mode-second-part-candidates"))
 
 (use-package typescript-mode
   :ensure t)
@@ -470,3 +469,4 @@ end tell
   (kill-line)
   (xah-fly-insert-mode-init)
   (xah-fly-insert-mode-activate))
+
