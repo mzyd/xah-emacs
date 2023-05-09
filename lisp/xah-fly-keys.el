@@ -3087,7 +3087,8 @@ Version 2022-10-31"
      (define-prefix-command 'xah-fly-leader-key-map)
      ;; '(("SPC" . xah-fly-insert-mode-activate)
      ;; ("RET" . execute-extended-command)
-     '(("SPC" . execute-extended-command)
+     ;; '(("SPC" . execute-extended-command)
+     '(("SPC" . counsel-command-history)
        ("RET" . counsel-git)
        ;; This keymap I've not used. things are here experimentally.
        ;; The TAB key is not in a very good ergonomic position on average keyboards, so 【leader tab ‹somekey›】 probably should not be used much.
