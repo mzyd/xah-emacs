@@ -35,6 +35,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:height 160 :weight normal :family "Source Code Pro")))))
+ ;; '(default ((t (:height 160 :weight normal :family "DinaRemaster")))))
+;; '(default ((t (:height 160 :weight normal :family "Anonymous Pro")))))
 
 (fringe-mode 0)
 (global-hl-line-mode 1)
@@ -45,7 +47,7 @@
 (setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
 
-(define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
+;; (define-key dired-mode-map (kbd "s-b") 'dired-up-directory)
 
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
@@ -211,7 +213,6 @@
 
 (require 'mac-key-mode)
 (mac-key-mode t)
-
 
 ;; (use-package magit
 ;;   :ensure t
@@ -449,8 +450,8 @@ end tell
 (defun mzy/move-to-next-line-and-insert ()
   (interactive)
   (xah-end-of-line-or-block)
-  (newline)
-  (xah-fly-insert-mode-activate))
+  (xah-fly-insert-mode-activate)
+  (indent-new-comment-line))
 
 (defun mzy/lsp-bridge-is-xah-command-state ()
   "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
@@ -469,3 +470,7 @@ end tell
   (xah-fly-insert-mode-init)
   (xah-fly-insert-mode-activate))
 
+(defun mzy/edit-at-point-word ()
+  (interactive)
+  (edit-at-point-word-cut)
+  (xah-fly-insert-mode-activate))

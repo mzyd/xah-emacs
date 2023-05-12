@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: simple-arrow-function
+# key: aa
+# --
+($1) => $2

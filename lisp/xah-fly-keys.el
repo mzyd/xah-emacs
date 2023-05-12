@@ -3232,8 +3232,12 @@ Version 2022-10-31"
 
        ;; ("i" . kill-line)
        ("i" . mzy/kill-and-edit-line)
-       ("j" . xah-copy-all-or-region)
 
+       ;; ("j" . xah-copy-all-or-region)
+       ("j j" . mzy/kill-and-edit-line)
+       ("j w" . mzy/edit-at-point-word)
+       ("j c" . edit-at-point-line-up)
+       ("j t" . edit-at-point-line-down)
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)
