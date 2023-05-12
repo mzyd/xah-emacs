@@ -3238,6 +3238,10 @@ Version 2022-10-31"
        ("j w" . mzy/edit-at-point-word)
        ("j c" . edit-at-point-line-up)
        ("j t" . edit-at-point-line-down)
+
+       ("j s" . counsel-git-grep)
+       ("j f" . find-file-in-project)
+
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)
