@@ -126,10 +126,11 @@
 (use-package youdao-dictionary
   :ensure t)
 
-(use-package fasd
+(unless (eq system-type 'windows-nt)
+  (use-package fasd
   :ensure t
   :config
-  (global-fasd-mode 1))
+  (global-fasd-mode 1)))
 
 (use-package mwim
   :ensure t
@@ -211,8 +212,11 @@
 (global-set-key (kbd "<s-up>") 'git-gutter:previous-hunk)
 (global-set-key (kbd "<s-down>") 'git-gutter:next-hunk)
 
-(require 'mac-key-mode)
-(mac-key-mode t)
+(if (eq system-type 'darwin)
+    (progn
+      (require 'mac-key-mode)
+      (mac-key-mode t))
+    )
 
 ;; (use-package magit
 ;;   :ensure t
