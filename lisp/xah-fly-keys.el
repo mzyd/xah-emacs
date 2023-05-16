@@ -3204,8 +3204,9 @@ Version 2022-10-31"
        ("e w" . xah-insert-angle-bracket)
        ("e y" . xah-insert-double-angle-quote)
 
+       ;; mzy
        ;; ("f" . xah-search-current-word)
-       ("f" . swiper-isearch-thing-at-point)
+       ("f" . counsel-git)
        ("g" . xah-save-close-current-buffer)
 
        ("h a" . apropos-command)
@@ -3240,8 +3241,10 @@ Version 2022-10-31"
        ("j t" . edit-at-point-line-down)
 
        ("j s" . counsel-git-grep)
-       ("j f" . find-file-in-project)
-
+       ;; ("j f" . find-file-in-project)
+       ("j TAB" . mzy/atfd)
+       ("j z" . fasd-find-file)
+       ("j b" . swiper-isearch-thing-at-point)
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)

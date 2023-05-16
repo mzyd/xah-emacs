@@ -478,3 +478,10 @@ end tell
   (interactive)
   (edit-at-point-word-cut)
   (xah-fly-insert-mode-activate))
+
+(defun mzy/atfd ()
+  (interactive)
+  (comint-dynamic-list-filename-completions)
+  (comint-dynamic-complete-as-filename))
+
+(global-set-key (kbd "C-9") 'mzy/atfd)
