@@ -26,7 +26,21 @@
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 (define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
 
-;; (define-key git-timemachine-mode-map (kbd "C-p") git-timemachine-visit) 
+;; (define-key git-timemachine-mode-map (kbd "C-p") git-timemachine-visit)
+
+;; auto save
+(require 'auto-save)
+(auto-save-enable)
+(setq auto-save-silent t)   ; quietly save
+(setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
+
+;;; custom predicates if you don't want auto save.
+;;; disable auto save mode when current filetype is an gpg file.
+;; (setq auto-save-disable-predicates
+;;       '((lambda ()
+;;       (string-suffix-p
+;;       "gpg"
+;;       (file-name-extension (buffer-name)) t))))
 
 ;; ========================== basic setting =============================
 (custom-set-faces
@@ -89,7 +103,7 @@
   :config
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))  
+  ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   )
 
 ;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
