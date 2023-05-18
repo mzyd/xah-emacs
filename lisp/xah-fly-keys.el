@@ -3430,7 +3430,7 @@ Version 2022-10-31"
        ("k" . xah-paste-or-paste-previous)
        ;; ("l" . xah-fly-insert-mode-activate-space-before)
        ;; ("l" . xah-insert-space-before)
-       ("l" . mzy/move-to-next-line-and-insert)
+       ("l" . mzy/newline)
        ("m" . xah-backward-left-bracket)
        ("n" . forward-char)
        ("o" . open-line)

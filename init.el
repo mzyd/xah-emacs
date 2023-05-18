@@ -451,11 +451,17 @@ end tell
                                                (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))
 
 ;; Simulate pressing o in vim, the func has already bond to the l
-(defun mzy/move-to-next-line-and-insert ()
+(defun mzy/newline ()
   (interactive)
-  (xah-end-of-line-or-block)
-  (xah-fly-insert-mode-activate)
-  (indent-new-comment-line))
+  (if (= (point) (point-at-eol))
+      (progn
+        (xah-fly-insert-mode-activate)
+        (indent-new-comment-line))
+    (progn
+      (xah-end-of-line-or-block)
+      (xah-fly-insert-mode-activate)
+      (indent-new-comment-line)
+      )))
 
 (defun mzy/lsp-bridge-is-xah-command-state ()
   "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
