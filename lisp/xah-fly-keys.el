@@ -3245,6 +3245,7 @@ Version 2022-10-31"
        ("j TAB" . mzy/atfd)
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
+       ("j i" . cd-iterm2)
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: reduce
+# key: reduce
+# --
+$1.reduce((pre, cur) => {
+  $2
+})
