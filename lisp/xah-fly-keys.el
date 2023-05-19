@@ -3091,7 +3091,7 @@ Version 2022-10-31"
      ;; '(("SPC" . counsel-command-history)
      '(("SPC" . smex)
        ;; ("RET" . counsel-git)
-       ("RET" . smex-major-mode-commands)
+       ("RET" . blink-search)
        ;; This keymap I've not used. things are here experimentally.
        ;; The TAB key is not in a very good ergonomic position on average keyboards, so 【leader tab ‹somekey›】 probably should not be used much.
        ;; Currently (2018-03-13), these are commands related to completion or indent, and I basically never use any of these (except sometimes complete-symbol).
@@ -3248,6 +3248,8 @@ Version 2022-10-31"
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
        ("j i" . cd-iterm2)
+       ("j <RET>" . mzy/jump-out-pair-and-newline)
+
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)

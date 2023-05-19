@@ -54,6 +54,8 @@
 ;; (add-hook 'kill-emacs-hook (lambda ()
                              ;; (emacs-session-save)
                              ;; ))
+(add-to-list 'load-path "~/blink-search")
+(require 'blink-search)
 
 ;; ========================== basic setting =============================
 (custom-set-faces
@@ -526,3 +528,9 @@ end tell
   (comint-dynamic-complete-as-filename))
 
 (global-set-key (kbd "C-9") 'mzy/atfd)
+
+(defun mzy/jump-out-pair-and-newline ()
+  (interactive)
+  (xah-forward-right-bracket)
+  (indent-new-comment-line)
+  (xah-fly-insert-mode-activate))
