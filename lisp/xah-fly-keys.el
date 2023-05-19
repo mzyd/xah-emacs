@@ -3245,11 +3245,11 @@ Version 2022-10-31"
        ("j s" . counsel-git-grep)
        ;; ("j f" . find-file-in-project)
        ("j TAB" . mzy/atfd)
+       ("j <RET>" . mzy/jump-out-pair-and-newline)
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
        ("j i" . cd-iterm2)
-       ("j <RET>" . mzy/jump-out-pair-and-newline)
-
+       ;; ("j SPC" . remember-jump)
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)
@@ -3364,6 +3364,8 @@ Version 2022-10-31"
        ("w q" . save-buffers-kill-terminal)
        ("w w" . delete-frame)
        ("w j" . xah-run-current-file)
+       ;; mzy
+       ("w SPC" . remember-jump)
 
        ("x" . xah-toggle-previous-letter-case)
        ("y" . xah-show-kill-ring)

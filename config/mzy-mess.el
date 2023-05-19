@@ -151,12 +151,15 @@ end tell
       (indent-new-comment-line)
       )))
 
+(defun mzy/move-to-line-beginning ()
+  (interactive)
+  (mwim-beginning 0)
+  (forward-char (current-indentation)))
 
 (defun mzy/kill-and-edit-line ()
   (interactive)
-  (xah-beginning-of-line-or-block)
+  (mzy/move-to-line-beginning)
   (kill-line)
-  (xah-fly-insert-mode-init)
   (xah-fly-insert-mode-activate))
 
 (defun mzy/edit-at-point-word ()
@@ -177,5 +180,45 @@ end tell
   (indent-new-comment-line)
   (xah-fly-insert-mode-activate))
 
+;; (defun remember-init ()
+;;   "Remember current position and setup."
+;;   (interactive)
+;;   (point-to-register 8)
+;;   )
+
+(setq mzy-init-number 8)
+(setq register-number mzy-init-number)
+
+(defun remember-init ()
+  "Remember current position and setup."
+  (interactive)
+  (if (< register-number 15)
+      (progn
+        (setq register-number (+ register-number 1))
+        (point-to-register register-number))
+    (progn
+      (setq register-number mzy-init-number)
+      (point-to-register register-number)
+      )))
+
+(defun remember-jump ()
+  "Jump to latest position and setup."
+  (interactive)
+  (let ((tmp (point-marker)))
+    (jump-to-register register-number)
+    (set-register register-number tmp))
+  (message "Have back to remember position"))
+
+
+;; (defun remember-jump ()
+;;   "Jump to latest position and setup."
+;;   (interactive)
+;;   (if (= register-number mzy-init-number)
+;;       (setq register-number 15)
+;;     (setq register-number (- register-number 1)))
+;;   (let ((tmp (point-marker)))
+;;     (jump-to-register register-number)
+;;     (set-register register-number tmp))
+;;   (message "Have back to remember position"))
 
 (provide 'mzy-mess)

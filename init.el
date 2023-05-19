@@ -11,7 +11,8 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(add-to-list 'load-path "~/.emacs.d/extensions/")
+(add-to-list 'load-path "~/.emacs.d/config/")
+
 (require 'mzy-mess)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -94,7 +95,7 @@
 (use-package highlight-parentheses
   :ensure t
   :config
-  (highlight-parentheses-mode t))
+  (global-highlight-parentheses-mode t))
 
 (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
@@ -351,8 +352,10 @@
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
-                                               (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))
+                                               (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)
+                                               ))
 
+(add-hook 'xah-fly-insert-mode-activate-hook #'remember-init)
 
 (defun mzy/lsp-bridge-is-xah-command-state ()
   "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
