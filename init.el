@@ -42,6 +42,19 @@
 ;;       "gpg"
 ;;       (file-name-extension (buffer-name)) t))))
 
+;; (require 'awesome-tray)
+;; (awesome-tray-mode 1)
+;; (setq awesome-tray-second-line nil)
+;; (setq awesome-tray-position nil)
+
+;; (require 'init-session)
+;; (emacs-session-restore)
+
+;; (add-hook 'kill-emacs-hook #'emacs-session-save)
+;; (add-hook 'kill-emacs-hook (lambda ()
+                             ;; (emacs-session-save)
+                             ;; ))
+
 ;; ========================== basic setting =============================
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -51,7 +64,7 @@
  '(default ((t (:height 160 :weight normal :family "Source Code Pro")))))
  ;; '(default ((t (:height 160 :weight normal :family "DinaRemaster")))))
 ;; '(default ((t (:height 160 :weight normal :family "Anonymous Pro")))))
-
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (fringe-mode 0)
 (global-hl-line-mode 1)
 (setq ring-bell-function 'ignore)
@@ -72,6 +85,11 @@
   :ensure t
   :config
   (smartparens-global-mode t))
+
+(use-package highlight-parentheses
+  :ensure t
+  :config
+  (highlight-parentheses-mode t))
 
 (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
@@ -248,9 +266,9 @@
   :config
   (powerline-default-theme))
 
-(use-package nyan-mode
-  :ensure t
-  :config (nyan-mode 1))
+;; (use-package nyan-mode
+;;   :ensure t
+;;   :config (nyan-mode 1))
 
 (require 'zone)
 (zone-when-idle 600)
@@ -309,6 +327,9 @@
                (setq tab-width 4))))
 
 (use-package vue-mode
+  :ensure t)
+
+(use-package smex
   :ensure t)
 
 ;; (use-package copilot
