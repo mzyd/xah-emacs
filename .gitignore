@@ -9,3 +9,8 @@ bookmarks
 *.dat
 places
 
+blink-search
+blink-search.*
+.emacs.desktop
+smex-items
+*.txt
