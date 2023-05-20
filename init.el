@@ -38,6 +38,9 @@
 (setq auto-save-silent t)   ; quietly save
 (setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
 
+(require 'highlight-matching-tag)
+(highlight-matching-tag 1)
+
 ;;; custom predicates if you don't want auto save.
 ;;; disable auto save mode when current filetype is an gpg file.
 ;; (setq auto-save-disable-predicates
@@ -63,6 +66,20 @@
   (progn
     (add-to-list 'load-path "~/blink-earch")
     (require 'blink-search)))
+
+(require 'markmacro)
+(global-set-key (kbd "M-w m w") 'markmacro-mark-words)
+(global-set-key (kbd "M-w m l") 'markmacro-mark-lines)
+(global-set-key (kbd "M-w m c") 'markmacro-mark-chars)
+(global-set-key (kbd "M-w m i") 'markmacro-mark-imenus)
+(global-set-key (kbd "M-w a") 'markmacro-apply-all)
+(global-set-key (kbd "M-w e") 'markmacro-apply-all-except-first)
+(global-set-key (kbd "M-w r s") 'markmacro-rect-set)
+(global-set-key (kbd "M-w r d") 'markmacro-rect-delete)
+(global-set-key (kbd "M-w r r") 'markmacro-rect-replace)
+(global-set-key (kbd "M-w r i") 'markmacro-rect-insert)
+(global-set-key (kbd "M-w m o") 'markmacro-rect-mark-columns)
+(global-set-key (kbd "M-w m s") 'markmacro-rect-mark-symbols)
 
 ;; ========================== basic setting =============================
 (custom-set-faces
@@ -211,7 +228,12 @@
   :config
   :bind ("M-i" . symbol-overlay-put)
   :bind ("M-t" . symbol-overlay-jump-next)
-  :bind ("M-c" . symbol-overlay-jump-prev))
+  :bind ("M-c" . symbol-overlay-jump-prev)
+  :bind ("M-l r" . symbol-overlay-rename)
+  ;; :bind ("M-l q" . symbol-overlay-query-replace)
+  :bind ("M-l d" . symbol-overlay-jump-to-definition)
+  )
+
 (define-key xah-fly-command-map (kbd "C-w 8") 'symbol-overlay-remove-all)
 
 (use-package swiper
@@ -352,6 +374,8 @@
 (use-package edit-at-point
   :ensure)
 
+(use-package goto-line-preview
+    :ensure)
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)

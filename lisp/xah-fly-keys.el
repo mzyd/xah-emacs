@@ -3233,7 +3233,7 @@ Version 2022-10-31"
        ("h x" . describe-command) ; emacs 28
        ("h z" . describe-coding-system)
 
-       ;; ("i" . kill-line)
+       ;; ("i" . kill-line) todo
        ("i" . mzy/kill-and-edit-line)
 
        ;; ("j" . xah-copy-all-or-region)
@@ -3248,7 +3248,8 @@ Version 2022-10-31"
        ("j <RET>" . mzy/jump-out-pair-and-newline)
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
-       ("j i" . cd-iterm2)
+       ("j c" . cd-iterm2)
+       ("j i" . package-install)
        ;; ("j SPC" . remember-jump)
        ;; ("l" . recenter-top-bottom)
        ;; mzy
@@ -3292,7 +3293,8 @@ Version 2022-10-31"
        ("n z" . abort-recursive-edit)
 
        ("o" . exchange-point-and-mark)
-       ("p" . query-replace)
+       ;; ("p" . query-replace)
+       ("p" . symbol-overlay-query-replace)
        ("q" . xah-cut-all-or-region)
 
        ;; roughly text replacement related
@@ -3335,7 +3337,7 @@ Version 2022-10-31"
        ("t c" . goto-char)
        ("t d" . mark-defun)
        ("t e" . list-matching-lines)
-       ("t f" . goto-line)
+       ("t f" . goto-line-preview)
        ("t g" . move-to-column)
        ("t h" . repeat-complex-command)
        ("t i" . delete-non-matching-lines)
