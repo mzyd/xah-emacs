@@ -13,7 +13,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/config/")
 
-(require 'mzy-mess)
+(require 'mzy-fuss)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -57,9 +57,12 @@
 ;; (add-hook 'kill-emacs-hook #'emacs-session-save)
 ;; (add-hook 'kill-emacs-hook (lambda ()
                              ;; (emacs-session-save)
-                             ;; ))
-(add-to-list 'load-path "~/blink-search")
-(require 'blink-search)
+;; ))
+
+(unless (eq system-type 'windows-nt)
+  (progn
+    (add-to-list 'load-path "~/blink-earch")
+    (require 'blink-search)))
 
 ;; ========================== basic setting =============================
 (custom-set-faces
@@ -352,16 +355,15 @@
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
-                                               (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)
-                                               ))
+                                               (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))
 
 (add-hook 'xah-fly-insert-mode-activate-hook #'remember-init)
 
-(defun mzy/lsp-bridge-is-xah-command-state ()
-  "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
-  (interactive)
-  (if xah-fly-insert-state-p
-      t
-    nil)
-  )
-(setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
+;; (defun mzy/lsp-bridge-is-xah-command-state ()
+;;   "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
+;;   (interactive)
+;;   (if xah-fly-insert-state-p
+;;       t
+;;     nil)
+;;   )
+;; (setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: progn
+# key: progn
+# --
+(progn
+  $1)
