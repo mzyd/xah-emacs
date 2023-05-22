@@ -195,8 +195,8 @@ end tell
   "Jump to latest position and setup."
   (interactive)
   (let ((tmp (point-marker)))
-    (jump-to-register register-number)
-    (set-register register-number tmp))
+    (jump-to-register 8)
+    (set-register 8 tmp))
   (message "Have back to remember position"))
 
 (defun mzy/xah-fly-z-key ()
