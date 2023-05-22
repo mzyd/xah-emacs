@@ -37,16 +37,16 @@
 (setq auto-save-silent t)   ; quietly save
 (setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
 
+;; custom predicates if you don't want auto save.
+;; disable auto save mode when current filetype is an gpg file.
+(setq auto-save-disable-predicates
+      '((lambda ()
+      (string-suffix-p
+       "vue"
+      (file-name-extension (buffer-name)) t))))
+
 (require 'highlight-matching-tag)
 (highlight-matching-tag 1)
-
-;;; custom predicates if you don't want auto save.
-;;; disable auto save mode when current filetype is an gpg file.
-;; (setq auto-save-disable-predicates
-;;       '((lambda ()
-;;       (string-suffix-p
-;;       "gpg"
-;;       (file-name-extension (buffer-name)) t))))
 
 ;; (require 'awesome-tray)
 ;; (awesome-tray-mode 1)
@@ -121,6 +121,7 @@
 
 (use-package exec-path-from-shell
   :ensure t)
+
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
@@ -263,8 +264,8 @@
      '(git-gutter:modified-sign "♣ ")
      '(git-gutter:added-sign "♦ ")
      '(git-gutter:deleted-sign "✘ ")
-     '(git-gutter:lighter "GG")
-     )
+     ;; ♥
+     '(git-gutter:lighter " ✡"))
     ;; (set-face-background 'git-gutter:modified "yellow") ;; background color
     (set-face-foreground 'git-gutter:modified "black")
     (set-face-foreground 'git-gutter:added "green")
