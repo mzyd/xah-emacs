@@ -3160,6 +3160,7 @@ Version 2022-10-31"
        ("c f" . xah-open-recently-closed)
        ("c g" . xah-open-in-terminal)
        ("c h" . recentf-open-files)
+       ("c k" . mzy/copy-and-comment-line)
        ("c j" . xah-copy-file-path)
        ("c l" . bookmark-set)
        ("c n" . xah-new-empty-buffer)

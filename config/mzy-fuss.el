@@ -148,8 +148,7 @@ end tell
     (progn
       (xah-end-of-line-or-block)
       (xah-fly-insert-mode-activate)
-      (indent-new-comment-line)
-      )))
+      (indent-new-comment-line))))
 
 (defun mzy/move-to-line-beginning ()
   (interactive)
@@ -198,6 +197,12 @@ end tell
     (jump-to-register 8)
     (set-register 8 tmp))
   (message "Have back to remember position"))
+
+(defun mzy/copy-and-comment-line ()
+  (interactive)
+  (xah-copy-line-or-region)
+  (open-line 1)
+  (xah-paste-or-paste-previous))
 
 (defun mzy/xah-fly-z-key ()
         "key `z'"
