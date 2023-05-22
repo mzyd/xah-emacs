@@ -3,8 +3,9 @@
 (require 'package)
 
 (setq pacakge-enable-startup nil)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -12,11 +13,9 @@
   (package-install 'use-package))
 
 (add-to-list 'load-path "~/.emacs.d/config/")
-
 (require 'mzy-fuss)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-
 ;; (require 'git-timemachine)
 
 (require 'xah-fly-keys)
@@ -272,8 +271,11 @@
     (set-face-foreground 'git-gutter:deleted "#cc0000")
     ))
 
-(global-set-key (kbd "<s-up>") 'git-gutter:previous-hunk)
-(global-set-key (kbd "<s-down>") 'git-gutter:next-hunk)
+
+(if (eq system-type 'windows-nt)
+    (progn
+      (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
+      (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk)))
 
 (if (eq system-type 'darwin)
     (progn
@@ -376,6 +378,19 @@
 
 (use-package goto-line-preview
     :ensure)
+
+(if (eq system-type 'darwin)
+    (progn
+      (add-to-list 'load-path "~/org-ai")
+      (require 'org)
+      (require 'org-ai)
+      (add-hook 'org-mode-hook #'org-ai-mode)
+      (org-ai-global-mode)
+      (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
+      (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
+      ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
+      (setq org-ai-openai-api-token "IizswsaiGCmM7vD8XyM8T3BlbkFJGpYOCsU2rMTtoTGsS9BI")
+      ))
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
