@@ -3234,7 +3234,7 @@ Version 2022-10-31"
        ("h z" . describe-coding-system)
 
        ;; ("i" . kill-line) todo
-       ("i" . mzy/kill-and-edit-line)
+       ;; ("i" . mzy/kill-and-edit-line)
 
        ;; ("j" . xah-copy-all-or-region)
        ("j j" . mzy/kill-and-edit-line)

@@ -64,7 +64,7 @@
 
 (unless (eq system-type 'windows-nt)
   (progn
-    (add-to-list 'load-path "~/blink-earch")
+    (add-to-list 'load-path "~/blink-search")
     (require 'blink-search)))
 
 (require 'markmacro)
