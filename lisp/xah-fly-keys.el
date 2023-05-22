@@ -3248,9 +3248,7 @@ Version 2022-10-31"
        ("j <RET>" . mzy/jump-out-pair-and-newline)
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
-       ("j c" . cd-iterm2)
-       ("j i" . package-install)
-       ;; ("j SPC" . remember-jump)
+       ("j i" . cd-iterm2)
        ;; ("l" . recenter-top-bottom)
        ;; mzy
        ("l" . edit-at-point-word-paste)
@@ -3453,8 +3451,8 @@ Version 2022-10-31"
        ("w" . xah-next-window-or-frame)
        ("x" . xah-toggle-letter-case)
        ("y" . set-mark-command)
-       ("z" . xah-goto-matching-bracket)))
-
+       ;; ("z" . xah-goto-matching-bracket)))
+       ("z" . mzy/xah-fly-z-key)))
     ;;
     ))
 

@@ -199,8 +199,16 @@ end tell
     (set-register register-number tmp))
   (message "Have back to remember position"))
 
-(defun mzy/package-install ()
-  (interactive)
-  (package-install))
+(defun mzy/xah-fly-z-key ()
+        "key `z'"
+        (interactive)
+        ;; (cond
+        ;; ((eq major-mode 'web-mode) (call-interactively 'web-mode-navigate))
+        ;; (t nil)
+        (if (eq major-mode 'web-mode)
+            (call-interactively 'web-mode-navigate)
+          (call-interactively 'xah-goto-matching-bracket)))
+
+
 
 (provide 'mzy-fuss)
