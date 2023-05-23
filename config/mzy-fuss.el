@@ -216,9 +216,14 @@ end tell
 
 (defun mzy/paste-to-next-line ()
   (interactive)
-  (next-line 1)
-  (open-line 1)
-  (xah-paste-or-paste-previous))
-
+  (if (eolp)
+      (progn
+        (next-line 1)
+        (open-line 1)
+        (xah-paste-or-paste-previous))
+    (progn
+      (mzy/newline)
+      (xah-paste-or-paste-previous)
+      (xah-fly-command-mode-activate))))
 
 (provide 'mzy-fuss)
