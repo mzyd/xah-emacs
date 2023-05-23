@@ -3399,7 +3399,8 @@ Version 2022-10-31"
     (xah-fly--define-keys
      xah-fly-command-map
      '(("SPC" . xah-fly-leader-key-map)
-       ("'" . xah-reformat-lines)
+       ;; ("'" . xah-reformat-lines)
+       ("'" . symbol-overlay-jump-to-definition)
        ("," . xah-shrink-whitespaces)
        ("-" . xah-cycle-hyphen-lowline-space)
        ("." . backward-kill-word)
@@ -3452,8 +3453,8 @@ Version 2022-10-31"
        ("w" . xah-next-window-or-frame)
        ("x" . xah-toggle-letter-case)
        ("y" . set-mark-command)
-       ;; ("z" . xah-goto-matching-bracket)))
-       ("z" . mzy/xah-fly-z-key)))
+       ("z" . xah-goto-matching-bracket)))
+       ;; ("z" . mzy/xah-fly-z-key)))
     ;;
     ))
 
