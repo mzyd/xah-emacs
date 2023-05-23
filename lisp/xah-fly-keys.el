@@ -3128,7 +3128,7 @@ Version 2022-10-31"
        (", t" . xref-find-definitions)
        (", n" . xref-pop-marker-stack)
 
-       ;; mzy
+       ;; mzy r
        ;; (", r" . counsel-git)
        (", r" . find-file-in-project)
        (", l" . counsel-git-grep)
@@ -3207,7 +3207,7 @@ Version 2022-10-31"
        ("e w" . xah-insert-angle-bracket)
        ("e y" . xah-insert-double-angle-quote)
 
-       ;; mzy
+       ;; mzy f
        ;; ("f" . xah-search-current-word)
        ("f" . counsel-git)
        ("g" . xah-save-close-current-buffer)
@@ -3250,9 +3250,15 @@ Version 2022-10-31"
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
        ("j i" . cd-iterm2)
+
+       ;; mzy k
+       ("k" . mzy/paste-to-next-line)
+
+       ;; mzy l
        ;; ("l" . recenter-top-bottom)
-       ;; mzy
-       ("l" . edit-at-point-word-paste)
+       ;; ("l" . edit-at-point-word-paste)
+
+       ;; mzy m
        ("m" . dired-jump)
 
        ;; dvorak n. commands here are “harmless”, they don't modify text etc. they turn on modes, change display, prompt, start shell, etc.
@@ -3365,7 +3371,7 @@ Version 2022-10-31"
        ("w q" . save-buffers-kill-terminal)
        ("w w" . delete-frame)
        ("w j" . xah-run-current-file)
-       ;; mzy
+       ;; mzy w
        ("w SPC" . remember-jump)
 
        ("x" . xah-toggle-previous-letter-case)

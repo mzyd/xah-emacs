@@ -278,16 +278,13 @@
     ))
 
 
-(if (eq system-type 'windows-nt)
-    (progn
-      (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
-      (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk)))
+(when (eq system-type 'windows-nt)
+  (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk))
 
-(if (eq system-type 'darwin)
-    (progn
+(when (eq system-type 'darwin)
       (require 'mac-key-mode)
       (mac-key-mode t))
-    )
 
 ;; (use-package magit
 ;;   :ensure t
@@ -385,8 +382,7 @@
 (use-package goto-line-preview
     :ensure)
 
-(if (eq system-type 'darwin)
-    (progn
+(when (eq system-type 'darwin)
       (add-to-list 'load-path "~/org-ai")
       (require 'org)
       (require 'org-ai)
@@ -395,8 +391,7 @@
       (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
       (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
       ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
-      (setq org-ai-openai-api-token "IizswsaiGCmM7vD8XyM8T3BlbkFJGpYOCsU2rMTtoTGsS9BI")
-      ))
+      (setq org-ai-openai-api-token "IizswsaiGCmM7vD8XyM8T3BlbkFJGpYOCsU2rMTtoTGsS9BI"))
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)

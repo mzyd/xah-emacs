@@ -214,6 +214,11 @@ end tell
             (call-interactively 'web-mode-navigate)
           (call-interactively 'xah-goto-matching-bracket)))
 
+(defun mzy/paste-to-next-line ()
+  (interactive)
+  (next-line 1)
+  (open-line 1)
+  (xah-paste-or-paste-previous))
 
 
 (provide 'mzy-fuss)
