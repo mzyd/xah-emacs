@@ -3114,7 +3114,13 @@ Version 2022-10-31"
        ("TAB 0" . expand-jump-to-next-slot)
        ("TAB =" . expand-jump-to-previous-slot)
 
-       (". ." . highlight-symbol-at-point)
+       ;; mzy .
+       ;; (". ." . highlight-symbol-at-point)
+       (". ." . symbol-overlay-put)
+       (". q" . symbol-overlay-remove-all)
+       (". w" . swiper-isearch-thing-at-point)
+       (". r" . symbol-overlay-rename)
+       (". s" . mzy/git-grep-at-point)
        (". g" . unhighlight-regexp)
        (". c" . highlight-lines-matching-regexp)
        (". h" . highlight-regexp)

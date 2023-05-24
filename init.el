@@ -233,13 +233,7 @@
   :config
   :bind ("M-i" . symbol-overlay-put)
   :bind ("M-t" . symbol-overlay-jump-next)
-  :bind ("M-c" . symbol-overlay-jump-prev)
-  :bind ("M-l r" . symbol-overlay-rename)
-  ;; :bind ("M-l q" . symbol-overlay-query-replace)
-  :bind ("M-l d" . symbol-overlay-jump-to-definition)
-  )
-
-(define-key xah-fly-command-map (kbd "C-w 8") 'symbol-overlay-remove-all)
+  :bind ("M-c" . symbol-overlay-jump-prev))
 
 (use-package swiper
   :ensure t

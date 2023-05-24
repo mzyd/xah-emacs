@@ -226,4 +226,14 @@ end tell
       (xah-paste-or-paste-previous)
       (xah-fly-command-mode-activate))))
 
+(defun mzy/git-grep-at-point ()
+  (interactive)
+  (let (word)
+    (if (region-active-p)
+        (progn
+          (setq word (buffer-substring-no-properties (region-beginning) (region-end))))
+      (progn
+        (setq word (thing-at-point 'word))))
+    (counsel-git-grep word)))
+
 (provide 'mzy-fuss)
