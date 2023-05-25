@@ -347,6 +347,7 @@
   (add-hook 'html-mode-hook 'emmet-mode)
   (add-hook 'web-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook 'emmet-mode))
+(define-key web-mode-map (kbd "C-c c") 'emmet-expand-yas)
 
 (use-package scss-mode
   :ensure t

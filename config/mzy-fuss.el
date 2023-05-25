@@ -141,7 +141,7 @@ end tell
 ;; Simulate pressing o in vim, the func has already bond to the l
 (defun mzy/newline ()
   (interactive)
-  (if (= (point) (point-at-eol))
+  (if (eolp)
       (progn
         (xah-fly-insert-mode-activate)
         (indent-new-comment-line))
@@ -201,6 +201,8 @@ end tell
 (defun mzy/copy-and-comment-line ()
   (interactive)
   (xah-copy-line-or-region)
+  (previous-line)
+  (xah-comment-dwim)
   (open-line 1)
   (xah-paste-or-paste-previous))
 
@@ -223,6 +225,7 @@ end tell
         (xah-paste-or-paste-previous))
     (progn
       (mzy/newline)
+      (move-beginning-of-line nil)
       (xah-paste-or-paste-previous)
       (xah-fly-command-mode-activate))))
 
