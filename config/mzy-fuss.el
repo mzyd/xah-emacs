@@ -220,8 +220,7 @@ end tell
   (interactive)
   (if (eolp)
       (progn
-        (next-line 1)
-        (open-line 1)
+        (newline)
         (xah-paste-or-paste-previous))
     (progn
       (mzy/newline)

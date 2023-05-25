@@ -3244,10 +3244,12 @@ Version 2022-10-31"
        ;; ("i" . mzy/kill-and-edit-line)
 
        ;; ("j" . xah-copy-all-or-region)
-       ("j j" . mzy/kill-and-edit-line)
+       ("j l" . mzy/kill-and-edit-line)
+       ("j j c" . edit-at-point-paren-copy)
+       ("j j r" . edit-at-point-paren-cut)
        ("j w" . mzy/edit-at-point-word)
-       ("j c" . edit-at-point-line-up)
-       ("j t" . edit-at-point-line-down)
+       ("j <up>" . edit-at-point-line-up)
+       ("j <down>" . edit-at-point-line-down)
 
        ("j s" . counsel-git-grep)
        ;; ("j f" . find-file-in-project)
