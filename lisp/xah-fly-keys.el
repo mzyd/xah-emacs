@@ -3247,6 +3247,8 @@ Version 2022-10-31"
        ("j l" . mzy/kill-and-edit-line)
        ("j j c" . edit-at-point-paren-copy)
        ("j j r" . edit-at-point-paren-cut)
+       ("j h" . kill-ring-search)
+       ("j k" . mzy/kill-ring-buffer)
        ("j w" . mzy/edit-at-point-word)
        ("j <up>" . edit-at-point-line-up)
        ("j <down>" . edit-at-point-line-down)
@@ -3258,7 +3260,6 @@ Version 2022-10-31"
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
        ("j i" . cd-iterm2)
-
        ;; mzy k
        ("k" . mzy/paste-to-next-line)
 
@@ -3384,7 +3385,7 @@ Version 2022-10-31"
 
        ("x" . xah-toggle-previous-letter-case)
        ("y" . xah-show-kill-ring)
-
+       ;; ("y" . kill-ring-search)
        ;; vc command keys subject to change. need a frequency stat of the commands.
 
        ("z b" . vc-root-diff)   ; D

@@ -18,10 +18,11 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 ;; (require 'git-timemachine)
 
+(require 'thing-edit)
 (require 'xah-fly-keys)
+
 ;; specify a layout
 (xah-fly-keys-set-layout "dvorak")
-;; (xah-fly-keys-set-layout "qwerty")
 ;; possible values
 ;; adnw , azerty , azerty-be , beopy , bepo , carpalx-qfmlwy , carpalx-qgmlwb , carpalx-qgmlwy , colemak , colemak-dhm , colemak-dhm-angle , colemak-dhk , dvorak , koy , neo2 , norman , programer-dvorak , pt-nativo , qwerty , qwerty-abnt , qwerty-no (qwerty Norwegian) , qwertz , workman
 
@@ -280,6 +281,11 @@
       (require 'mac-key-mode)
       (mac-key-mode t))
 
+(require 'kill-ring-search)
+(autoload 'kill-ring-search "kill-ring-search"
+ "Search the kill ring in the minibuffer."
+ (interactive))
+
 ;; (use-package magit
 ;;   :ensure t
 ;;   :bind (("C-x g" . magit-status)
@@ -402,3 +408,12 @@
 ;;     nil)
 ;;   )
 ;; (setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
+
+
+(define-key xah-fly-command-map (kbd "'") nil)
+(define-key xah-fly-command-map (kbd "' d") 'symbol-overlay-jump-to-definition)
+(define-key xah-fly-command-map (kbd "' l") 'mzy/kill-and-edit-line)
+(define-key xah-fly-command-map (kbd "' m") 'remember-jump)
+(define-key xah-fly-command-map (kbd "' r") 'xah-reformat-lines)
+(define-key xah-fly-command-map (kbd "' w") 'mzy/edit-at-point-word)
+(define-key xah-fly-command-map (kbd "' c c") 'thing-copy-parentheses)

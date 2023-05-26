@@ -163,7 +163,7 @@ end tell
 
 (defun mzy/edit-at-point-word ()
   (interactive)
-  (edit-at-point-word-cut)
+  (thing-cut-word)
   (xah-fly-insert-mode-activate))
 
 (defun mzy/atfd ()
@@ -237,5 +237,9 @@ end tell
       (progn
         (setq word (thing-at-point 'word))))
     (counsel-git-grep word)))
+
+(defun mzy/kill-ring-buffer ()
+  (interactive)
+  )
 
 (provide 'mzy-fuss)
