@@ -216,6 +216,27 @@ end tell
             (call-interactively 'web-mode-navigate)
           (call-interactively 'xah-goto-matching-bracket)))
 
+(defun mzy/xah-fly-l-key ()
+        "key `z'"
+        (interactive)
+        ;; (cond
+        ;; ((eq major-mode 'web-mode) (call-interactively 'web-mode-navigate))
+        ;; (t nil)
+        (if (eq major-mode 'org-mode)
+            (call-interactively 'mzy/org-newline)
+          (call-interactively 'mzy/newline)))
+
+(defun mzy/org-newline ()
+  (interactive)
+  (if (eolp)
+      (progn
+        (org-meta-return)
+        (xah-fly-insert-mode-activate))
+    (progn
+      (xah-end-of-line-or-block)
+      (org-meta-return)
+      (xah-fly-insert-mode-activate))))
+
 (defun mzy/paste-to-next-line ()
   (interactive)
   (if (eolp)
