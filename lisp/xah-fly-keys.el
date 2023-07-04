@@ -3244,7 +3244,7 @@ Version 2022-10-31"
        ;; ("i" . mzy/kill-and-edit-line)
 
        ;; ("j" . xah-copy-all-or-region)
-       ("j l" . mzy/kill-and-edit-line)
+       ("j l" . linum-mode)
        ("j j c" . edit-at-point-paren-copy)
        ("j j r" . edit-at-point-paren-cut)
        ("j h" . kill-ring-search)
@@ -3254,6 +3254,7 @@ Version 2022-10-31"
        ("j <down>" . edit-at-point-line-down)
 
        ("j s" . counsel-git-grep)
+       ;; ("j s" . helm-grep-do-git-grep)
        ;; ("j f" . find-file-in-project)
        ("j TAB" . mzy/atfd)
        ("j <RET>" . mzy/jump-out-pair-and-newline)
@@ -3307,8 +3308,8 @@ Version 2022-10-31"
        ("n z" . abort-recursive-edit)
 
        ("o" . exchange-point-and-mark)
-       ;; ("p" . query-replace)
-       ("p" . symbol-overlay-query-replace)
+       ("p" . query-replace)
+       ;; ("p" . symbol-overlay-query-replace)
        ("q" . xah-cut-all-or-region)
 
        ;; roughly text replacement related

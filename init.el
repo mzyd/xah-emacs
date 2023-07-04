@@ -419,3 +419,6 @@
 (define-key xah-fly-command-map (kbd "' w") 'mzy/edit-at-point-word)
 (define-key xah-fly-command-map (kbd "' c c") 'thing-copy-parentheses)
 (define-key xah-fly-command-map (kbd "' c d") 'thing-cut-word)
+(define-key xah-fly-command-map (kbd "' p") 'symbol-overlay-query-replace)
+
+(define-key xah-fly-command-map (kbd "' 8 3") 'mzy/copy-window-in-another-buffer)

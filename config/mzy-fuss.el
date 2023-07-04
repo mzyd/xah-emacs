@@ -257,10 +257,16 @@ end tell
           (setq word (buffer-substring-no-properties (region-beginning) (region-end))))
       (progn
         (setq word (thing-at-point 'word))))
-    (counsel-git-grep word)))
+    (helm-grep-do-git-grep word)))
+    ;; (counsel-git-grep word)))
 
-(defun mzy/kill-ring-buffer ()
-  (interactive)
-  )
+;; (defun mzy/kill-ring-buffer ()
+  ;; (interactive)
+  ;; )
+
+(defun mzy/copy-window-in-another-buffer ()
+    (interactive)
+    (delete-other-windows)
+    (split-window-right))
 
 (provide 'mzy-fuss)
