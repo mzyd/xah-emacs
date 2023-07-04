@@ -67,6 +67,12 @@
                              ;; (emacs-session-save)
 ;; ))
 
+(if (eq system-type 'windows-nt)
+    (progn
+      (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
+      (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk)
+      ))
+
 (unless (eq system-type 'windows-nt)
   (progn
     (add-to-list 'load-path "~/blink-search")
