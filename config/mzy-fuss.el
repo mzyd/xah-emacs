@@ -198,6 +198,46 @@ end tell
     (set-register 8 tmp))
   (message "Have back to remember position"))
 
+(defun mzy-remember-init ()
+  "Remember current position and setup."
+  (interactive)
+  (point-to-register 8))
+
+
+;; ------------------------------------
+;; (setq mzy-register-list '(1 2 3 4))
+;; (setq mzy-offset 0)
+;; (defun mzy/remember-init ()
+;;   (interactive)
+;;   (if (> mzy-offset 3)
+;;       (setq mzy-offset 0)
+;;     (setq mzy-offset (+ mzy-offset 1))
+;;     (message "the offset is -- %s" mzy-offset)
+;;     )
+;;   (point-to-register (nth mzy-offset mzy-register-list)))
+;; (defun mzy/remember-jump-previous ()
+;;   (interactive)
+;;   (if (> mzy-offset 0)
+;;       (setq mzy-offset (- mzy-offset 1))
+;;     (setq mzy-offset (+ mzy-offset 3)))
+;;   (r-jump (nth mzy-offset mzy-register-list))
+;;   (message "the previous register is --- %d" mzy-offset))
+;; (defun mzy/remember-jump-next ()
+;;   (interactive)
+;;   (if (< mzy-offset 3)
+;;       (setq mzy-offset (+ mzy-offset 1))
+;;     (setq mzy-offset 0))
+;;   (r-jump (nth mzy-offset mzy-register-list))
+;;   (message "the next register is --- %d" mzy-offset))
+;; (defun r-jump (r)
+;;   "Jump to latest position and setup."
+;;   (interactive)
+;;   (let ((tmp (point-marker)))
+;;     (jump-to-register r)
+;;     (set-register r tmp))
+;;   (message "Have back to remember position"))
+;; ------------------------------------
+
 (defun mzy/copy-and-comment-line ()
   (interactive)
   (xah-copy-line-or-region)

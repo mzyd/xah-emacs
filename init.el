@@ -417,14 +417,27 @@
 
 
 (define-key xah-fly-command-map (kbd "'") nil)
-(define-key xah-fly-command-map (kbd "' d") 'symbol-overlay-jump-to-definition)
-(define-key xah-fly-command-map (kbd "' l") 'mzy/kill-and-edit-line)
-(define-key xah-fly-command-map (kbd "' m") 'remember-init)
-(define-key xah-fly-command-map (kbd "' '") 'remember-jump)
-(define-key xah-fly-command-map (kbd "' r") 'xah-reformat-lines)
-(define-key xah-fly-command-map (kbd "' w") 'mzy/edit-at-point-word)
-(define-key xah-fly-command-map (kbd "' c c") 'thing-copy-parentheses)
-(define-key xah-fly-command-map (kbd "' c d") 'thing-cut-word)
-(define-key xah-fly-command-map (kbd "' p") 'symbol-overlay-query-replace)
+(define-key xah-fly-command-map (kbd "e") nil)
 
-(define-key xah-fly-command-map (kbd "' 8 3") 'mzy/copy-window-in-another-buffer)
+(define-key xah-fly-command-map (kbd "e d") 'symbol-overlay-jump-to-definition)
+(define-key xah-fly-command-map (kbd "e l") 'mzy/kill-and-edit-line)
+(define-key xah-fly-command-map (kbd "e m") 'remember-init)
+(define-key xah-fly-command-map (kbd "e e") 'remember-jump)
+;; (define-key xah-fly-command-map (kbd "' m") 'mzy/remember-init)
+;; (define-key xah-fly-command-map (kbd "' <up>") 'mzy/remember-jump-previous)
+;; (define-key xah-fly-command-map (kbd "' <down>") 'mzy/remember-jump-next)
+
+;; (define-key xah-fly-command-map (kbd "' r") 'xah-reformat-lines)
+(define-key xah-fly-command-map (kbd "e c p") 'thing-copy-parentheses)
+(define-key xah-fly-command-map (kbd "e c c") 'thing-cut-word)
+(define-key xah-fly-command-map (kbd "e w") 'mzy/edit-at-point-word)
+(define-key xah-fly-command-map (kbd "e r") 'symbol-overlay-query-replace)
+
+(define-key xah-fly-command-map (kbd "' - -") 'mzy/insert-underline-on-both-sides)
+(define-key xah-fly-command-map (kbd "' w w") 'mzy/copy-window-in-another-buffer)
+
+(define-key xah-fly-command-map (kbd "e s s") 'counsel-git-grep)
+(define-key xah-fly-command-map (kbd "e s w") 'mzy/git-grep-at-point)
+;; EEEEEEE
+;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
+;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)

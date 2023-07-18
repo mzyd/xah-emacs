@@ -3446,7 +3446,7 @@ Version 2022-10-31"
        ("d" . xah-beginning-of-line-or-block)
        ;; ("e" . xah-delete-left-char-or-selection)
        ;; ("e" . xah-delete-backward-char-or-bracket-text)
-       ("e" . mzy/dot-mode-excute)
+       ;; ("e" . mzy/dot-mode-excute)
        ("f" . undo)
        ("g" . backward-word)
        ("h" . backward-char)
