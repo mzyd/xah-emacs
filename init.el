@@ -59,7 +59,19 @@
 ;; (setq awesome-tray-second-line nil)
 ;; (setq awesome-tray-position nil)
 
-;; (require 'init-session)
+(when (string= system-type "darwin")
+  (setq dired-use-ls-dired nil))
+
+(require 'init-session)
+
+;; (add-hook 'kill-emacs-hook (lambda () (emacs-session-save)))
+;; (defun mzy/restore ()
+;;   (message "sssssmmmmmms")
+;;   (emacs-session-restore))
+;; (add-hook 'emacs-startup-hook 'mzy/restore)
+
+
+
 ;; (emacs-session-restore)
 
 ;; (add-hook 'kill-emacs-hook #'emacs-session-save)
@@ -418,6 +430,8 @@
 
 (define-key xah-fly-command-map (kbd "'") nil)
 (define-key xah-fly-command-map (kbd "e") nil)
+(define-key xah-fly-command-map (kbd "m") nil)
+(define-key xah-fly-command-map (kbd "v") nil)
 
 (define-key xah-fly-command-map (kbd "e d") 'symbol-overlay-jump-to-definition)
 (define-key xah-fly-command-map (kbd "e l") 'mzy/kill-and-edit-line)
@@ -428,16 +442,21 @@
 ;; (define-key xah-fly-command-map (kbd "' <down>") 'mzy/remember-jump-next)
 
 ;; (define-key xah-fly-command-map (kbd "' r") 'xah-reformat-lines)
-(define-key xah-fly-command-map (kbd "e c p") 'thing-copy-parentheses)
-(define-key xah-fly-command-map (kbd "e c c") 'thing-cut-word)
+(define-key xah-fly-command-map (kbd "e c c") 'thing-copy-parentheses)
+(define-key xah-fly-command-map (kbd "e <DEL>") 'thing-cut-word)
 (define-key xah-fly-command-map (kbd "e w") 'mzy/edit-at-point-word)
 (define-key xah-fly-command-map (kbd "e r") 'symbol-overlay-query-replace)
 
 (define-key xah-fly-command-map (kbd "' - -") 'mzy/insert-underline-on-both-sides)
 (define-key xah-fly-command-map (kbd "' w w") 'mzy/copy-window-in-another-buffer)
+(define-key xah-fly-command-map (kbd "' w d") 'delete-window)
 
 (define-key xah-fly-command-map (kbd "e s s") 'counsel-git-grep)
 (define-key xah-fly-command-map (kbd "e s w") 'mzy/git-grep-at-point)
+
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)
+
+(define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
+(define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)

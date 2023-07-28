@@ -3307,10 +3307,12 @@ Version 2022-10-31"
        ("n y" . toggle-truncate-lines)
        ("n z" . abort-recursive-edit)
 
+       ;; mzy
        ("o" . exchange-point-and-mark)
-       ("p" . query-replace)
-       ;; ("p" . symbol-overlay-query-replace)
-       ("q" . xah-cut-all-or-region)
+       ;; ("p" . query-replace)
+       ("p" . symbol-overlay-query-replace)
+       ;; ("q" . xah-cut-all-or-region)
+       ("q" . delete-window)
 
        ;; roughly text replacement related
        ("r SPC" . rectangle-mark-mode)
