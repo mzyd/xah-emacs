@@ -4,8 +4,10 @@
 
 (setq pacakge-enable-startup nil)
 ;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -207,6 +209,10 @@
 
 (use-package youdao-dictionary
   :ensure t)
+(setq youdao-dictionary-app-key "28f71e17f86bb677")
+(setq youdao-dictionary-secret-key "3pa8HCD0cpAobIcvGtDqjZgivZ1FoOjH")
+
+(setq url-automatic-caching t)
 
 (unless (eq system-type 'windows-nt)
   (use-package fasd
@@ -253,6 +259,14 @@
   :bind ("M-i" . symbol-overlay-put)
   :bind ("M-t" . symbol-overlay-jump-next)
   :bind ("M-c" . symbol-overlay-jump-prev))
+(let ((map (make-sparse-keymap)))
+  (define-key map (kbd "p") 'nil)
+  (define-key map (kbd "n") 'nil)
+  (define-key map (kbd "h") 'nil)
+  (setq symbol-overlay-map map))
+;; (define-key symbol-overlay-map (kbd "p") 'nil)
+;; (define-key symbol-overlay-map (kbd "n") 'nil)
+;; (define-key symbol-overlay-map (kbd "h") 'nil)
 
 (use-package swiper
   :ensure t
@@ -416,7 +430,7 @@
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
                                                (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))
 
-(add-hook 'xah-fly-insert-mode-activate-hook #'remember-init)
+;; (add-hook 'xah-fly-insert-mode-activate-hook #'remember-init)
 
 ;; (defun mzy/lsp-bridge-is-xah-command-state ()
 ;;   "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
@@ -452,8 +466,17 @@
 (define-key xah-fly-command-map (kbd "' w d") 'delete-window)
 
 (define-key xah-fly-command-map (kbd "e s s") 'counsel-git-grep)
-(define-key xah-fly-command-map (kbd "e s w") 'mzy/git-grep-at-point)
+(define-key xah-fly-command-map (kbd "e s c") 'mzy/git-grep-at-point)
 
+(define-key xah-fly-command-map (kbd "e j d") 'mzy/jump-to-data)
+(define-key xah-fly-command-map (kbd "e j s") 'mzy/jump-to-style)
+(define-key xah-fly-command-map (kbd "e j m") 'mzy/jump-to-methods)
+(define-key xah-fly-command-map (kbd "e j j") 'mzy/jump-to-script-tag)
+
+(define-key xah-fly-command-map (kbd "e 8") 'mzy/copy-at-point-for-js)
+
+(define-key xah-fly-command-map (kbd "e <up>") 'xah-backward-left-bracket)
+(define-key xah-fly-command-map (kbd "e <down>") 'xah-forward-right-bracket)
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)

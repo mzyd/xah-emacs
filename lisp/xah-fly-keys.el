@@ -3309,8 +3309,7 @@ Version 2022-10-31"
 
        ;; mzy
        ("o" . exchange-point-and-mark)
-       ;; ("p" . query-replace)
-       ("p" . symbol-overlay-query-replace)
+       ("p" . query-replace)
        ;; ("q" . xah-cut-all-or-region)
        ("q" . delete-window)
 

@@ -309,4 +309,71 @@ end tell
     (delete-other-windows)
     (split-window-right))
 
+
+;; ************ vue *******
+(defun mzy/jump-to-script-tag ()
+  (interactive)
+  (if (search-forward "<scrip" nil t)
+      (search-backward "<scrip" nil t)
+    (search-backward "<scrip" nil t)
+    )
+  )
+
+(defun mzy/jump-to-data ()
+  (interactive)
+  (if (search-forward "data() {" nil t)
+      (search-backward "data() {" nil t)
+    (search-backward "data() {" nil t)
+    )
+  )
+
+(defun mzy/jump-to-style ()
+  (interactive)
+  (if (search-forward "<style" nil t)
+      (search-backward "<style" nil t)
+    (search-backward "<style" nil t)
+    )
+  )
+(defun mzy/jump-to-methods ()
+  (interactive)
+  (if (search-forward "methods:" nil t)
+      (search-backward "methods:" nil t)
+    (search-backward "methods:" nil t)
+    )
+  )
+
+;; ************ vue *******
+
+
+
+(defun get-char-at-position (position)
+  (interactive "d")
+  (message "***Character at position %d: %c" position (char-after position))
+  (message "Character at position %d: %s" position (char-after position))
+  ;; (message "00000000 %s" (type-of (char-after position)))
+  (char-after position))
+
+;; char-after 返回 Unicode码点值, 是个 integer 类型的数字
+;; . 的Unicode码点值是 46
+;; right-word 不需要 +1 因为光标就在 region 的右边
+(defun mzy/copy-at-point-for-js ()
+    (interactive)
+    (xah-extend-selection)
+    (setq word-left (- (region-beginning) 1))
+    ;; (setq word-right (+ (region-end) 1))
+    (setq word-right (region-end))
+
+    (if (= (get-char-at-position word-left) 46)
+        (progn
+          (exchange-point-and-mark)
+          (backward-word)))
+
+    (if (= (get-char-at-position word-right) 46)
+        (forward-word)
+      ))
+
+
+
+
+
 (provide 'mzy-fuss)
