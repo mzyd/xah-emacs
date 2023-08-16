@@ -29,8 +29,11 @@
 
 (require 'awesome-tray)
 (awesome-tray-mode 1)
-(setq awesome-tray-second-line nil)
-(setq awesome-tray-position nil)
+(when (string= system-type "darwin")
+  (progn
+    (setq awesome-tray-second-line nil)
+    (setq awesome-tray-position nil))
+  )
 
 ;; specify a layout
 (xah-fly-keys-set-layout "dvorak")
