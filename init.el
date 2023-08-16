@@ -22,6 +22,15 @@
 
 (require 'thing-edit)
 (require 'xah-fly-keys)
+;; (require 'init-session)
+
+(require 'sort-tab)
+(sort-tab-mode 1)
+
+(require 'awesome-tray)
+(awesome-tray-mode 1)
+(setq awesome-tray-second-line nil)
+(setq awesome-tray-position nil)
 
 ;; specify a layout
 (xah-fly-keys-set-layout "dvorak")
@@ -56,30 +65,8 @@
 (require 'highlight-matching-tag)
 (highlight-matching-tag 1)
 
-;; (require 'awesome-tray)
-;; (awesome-tray-mode 1)
-;; (setq awesome-tray-second-line nil)
-;; (setq awesome-tray-position nil)
-
 (when (string= system-type "darwin")
   (setq dired-use-ls-dired nil))
-
-(require 'init-session)
-
-;; (add-hook 'kill-emacs-hook (lambda () (emacs-session-save)))
-;; (defun mzy/restore ()
-;;   (message "sssssmmmmmms")
-;;   (emacs-session-restore))
-;; (add-hook 'emacs-startup-hook 'mzy/restore)
-
-
-
-;; (emacs-session-restore)
-
-;; (add-hook 'kill-emacs-hook #'emacs-session-save)
-;; (add-hook 'kill-emacs-hook (lambda ()
-                             ;; (emacs-session-save)
-;; ))
 
 (if (eq system-type 'windows-nt)
     (progn
@@ -210,6 +197,7 @@
 (use-package youdao-dictionary
   :ensure t)
 (setq youdao-dictionary-app-key "28f71e17f86bb677")
+
 (setq youdao-dictionary-secret-key "3pa8HCD0cpAobIcvGtDqjZgivZ1FoOjH")
 
 (setq url-automatic-caching t)
@@ -329,10 +317,10 @@
 ;; (global-linum-mode 1)
 ;; (setq linum-format " %d ")
 
-(use-package powerline
-  :ensure t
-  :config
-  (powerline-default-theme))
+;; (use-package powerline
+;;   :ensure t
+;;   :config
+;;   (powerline-default-theme))
 
 ;; (use-package nyan-mode
 ;;   :ensure t
@@ -477,6 +465,16 @@
 
 (define-key xah-fly-command-map (kbd "e <up>") 'xah-backward-left-bracket)
 (define-key xah-fly-command-map (kbd "e <down>") 'xah-forward-right-bracket)
+
+(define-key xah-fly-command-map (kbd "e 1") 'sort-tab-select-visible-tab)
+(define-key xah-fly-command-map (kbd "e 2") 'sort-tab-select-visible-tab)
+(define-key xah-fly-command-map (kbd "e 3") 'sort-tab-select-visible-tab)
+(define-key xah-fly-command-map (kbd "e 4") 'sort-tab-select-visible-tab)
+(define-key xah-fly-command-map (kbd "e 5") 'sort-tab-select-visible-tab)
+(define-key xah-fly-command-map (kbd "e n") 'sort-tab-select-next-tab)
+(define-key xah-fly-command-map (kbd "e q a") 'sort-tab-close-all-tabs)
+(define-key xah-fly-command-map (kbd "e q q") 'sort-tab-close-current-tab)
+
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)
