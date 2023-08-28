@@ -29,11 +29,11 @@
 
 (require 'awesome-tray)
 (awesome-tray-mode 1)
-(when (string= system-type "darwin")
-  (progn
+(when (not (string= system-type 'gnu/linux))
     (setq awesome-tray-second-line nil)
     (setq awesome-tray-position nil))
-  )
+
+(require 'color-rg)
 
 ;; specify a layout
 (xah-fly-keys-set-layout "dvorak")
@@ -465,19 +465,41 @@
 (define-key xah-fly-command-map (kbd "e j j") 'mzy/jump-to-script-tag)
 
 (define-key xah-fly-command-map (kbd "e 8") 'mzy/copy-at-point-for-js)
+(define-key xah-fly-command-map (kbd "e y") 'helm-show-kill-ring)
+
+;; vundo
+;; f   to go forward
+;; b   to go backward
+
+;; n   to go to the node below when you at a branching point
+;; p   to go to the node above
+
+;; a   to go back to the last branching point
+;; e   to go forward to the end/tip of the branch
+
+;; q   to quit, you can also type C-g
+
+;; C-c C-s (or whatever binding you used for save-buffer)
+;;     to save the buffer at the current undo state
+(define-key xah-fly-command-map (kbd "e f") 'vundo)
+
+(define-key xah-fly-command-map (kbd "e 3 3") 'color-rg-search-input)
+(define-key xah-fly-command-map (kbd "e 3 s") 'color-rg-search-symbol)
+(define-key xah-fly-command-map (kbd "e 3 8") 'color-rg-search-input-in-project)
 
 (define-key xah-fly-command-map (kbd "e <up>") 'xah-backward-left-bracket)
 (define-key xah-fly-command-map (kbd "e <down>") 'xah-forward-right-bracket)
 
 (define-key xah-fly-command-map (kbd "e 1") 'sort-tab-select-visible-tab)
 (define-key xah-fly-command-map (kbd "e 2") 'sort-tab-select-visible-tab)
-(define-key xah-fly-command-map (kbd "e 3") 'sort-tab-select-visible-tab)
 (define-key xah-fly-command-map (kbd "e 4") 'sort-tab-select-visible-tab)
 (define-key xah-fly-command-map (kbd "e 5") 'sort-tab-select-visible-tab)
 (define-key xah-fly-command-map (kbd "e n") 'sort-tab-select-next-tab)
+(define-key xah-fly-command-map (kbd "e h") 'sort-tab-select-prev-tab)
 (define-key xah-fly-command-map (kbd "e q a") 'sort-tab-close-all-tabs)
 (define-key xah-fly-command-map (kbd "e q q") 'sort-tab-close-current-tab)
-
+(define-key xah-fly-command-map (kbd "<right>") 'sort-tab-select-next-tab)
+(define-key xah-fly-command-map (kbd "<left>") 'sort-tab-select-prev-tab)
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)
