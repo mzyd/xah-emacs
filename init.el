@@ -448,6 +448,7 @@
 
 ;; (define-key xah-fly-command-map (kbd "' r") 'xah-reformat-lines)
 (define-key xah-fly-command-map (kbd "e c c") 'thing-copy-parentheses)
+(define-key xah-fly-command-map (kbd "e c x") 'thing-cut-parentheses)
 (define-key xah-fly-command-map (kbd "e <DEL>") 'thing-cut-word)
 (define-key xah-fly-command-map (kbd "e w") 'mzy/edit-at-point-word)
 (define-key xah-fly-command-map (kbd "e r") 'symbol-overlay-query-replace)
@@ -506,3 +507,5 @@
 
 (define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
 (define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
+
+;; (message "上一个命令是：%s" this-command)
