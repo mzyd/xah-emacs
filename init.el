@@ -120,6 +120,10 @@
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
+;; set language environment
+(set-language-environment 'UTF-8)
+(set-locale-environment "UTF-8")
+
 ;; =================== packages ===================
 
 (use-package smartparens
@@ -509,3 +513,7 @@
 (define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
 
 ;; (message "上一个命令是：%s" this-command)
+
+;; (defun bind-key-q ()
+    ;; ()
+  ;; )
