@@ -3462,6 +3462,7 @@ Version 2022-10-31"
        ("o" . open-line)
        ("p" . kill-word)
        ("q" . xah-cut-line-or-region)
+       ;; ("q" . mzy/xah-fly-q-key)
        ("r" . forward-word)
        ("s" . xah-end-of-line-or-block)
        ("t" . next-line)

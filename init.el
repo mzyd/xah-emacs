@@ -25,6 +25,7 @@
 ;; (require 'init-session)
 
 (require 'sort-tab)
+(setq sort-tab-hide-function '(lambda (buf) (with-current-buffer buf (derived-mode-p 'dired-mode))))
 (sort-tab-mode 1)
 
 (require 'awesome-tray)
@@ -124,6 +125,13 @@
 (set-language-environment 'UTF-8)
 (set-locale-environment "UTF-8")
 
+(use-package material-theme
+  :ensure t
+  :config
+  (load-theme 'material-light t)
+  (setq-default mode-line-format nil))
+
+
 ;; =================== packages ===================
 
 (use-package smartparens
@@ -150,8 +158,8 @@
   :config (which-key-mode)
   (setq which-key-idle-delay 0.1))
 
-(use-package restart-emacs
-  :ensure t)
+;; (use-package restart-emacs
+  ;; :ensure t)
 
 (use-package better-defaults
   :ensure t)
@@ -180,17 +188,17 @@
 (use-package counsel
   :ensure t)
 
-(use-package dot-mode
-  :ensure t
-  :config
-  (global-dot-mode t))
+;; (use-package dot-mode
+;;   :ensure t
+;;   :config
+;;   (global-dot-mode t))
 
 ;; you also can pressing d in command mode to excute this function
-(defun mzy/dot-mode-excute ()
-  (interactive)
-  (xah-fly-insert-mode-activate)
-  (dot-mode-execute)
-  (xah-fly-command-mode-activate))
+;; (defun mzy/dot-mode-excute ()
+;;   (interactive)
+;;   (xah-fly-insert-mode-activate)
+;;   (dot-mode-execute)
+;;   (xah-fly-command-mode-activate))
 
 ;; (use-package avy
 ;;   :ensure t)
@@ -436,6 +444,10 @@
 ;;   )
 ;; (setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
 
+(defun mzy/delete-current-letter-and-insert ()
+    (interactive)
+    (delete-char 1)
+    (xah-fly-insert-mode-activate))
 
 (define-key xah-fly-command-map (kbd "'") nil)
 (define-key xah-fly-command-map (kbd "e") nil)
@@ -446,6 +458,7 @@
 (define-key xah-fly-command-map (kbd "e l") 'mzy/kill-and-edit-line)
 (define-key xah-fly-command-map (kbd "e m") 'remember-init)
 (define-key xah-fly-command-map (kbd "e e") 'remember-jump)
+(define-key xah-fly-command-map (kbd "e a") 'mzy/delete-current-letter-and-insert)
 ;; (define-key xah-fly-command-map (kbd "' m") 'mzy/remember-init)
 ;; (define-key xah-fly-command-map (kbd "' <up>") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "' <down>") 'mzy/remember-jump-next)
@@ -505,15 +518,11 @@
 (define-key xah-fly-command-map (kbd "e q q") 'sort-tab-close-current-tab)
 (define-key xah-fly-command-map (kbd "<right>") 'sort-tab-select-next-tab)
 (define-key xah-fly-command-map (kbd "<left>") 'sort-tab-select-prev-tab)
+(define-key xah-fly-command-map (kbd "5") 'sort-tab-close-current-tab)
+
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)
 
 (define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
 (define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
-
-;; (message "上一个命令是：%s" this-command)
-
-;; (defun bind-key-q ()
-    ;; ()
-  ;; )
