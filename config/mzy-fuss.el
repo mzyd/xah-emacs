@@ -257,7 +257,7 @@ end tell
           (call-interactively 'xah-goto-matching-bracket)))
 
 (defun mzy/xah-fly-l-key ()
-        "key `z'"
+        "key `l'"
         (interactive)
         ;; (cond
         ;; ((eq major-mode 'web-mode) (call-interactively 'web-mode-navigate))
@@ -276,6 +276,26 @@ end tell
       (xah-end-of-line-or-block)
       (org-meta-return)
       (xah-fly-insert-mode-activate))))
+
+;; (defun mzy/xah-fly-q-key ()
+;;         "key `q'"
+;;         (interactive)
+;;         (view-lossage)
+;;         ;; 切换到 `*Help*`，然后获取其内容
+;;         (with-current-buffer "*Help*"
+;;           (setq buffer-content (buffer-string)))
+;;         (setq str (substring buffer-content -86 (length buffer-content)))
+;;         (xah-next-window-or-frame)
+;;         (quit-window)
+;;         (if (string-match "sort-tab-close-current-tab" str)
+;;             (progn
+;;               (sort-tab-close-current-tab)
+;;               (message "有 sort %s" str)
+;;               )
+;;           (progn
+;;             (xah-cut-line-or-region)
+;;               (message " Should delete %s" str)
+;;             )
 
 (defun mzy/paste-to-next-line ()
   (interactive)
