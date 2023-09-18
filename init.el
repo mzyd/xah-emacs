@@ -508,17 +508,13 @@
 (define-key xah-fly-command-map (kbd "e <up>") 'xah-backward-left-bracket)
 (define-key xah-fly-command-map (kbd "e <down>") 'xah-forward-right-bracket)
 
-(define-key xah-fly-command-map (kbd "e 1") 'sort-tab-select-visible-tab)
-(define-key xah-fly-command-map (kbd "e 2") 'sort-tab-select-visible-tab)
-(define-key xah-fly-command-map (kbd "e 4") 'sort-tab-select-visible-tab)
-(define-key xah-fly-command-map (kbd "e 5") 'sort-tab-select-visible-tab)
-(define-key xah-fly-command-map (kbd "e n") 'sort-tab-select-next-tab)
-(define-key xah-fly-command-map (kbd "e h") 'sort-tab-select-prev-tab)
-(define-key xah-fly-command-map (kbd "e q a") 'sort-tab-close-all-tabs)
-(define-key xah-fly-command-map (kbd "e q q") 'sort-tab-close-current-tab)
+;; sort-tab
 (define-key xah-fly-command-map (kbd "<right>") 'sort-tab-select-next-tab)
 (define-key xah-fly-command-map (kbd "<left>") 'sort-tab-select-prev-tab)
 (define-key xah-fly-command-map (kbd "5") 'sort-tab-close-current-tab)
+(define-key xah-fly-command-map (kbd "e 5") 'sort-tab-close-all-tabs)
+
+(define-key xah-fly-command-map (kbd "e t d") 'lsp-bridge-find-def-other-window)
 
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
