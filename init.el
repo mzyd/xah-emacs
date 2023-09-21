@@ -1,5 +1,13 @@
 ;; M-x package-refresh-contents
 
+(let (;; temporarily increase `gc-cons-threshold' when loading to speed up startup.
+      (gc-cons-threshold most-positive-fixnum)
+      ;; Empty to avoid analyzing files when loading remote files.
+      (file-name-handler-alist nil))
+  ;; Emacs configuration file content is written below.
+  )
+
+
 (require 'package)
 
 (setq pacakge-enable-startup nil)
@@ -24,17 +32,27 @@
 (require 'xah-fly-keys)
 ;; (require 'init-session)
 
+(desktop-save-mode 1)
+
+
 (require 'sort-tab)
 (setq sort-tab-hide-function '(lambda (buf) (with-current-buffer buf (derived-mode-p 'dired-mode))))
 (sort-tab-mode 1)
 
+;; (require 'lazy-load)
+;; (lazy-load-global-keys
+;;  '(("b" . swiper))
+;;  "swiper")
+
 (require 'awesome-tray)
 (awesome-tray-mode 1)
 (when (not (string= system-type 'gnu/linux))
-    (setq awesome-tray-second-line nil)
-    (setq awesome-tray-position nil))
+  (setq awesome-tray-second-line nil)
+  (setq awesome-tray-position nil))
 
 (require 'color-rg)
+
+;; (require 'insert-translated-name)
 
 ;; specify a layout
 (xah-fly-keys-set-layout "dvorak")
@@ -104,7 +122,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:height 160 :weight normal :family "Source Code Pro")))))
- ;; '(default ((t (:height 160 :weight normal :family "DinaRemaster")))))
+;; '(default ((t (:height 160 :weight normal :family "DinaRemaster")))))
 ;; '(default ((t (:height 160 :weight normal :family "Anonymous Pro")))))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (fringe-mode 0)
@@ -159,7 +177,7 @@
   (setq which-key-idle-delay 0.1))
 
 ;; (use-package restart-emacs
-  ;; :ensure t)
+;; :ensure t)
 
 (use-package better-defaults
   :ensure t)
@@ -219,9 +237,9 @@
 
 (unless (eq system-type 'windows-nt)
   (use-package fasd
-  :ensure t
-  :config
-  (global-fasd-mode 1)))
+    :ensure t
+    :config
+    (global-fasd-mode 1)))
 
 (use-package mwim
   :ensure t
@@ -313,13 +331,13 @@
   (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk))
 
 (when (eq system-type 'darwin)
-      (require 'mac-key-mode)
-      (mac-key-mode t))
+  (require 'mac-key-mode)
+  (mac-key-mode t))
 
 (require 'kill-ring-search)
 (autoload 'kill-ring-search "kill-ring-search"
- "Search the kill ring in the minibuffer."
- (interactive))
+  "Search the kill ring in the minibuffer."
+  (interactive))
 
 ;; (use-package magit
 ;;   :ensure t
@@ -416,18 +434,18 @@
   :ensure)
 
 (use-package goto-line-preview
-    :ensure)
+  :ensure)
 
 (when (eq system-type 'darwin)
-      (add-to-list 'load-path "~/org-ai")
-      (require 'org)
-      (require 'org-ai)
-      (add-hook 'org-mode-hook #'org-ai-mode)
-      (org-ai-global-mode)
-      (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
-      (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
-      ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
-      (setq org-ai-openai-api-token "IizswsaiGCmM7vD8XyM8T3BlbkFJGpYOCsU2rMTtoTGsS9BI"))
+  (add-to-list 'load-path "~/org-ai")
+  (require 'org)
+  (require 'org-ai)
+  (add-hook 'org-mode-hook #'org-ai-mode)
+  (org-ai-global-mode)
+  (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
+  (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
+  ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
+  (setq org-ai-openai-api-token "IizswsaiGCmM7vD8XyM8T3BlbkFJGpYOCsU2rMTtoTGsS9BI"))
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
@@ -445,9 +463,9 @@
 ;; (setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
 
 (defun mzy/delete-current-letter-and-insert ()
-    (interactive)
-    (delete-char 1)
-    (xah-fly-insert-mode-activate))
+  (interactive)
+  (delete-char 1)
+  (xah-fly-insert-mode-activate))
 
 (define-key xah-fly-command-map (kbd "'") nil)
 (define-key xah-fly-command-map (kbd "e") nil)
@@ -515,6 +533,8 @@
 (define-key xah-fly-command-map (kbd "e 5") 'sort-tab-close-all-tabs)
 
 (define-key xah-fly-command-map (kbd "e t d") 'lsp-bridge-find-def-other-window)
+
+;; (define-key xah-fly-command-map (kbd "e c n") 'insert-translated-name-insert)
 
 ;; EEEEEEE
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
