@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Mzy
+# name: logstringify
+# key: lo
+# --
+console.log('-------' + JSON.stringify($1, null, 2))

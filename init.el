@@ -30,10 +30,8 @@
 
 (require 'thing-edit)
 (require 'xah-fly-keys)
-;; (require 'init-session)
 
-(desktop-save-mode 1)
-
+;; (desktop-save-mode 1)
 
 (require 'sort-tab)
 (setq sort-tab-hide-function '(lambda (buf) (with-current-buffer buf (derived-mode-p 'dired-mode))))
@@ -445,7 +443,7 @@
   (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
   (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
   ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
-  (setq org-ai-openai-api-token "IizswsaiGCmM7vD8XyM8T3BlbkFJGpYOCsU2rMTtoTGsS9BI"))
+  (setq org-ai-openai-api-token "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"))
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
@@ -494,6 +492,7 @@
 
 (define-key xah-fly-command-map (kbd "e s s") 'counsel-git-grep)
 (define-key xah-fly-command-map (kbd "e s c") 'mzy/git-grep-at-point)
+(define-key xah-fly-command-map (kbd "e s l") 'eslint-fix)
 
 (define-key xah-fly-command-map (kbd "e j d") 'mzy/jump-to-data)
 (define-key xah-fly-command-map (kbd "e j s") 'mzy/jump-to-style)
@@ -542,3 +541,5 @@
 
 (define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
 (define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
+
+;; (fset 'delete-empty-lines (kbd "M-x flush-lines RET ^\s-*$ RET"))
