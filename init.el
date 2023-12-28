@@ -190,6 +190,7 @@
   :ensure t
   :config
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
+  ;; (add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   )
@@ -434,6 +435,17 @@
 (use-package goto-line-preview
   :ensure)
 
+;; react mode
+(use-package rjsx-mode
+  :ensure)
+
+(defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
+  "Workaround sgml-mode and follow airbnb component style."
+  (save-excursion
+    (beginning-of-line)
+    (if (looking-at-p "^ +\/?> *$")
+        (delete-char sgml-basic-offset))))
+
 (when (eq system-type 'darwin)
   (add-to-list 'load-path "~/org-ai")
   (require 'org)
@@ -448,6 +460,10 @@
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
                                                (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))
+
+(add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2
+                                          js-indent-level 2
+                                          js2-strict-missing-semi-warning nil)))
 
 ;; (add-hook 'xah-fly-insert-mode-activate-hook #'remember-init)
 

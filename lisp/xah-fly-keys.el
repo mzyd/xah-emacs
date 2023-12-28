@@ -3118,6 +3118,7 @@ Version 2022-10-31"
        ;; (". ." . highlight-symbol-at-point)
        (". ." . symbol-overlay-put)
        (". q" . symbol-overlay-remove-all)
+       (". <DEL>" . symbol-overlay-remove-all)
        (". w" . swiper-isearch-thing-at-point)
        (". r" . symbol-overlay-rename)
        (". s" . mzy/git-grep-at-point)
