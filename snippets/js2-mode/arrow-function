@@ -1,7 +1,5 @@
 # -*- mode: snippet -*-
-# name: arrow-function
+# name: simple-arrow-function
 # key: af
 # --
-($1) => {
-  $2
-}
+($1) => $2
