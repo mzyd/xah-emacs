@@ -359,7 +359,7 @@
 ;;   :config (nyan-mode 1))
 
 (require 'zone)
-(zone-when-idle 600)
+(zone-when-idle 6000)
 
 (use-package markdown-mode
   :ensure t
@@ -517,6 +517,8 @@
 
 (define-key xah-fly-command-map (kbd "e 8") 'mzy/copy-at-point-for-js)
 (define-key xah-fly-command-map (kbd "e y") 'helm-show-kill-ring)
+
+(define-key xah-fly-command-map (kbd "e TAB") 'switch-to-previous-buffer)
 
 ;; vundo
 ;; f   to go forward

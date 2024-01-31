@@ -3422,7 +3422,8 @@ Version 2022-10-31"
        ("," . xah-shrink-whitespaces)
        ("-" . xah-cycle-hyphen-lowline-space)
        ("." . backward-kill-word)
-       (";" . xah-comment-dwim)
+       ;; (";" . xah-comment-dwim)
+       (";" . mzy/xah-fly-semi-key)
        ("/" . hippie-expand)
 
        ("[" . xah-backward-punct)

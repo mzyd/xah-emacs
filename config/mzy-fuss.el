@@ -266,6 +266,20 @@ end tell
             (call-interactively 'mzy/org-newline)
           (call-interactively 'mzy/newline)))
 
+
+(defun mzy/rjsx-comment ()
+  (interactive)
+  (js-mode)
+  (xah-comment-dwim)
+  (rjsx-mode))
+
+(defun mzy/xah-fly-semi-key ()
+        "key `;'"
+        (interactive)
+        (if (eq major-mode 'rjsx-mode)
+            (call-interactively 'mzy/rjsx-comment)
+          (call-interactively 'xah-comment-dwim)))
+
 (defun mzy/org-newline ()
   (interactive)
   (if (eolp)
@@ -361,6 +375,11 @@ end tell
     (search-backward "methods:" nil t)
     )
   )
+
+(defun mzy/switch-to-previous-buffer ()
+  "Switch to the previously selected buffer."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
 
 ;; ************ vue *******
 
