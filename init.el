@@ -439,6 +439,23 @@
 (use-package rjsx-mode
   :ensure)
 
+;; org-mode 插入图片
+(use-package org-download
+  :ensure
+  :config
+  (setq-default org-download-heading-lvl nil)
+  (setq-default org-download-image-dir "./note-images")
+  (setq org-download-backend "wget")
+  (setq org-download-abbreviate-filename-function (lambda (fn) fn)) ; use original filename
+  (defun dummy-org-download-annotate-function (link)
+    "")
+  (setq org-download-annotate-function
+      #'dummy-org-download-annotate-function)
+  )
+
+(add-hook 'dired-mode-hook 'org-download-enable)
+
+
 (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
   "Workaround sgml-mode and follow airbnb component style."
   (save-excursion
@@ -520,6 +537,7 @@
 
 (define-key xah-fly-command-map (kbd "e TAB") 'switch-to-previous-buffer)
 
+(define-key xah-fly-command-map (kbd "e o v") 'org-download-clipboard)
 ;; vundo
 ;; f   to go forward
 ;; b   to go backward
