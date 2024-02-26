@@ -3261,7 +3261,7 @@ Version 2022-10-31"
        ("j <RET>" . mzy/jump-out-pair-and-newline)
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
-       ("j i" . cd-iterm2)
+       ("j c" . cd-iterm2)
        ;; mzy k
        ("k" . mzy/paste-to-next-line)
 
