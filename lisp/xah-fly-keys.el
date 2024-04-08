@@ -3245,26 +3245,18 @@ Version 2022-10-31"
        ;; ("i" . mzy/kill-and-edit-line)
 
        ;; ("j" . xah-copy-all-or-region)
-       ("j l" . linum-mode)
-       ("j j c" . edit-at-point-paren-copy)
-       ("j j r" . edit-at-point-paren-cut)
-       ("j h" . kill-ring-search)
-       ("j k" . mzy/kill-ring-buffer)
-       ("j w" . mzy/edit-at-point-word)
+       ("j c" . edit-at-point-paren-copy)
+       ("j d" . edit-at-point-paren-cut)
+       ;; ("j h" . kill-ring-search)
        ("j <up>" . edit-at-point-line-up)
        ("j <down>" . edit-at-point-line-down)
 
-       ("j s" . counsel-git-grep)
-       ;; ("j s" . helm-grep-do-git-grep)
-       ;; ("j f" . find-file-in-project)
        ("j TAB" . mzy/atfd)
-       ("j <RET>" . mzy/jump-out-pair-and-newline)
        ("j z" . fasd-find-file)
        ("j b" . swiper-isearch-thing-at-point)
-       ("j c" . cd-iterm2)
+       ("j i" . cd-iterm2)
        ;; mzy k
        ("k" . mzy/paste-to-next-line)
-
        ;; mzy l
        ;; ("l" . recenter-top-bottom)
        ;; ("l" . edit-at-point-word-paste)
