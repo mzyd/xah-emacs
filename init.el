@@ -14,10 +14,10 @@
 ;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
-;; (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+;; (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
+                         ;; ("melpa" . "http://elpa.emacs-china.org/melpa/")))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -64,6 +64,18 @@
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 (define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
 
+(defun mzy/return-newline ()
+  (interactive)
+  (indent-new-comment-line)
+  (previous-line 1)
+  (mwim-end)
+  (indent-new-comment-line)
+  (xah-fly-insert-mode-activate))
+
+(global-set-key (kbd "C-8") 'nil)
+(global-set-key (kbd "C-8") #'mzy/return-newline)
+
+
 ;; (define-key git-timemachine-mode-map (kbd "C-p") git-timemachine-visit)
 ;; auto save
 (require 'auto-save)
@@ -81,6 +93,14 @@
         (lambda ()
           (string-suffix-p
            "js"
+           (file-name-extension (buffer-name)) t))
+        (lambda ()
+          (string-suffix-p
+           "el"
+           (file-name-extension (buffer-name)) t))
+        (lambda ()
+          (string-suffix-p
+           "rs"
            (file-name-extension (buffer-name)) t))
         ))
 
