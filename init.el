@@ -213,7 +213,7 @@
   :config
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  ;; (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
+  (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   )
 
@@ -286,10 +286,14 @@
 ;;   (setq ac-use-menu-map t)
 ;;   (define-key ac-menu-map "C-n" 'ac-next)
 ;;   (define-key ac-menu-map "C-p" 'ac-previous))
-;; (use-package flycheck
-;;   :ensure t
-;;   :config
-;;   (global-flycheck-mode))
+
+(use-package flycheck
+  :ensure t
+  :config
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+
 ;; (use-package flycheck-posframe
 ;;   :ensure t
 ;;   :after flycheck
@@ -412,6 +416,8 @@
   (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
   (setq web-mode-css-indent-offset 2)    ; web-mode, css in html file
   (setq web-mode-code-indent-offset 2)   ; web-mode, js code in html file
+  (setq web-mode-script-padding 0)
+  (setq web-mode-style-padding 0)
   (setq auto-mode-alist
         (append
          '(("\\.js\\'" . javascript-mode))
