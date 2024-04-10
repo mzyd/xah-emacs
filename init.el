@@ -287,18 +287,6 @@
 ;;   (define-key ac-menu-map "C-n" 'ac-next)
 ;;   (define-key ac-menu-map "C-p" 'ac-previous))
 
-(use-package flycheck
-  :ensure t
-  :config
-  (flycheck-add-mode 'typescript-tslint 'web-mode)
-  (add-hook 'after-init-hook #'global-flycheck-mode))
-
-
-;; (use-package flycheck-posframe
-;;   :ensure t
-;;   :after flycheck
-;;   :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
-
 (use-package symbol-overlay
   :ensure t
   :config
@@ -404,6 +392,8 @@
 (global-lsp-bridge-mode)
 ;; (setq lsp-bridge-enable-auto-format-code t)
 ;; (setq acm-completion-backend-merge-order '("template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
+;; 当光标悬停在诊断位置时显示诊断工具提示，默认禁用
+(setq lsp-bridge-enable-hover-diagnostic t)
 
 
 (use-package typescript-mode
