@@ -118,8 +118,14 @@
 
 (unless (eq system-type 'windows-nt)
   (progn
-    (add-to-list 'load-path "~/blink-search")
-    (require 'blink-search)))
+    (add-to-list 'load-path "~/emacs-packages/blink-search")
+    (add-to-list 'load-path "~/emacs-packages/holo-layer")
+    (require 'blink-search)
+    (require 'holo-layer)
+    (setq holo-layer-enable-cursor-animation t)
+    ;; (setq holo-layer-enable-indent-rainbow t) ;; 这行会导致 emacs 启动时卡死
+    (setq holo-layer-cursor-color "#FF7145")
+    (holo-layer-enable)))
 
 (require 'markmacro)
 (global-set-key (kbd "M-w m w") 'markmacro-mark-words)
@@ -267,26 +273,6 @@
   :bind ("C-a" . mwim-beginning)
   :bind ("C-e" . mwim-end))
 
-;; (use-package company
-;;   :ensure t
-;;   :config
-;;   (global-company-mode t)
-;;   (setq company-prefix 1)
-;;   (setq company-idle-delay 0.1)
-;;   (setq company-minimum-prefix-length 1)
-;;   :bind
-;;   (:map company-active-map
-;;         ([tab] . smarter-yas-expand-next-field-complete)
-;;         ("TAB" . smarter-yas-expand-next-field-complete)))
-;; (use-package auto-complete
-;;   :ensure t
-;;   :config
-;;   (ac-config-default)
-;;   (setq ac-auto-show-menu 0.02)
-;;   (setq ac-use-menu-map t)
-;;   (define-key ac-menu-map "C-n" 'ac-next)
-;;   (define-key ac-menu-map "C-p" 'ac-previous))
-
 (use-package symbol-overlay
   :ensure t
   :config
@@ -387,14 +373,13 @@
 
 (if (file-exists-p "~/AppData/Roaming/lsp-bridge")
     (add-to-list 'load-path "~/AppData/Roaming/lsp-bridge")
-  (add-to-list 'load-path "~/lsp-bridge"))
+  (add-to-list 'load-path "~/emacs-packages/lsp-bridge"))
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
 ;; (setq lsp-bridge-enable-auto-format-code t)
 ;; (setq acm-completion-backend-merge-order '("template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
 ;; 当光标悬停在诊断位置时显示诊断工具提示，默认禁用
 (setq lsp-bridge-enable-hover-diagnostic t)
-
 
 (use-package typescript-mode
   :ensure t)
@@ -484,16 +469,16 @@
     (if (looking-at-p "^ +\/?> *$")
         (delete-char sgml-basic-offset))))
 
-(when (eq system-type 'darwin)
-  (add-to-list 'load-path "~/org-ai")
-  (require 'org)
-  (require 'org-ai)
-  (add-hook 'org-mode-hook #'org-ai-mode)
-  (org-ai-global-mode)
-  (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
-  (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
-  ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
-  (setq org-ai-openai-api-token "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"))
+;; (when (eq system-type 'darwin)
+;;   (add-to-list 'load-path "~/org-ai")
+;;   (require 'org)
+;;   (require 'org-ai)
+;;   (add-hook 'org-mode-hook #'org-ai-mode)
+;;   (org-ai-global-mode)
+;;   (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
+;;   (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
+;;   ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
+;;   (setq org-ai-openai-api-token "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"))
 
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
