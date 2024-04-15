@@ -64,17 +64,33 @@
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 (define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
 
-(defun mzy/return-newline ()
+(defun mzy/web-newline ()
   (interactive)
   (indent-new-comment-line)
   (previous-line 1)
   (mwim-end)
-  (indent-new-comment-line)
+  ;; (indent-new-comment-line)
   (xah-fly-insert-mode-activate))
 
-(global-set-key (kbd "C-8") 'nil)
-(global-set-key (kbd "C-8") #'mzy/return-newline)
+;; (global-set-key (kbd "C-8") 'nil)
+;; (global-set-key (kbd "C-8") #'mzy/web-newline)
+(defun my-web-mode-enter ()
+  "根据条件执行 mzy/web-newline 或 newline。"
+  (interactive)
+  (when (and (bound-and-true-p xah-fly-insert-state-p)
+             (looking-back "{")
+             (looking-at "}"))
+    (mzy/web-newline)
+    (message "Executed mzy/web-newline"))
+  (unless (and (bound-and-true-p xah-fly-insert-state-p)
+               (looking-back "{")
+               (looking-at "}"))
+    (indent-new-comment-line)))
 
+;; 将函数绑定到 web-mode 的回车键
+(add-hook 'web-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'my-web-mode-enter)))
 
 ;; (define-key git-timemachine-mode-map (kbd "C-p") git-timemachine-visit)
 ;; auto save
@@ -100,7 +116,7 @@
            (file-name-extension (buffer-name)) t))
         (lambda ()
           (string-suffix-p
-           "rs"
+           "ts"
            (file-name-extension (buffer-name)) t))
         ))
 
@@ -220,6 +236,7 @@
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
+  (add-hook 'typescript-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   )
 
@@ -381,8 +398,22 @@
 ;; 当光标悬停在诊断位置时显示诊断工具提示，默认禁用
 (setq lsp-bridge-enable-hover-diagnostic t)
 
+(setq acm-completion-backend-merge-order '(
+                                           "template-first-part-candidates"
+                                           "mode-first-part-candidates"
+                                           ;; "tabnine-candidates"
+                                           ;; "copilot-candidates"
+                                           ;; "template-second-part-candidates"
+                                           ;; "codeium-candidates"
+                                           ;; "mode-second-part-candidates"
+                                           ))
+
+;; by default
+;; (setq acm-completion-backend-merge-order '("mode-first-part-candidates" "template-first-part-candidates" "tabnine-candidates" "copilot-candidates" "codeium-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
+
 (use-package typescript-mode
   :ensure t)
+(setq typescript-indent-level 2)
 
 (use-package web-mode
   :ensure t
