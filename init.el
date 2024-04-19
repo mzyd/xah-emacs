@@ -73,7 +73,7 @@
   (xah-fly-insert-mode-activate))
 
 ;; (global-set-key (kbd "C-8") 'nil)
-;; (global-set-key (kbd "C-8") #'mzy/web-newline)
+;; (global-set-key (kbd "C-8") #'yas-expand)
 (defun my-web-mode-enter ()
   "根据条件执行 mzy/web-newline 或 newline。"
   (interactive)
@@ -213,6 +213,8 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
+(require 'cache-path-from-shell)
+
 (use-package which-key
   :ensure t
   :config (which-key-mode)
@@ -220,7 +222,6 @@
 
 ;; (use-package restart-emacs
 ;; :ensure t)
-
 (use-package better-defaults
   :ensure t)
 
@@ -274,7 +275,6 @@
 (use-package youdao-dictionary
   :ensure t)
 (setq youdao-dictionary-app-key "28f71e17f86bb677")
-
 (setq youdao-dictionary-secret-key "3pa8HCD0cpAobIcvGtDqjZgivZ1FoOjH")
 
 (setq url-automatic-caching t)
@@ -393,27 +393,41 @@
   (add-to-list 'load-path "~/emacs-packages/lsp-bridge"))
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
-;; (setq lsp-bridge-enable-auto-format-code t)
-;; (setq acm-completion-backend-merge-order '("template-first-part-candidates" "mode-first-part-candidates" "tabnine-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
 ;; 当光标悬停在诊断位置时显示诊断工具提示，默认禁用
 (setq lsp-bridge-enable-hover-diagnostic t)
+(setq acm-enable-tabnine nil)
+(setq acm-enable-yas nil)
+(setq acm-backend-search-file-words-candidate-min-length 3)
 
-(setq acm-completion-backend-merge-order '(
-                                           "template-first-part-candidates"
-                                           "mode-first-part-candidates"
-                                           ;; "tabnine-candidates"
-                                           ;; "copilot-candidates"
-                                           ;; "template-second-part-candidates"
-                                           ;; "codeium-candidates"
-                                           ;; "mode-second-part-candidates"
-                                           ))
+;; (setq lsp-bridge-enable-log t)
 
-;; by default
-;; (setq acm-completion-backend-merge-order '("mode-first-part-candidates" "template-first-part-candidates" "tabnine-candidates" "copilot-candidates" "codeium-candidates" "template-second-part-candidates" "mode-second-part-candidates"))
+
+;; (use-package company
+;;   :ensure)
+;; (global-company-mode t)
+;; (setq company-idle-delay 0)
+;; (setq company-minimum-prefix-length 1)
+;; (use-package flycheck
+;;   :ensure t
+;;   :config
+;;   (add-hook 'after-init-hook #'global-flycheck-mode))
+;; (setq lsp-ui-sideline-show-diagnostics t)
+
+
+;; scheme-mode
+(use-package geiser
+  :ensure t
+  :config
+  (setq scheme-program-name "chez")
+  (setq geiser-default-implementation 'chez)
+  (setq geiser-active-implementations '(chez))
+  (setq geiser-chez-binary "chez")
+  (add-hook 'scheme-mode-hook 'geiser-mode))
 
 (use-package typescript-mode
-  :ensure t)
-(setq typescript-indent-level 2)
+  :ensure t
+  :config
+  (setq typescript-indent-level 2))
 
 (use-package web-mode
   :ensure t
@@ -440,7 +454,7 @@
   :ensure t
   :config
   (add-hook 'html-mode-hook 'emmet-mode)
-  (add-hook 'web-mode-hook 'emmet-mode)
+  ;; (add-hook 'web-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook 'emmet-mode))
 (define-key web-mode-map (kbd "C-c c") 'emmet-expand-yas)
 
@@ -451,9 +465,6 @@
   (add-hook 'css-mode-hook
             '(lambda()
                (setq tab-width 4))))
-
-(use-package vue-mode
-  :ensure t)
 
 (use-package smex
   :ensure t)
@@ -605,7 +616,7 @@
 (define-key xah-fly-command-map (kbd "5") 'sort-tab-close-current-tab)
 (define-key xah-fly-command-map (kbd "e 5") 'sort-tab-close-all-tabs)
 
-(define-key xah-fly-command-map (kbd "e t d") 'lsp-bridge-find-def-other-window)
+;; (define-key xah-fly-command-map (kbd "e t d") 'lsp-bridge-find-def-other-window)
 
 ;; (define-key xah-fly-command-map (kbd "e c n") 'insert-translated-name-insert)
 
