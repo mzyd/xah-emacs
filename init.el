@@ -424,6 +424,8 @@
   (setq geiser-chez-binary "chez")
   (add-hook 'scheme-mode-hook 'geiser-mode))
 
+;; (define-key geiser-repl-mode-map (kbd "C-8") 'geiser-repl--newline-and-indent)
+
 (use-package typescript-mode
   :ensure t
   :config
@@ -541,6 +543,9 @@
 ;;   )
 ;; (setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
 
+
+;; ****************** key binding *********************
+
 (defun mzy/delete-current-letter-and-insert ()
   (interactive)
   (delete-char 1)
@@ -550,6 +555,11 @@
 (define-key xah-fly-command-map (kbd "e") nil)
 (define-key xah-fly-command-map (kbd "m") nil)
 (define-key xah-fly-command-map (kbd "v") nil)
+(define-key xah-fly-command-map (kbd "l") nil)
+
+(define-key xah-fly-command-map (kbd "l") 'mzy/xah-fly-l-key)
+(define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
+(define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
 
 (define-key xah-fly-command-map (kbd "e d") 'symbol-overlay-jump-to-definition)
 (define-key xah-fly-command-map (kbd "e l") 'mzy/kill-and-edit-line)
@@ -569,24 +579,27 @@
 
 (define-key xah-fly-command-map (kbd "' - -") 'mzy/insert-underline-on-both-sides)
 (define-key xah-fly-command-map (kbd "' w w") 'mzy/copy-window-in-another-buffer)
-(define-key xah-fly-command-map (kbd "' w d") 'delete-window)
 
 (define-key xah-fly-command-map (kbd "e s s") 'counsel-git-grep)
 (define-key xah-fly-command-map (kbd "e s c") 'mzy/git-grep-at-point)
 (define-key xah-fly-command-map (kbd "e s l") 'eslint-fix)
-(define-key xah-fly-command-map (kbd "e s w") 'youdao-dictionary-search-at-point-tooltip)
+(define-key xah-fly-command-map (kbd "e s w") 'youdao-dictfionary-search-at-point-tooltip)
 
-(define-key xah-fly-command-map (kbd "e j d") 'mzy/jump-to-data)
-(define-key xah-fly-command-map (kbd "e j s") 'mzy/jump-to-style)
-(define-key xah-fly-command-map (kbd "e j m") 'mzy/jump-to-methods)
-(define-key xah-fly-command-map (kbd "e j j") 'mzy/jump-to-script-tag)
+(defun mzy/xah-fly-ej-key ()
+  (interactive)
+  (when (and buffer-file-name (string= (file-name-extension buffer-file-name) "vue") (derived-mode-p 'web-mode))
+    (define-key xah-fly-command-map (kbd "e j d") 'mzy/jump-to-data)
+    (define-key xah-fly-command-map (kbd "e j s") 'mzy/jump-to-style)
+    (define-key xah-fly-command-map (kbd "e j m") 'mzy/jump-to-methods)
+    (define-key xah-fly-command-map (kbd "e j j") 'mzy/jump-to-script-tag)))
+
+(add-hook 'web-mode-hook #'mzy/xah-fly-ej-key)
 
 (define-key xah-fly-command-map (kbd "e 8") 'mzy/copy-at-point-for-js)
 (define-key xah-fly-command-map (kbd "e y") 'helm-show-kill-ring)
-
 (define-key xah-fly-command-map (kbd "e TAB") 'switch-to-previous-buffer)
-
 (define-key xah-fly-command-map (kbd "e o v") 'org-download-clipboard)
+
 ;; vundo
 ;; f   to go forward
 ;; b   to go backward
@@ -624,11 +637,8 @@
 ;; (define-key xah-fly-command-map (kbd "e c") 'mzy/remember-jump-previous)
 ;; (define-key xah-fly-command-map (kbd "e t") 'mzy/remember-jump-next)
 
-(define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
-(define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
 
 ;; (fset 'delete-empty-lines (kbd "M-x flush-lines RET ^\s-*$ RET"))
-
 
 
 
