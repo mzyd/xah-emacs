@@ -72,8 +72,8 @@
   ;; (indent-new-comment-line)
   (xah-fly-insert-mode-activate))
 
-;; (global-set-key (kbd "C-8") 'nil)
-;; (global-set-key (kbd "C-8") #'yas-expand)
+(global-set-key (kbd "C-8") 'nil)
+(global-set-key (kbd "C-8") #'xah-insert-paren)
 (defun my-web-mode-enter ()
   "根据条件执行 mzy/web-newline 或 newline。"
   (interactive)
@@ -180,6 +180,12 @@
 
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") '(lambda ()
+                                          (newline 1)
+                                          (xah-shrink-whitespaces)))))
+
 
 ;; set language environment
 (set-language-environment 'UTF-8)
@@ -237,9 +243,7 @@
   (add-hook 'js-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   ;; (add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  (add-hook 'typescript-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  ;; (add-hook 'vue-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
-  )
+  (add-hook 'typescript-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t))))
 
 ;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
 
@@ -398,9 +402,9 @@
 (setq acm-enable-tabnine nil)
 (setq acm-enable-yas nil)
 (setq acm-backend-search-file-words-candidate-min-length 3)
+;; (setq acm-backend-lsp-block-kind-list '("Snippet" "Enum"))
 
 ;; (setq lsp-bridge-enable-log t)
-
 
 ;; (use-package company
 ;;   :ensure)
@@ -412,7 +416,6 @@
 ;;   :config
 ;;   (add-hook 'after-init-hook #'global-flycheck-mode))
 ;; (setq lsp-ui-sideline-show-diagnostics t)
-
 
 ;; scheme-mode
 (use-package geiser
@@ -583,7 +586,7 @@
 (define-key xah-fly-command-map (kbd "e s s") 'counsel-git-grep)
 (define-key xah-fly-command-map (kbd "e s c") 'mzy/git-grep-at-point)
 (define-key xah-fly-command-map (kbd "e s l") 'eslint-fix)
-(define-key xah-fly-command-map (kbd "e s w") 'youdao-dictfionary-search-at-point-tooltip)
+(define-key xah-fly-command-map (kbd "e s w") 'youdao-dictionary-search-at-point-tooltip)
 
 (defun mzy/xah-fly-ej-key ()
   (interactive)
