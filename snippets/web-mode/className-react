@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: className for react
+# key: cr
+# --
+className={styles.$1}

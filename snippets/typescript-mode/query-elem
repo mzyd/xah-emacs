@@ -1,8 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Mzy
-# name: class
-# key: cn
+# name: query-elem
+# key: qq
 # --
-.$1{
-    $2: $3;
-}
+querySelector("$1")
