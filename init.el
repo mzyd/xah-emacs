@@ -1,12 +1,10 @@
 ;; M-x package-refresh-contents
-
 (let (;; temporarily increase `gc-cons-threshold' when loading to speed up startup.
       (gc-cons-threshold most-positive-fixnum)
       ;; Empty to avoid analyzing files when loading remote files.
       (file-name-handler-alist nil))
   ;; Emacs configuration file content is written below.
   )
-
 
 (require 'package)
 
@@ -24,6 +22,12 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 (add-to-list 'load-path "~/.emacs.d/config/")
 (require 'mzy-fuss)
 
@@ -34,6 +38,21 @@
 (require 'xah-fly-keys)
 
 ;; (desktop-save-mode 1)
+(add-to-list 'load-path "~/emacs-packages/lsp-bridge")
+;; (if (file-exists-p "~/AppData/Roaming/lsp-bridge")
+;;     (add-to-list 'load-path "~/AppData/Roaming/lsp-bridge")
+;;   (add-to-list 'load-path "~/emacs-packages/lsp-bridge"))
+(require 'lsp-bridge)
+(global-lsp-bridge-mode)
+;; 当光标悬停在诊断位置时显示诊断工具提示，默认禁用
+(setq lsp-bridge-enable-hover-diagnostic t)
+(setq acm-enable-tabnine nil)
+(setq acm-enable-yas nil)
+(setq acm-backend-search-file-words-candidate-min-length 3)
+;; (setq lsp-bridge-python-command "/opt/homebrew/bin/python3")
+;; (setq acm-backend-lsp-block-kind-list '("Snippet" "Enum"))
+
+;; (setq lsp-bridge-enable-log t)
 
 (require 'sort-tab)
 (setq sort-tab-hide-function '(lambda (buf) (with-current-buffer buf (derived-mode-p 'dired-mode))))
@@ -49,7 +68,9 @@
 (when (not (string= system-type 'gnu/linux))
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-position nil))
-
+(setq awesome-tray-separator "🔺")
+(setq awesome-tray-active-modules
+      '("location" "git" "belong" "date" "mode-name"))
 (require 'color-rg)
 
 ;; (require 'insert-translated-name)
@@ -64,6 +85,15 @@
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 (define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
 
+
+;; ******************* 清空键位
+(define-key xah-fly-command-map (kbd "'") nil)
+(define-key xah-fly-command-map (kbd "e") nil)
+(define-key xah-fly-command-map (kbd "m") nil)
+(define-key xah-fly-command-map (kbd "v") nil)
+(define-key xah-fly-command-map (kbd "l") nil)
+
+
 (defun mzy/web-newline ()
   (interactive)
   (indent-new-comment-line)
@@ -72,8 +102,6 @@
   ;; (indent-new-comment-line)
   (xah-fly-insert-mode-activate))
 
-(global-set-key (kbd "C-8") 'nil)
-(global-set-key (kbd "C-8") #'xah-insert-paren)
 (defun my-web-mode-enter ()
   "根据条件执行 mzy/web-newline 或 newline。"
   (interactive)
@@ -132,30 +160,41 @@
       (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk)
       ))
 
-(unless (eq system-type 'windows-nt)
-  (progn
-    (add-to-list 'load-path "~/emacs-packages/blink-search")
-    (add-to-list 'load-path "~/emacs-packages/holo-layer")
-    (require 'blink-search)
-    (require 'holo-layer)
-    (setq holo-layer-enable-cursor-animation t)
-    ;; (setq holo-layer-enable-indent-rainbow t) ;; 这行会导致 emacs 启动时卡死
-    (setq holo-layer-cursor-color "#FF7145")
-    (holo-layer-enable)))
+(add-to-list 'load-path "~/emacs-packages/holo-layer")
+(require 'holo-layer)
+(setq holo-layer-enable-cursor-animation t)
+;; (setq holo-layer-cursor-color "#FF7145") ; 橙色
+(setq holo-layer-cursor-color "#10ff00") ; 绿色
+(setq holo-layer-cursor-alpha 100)
+;; (setq holo-layer-enable-window-border nil)
+(add-to-list 'holo-layer-cursor-block-commands "self-insert-command")
+(holo-layer-enable)
 
-(require 'markmacro)
-(global-set-key (kbd "M-w m w") 'markmacro-mark-words)
-(global-set-key (kbd "M-w m l") 'markmacro-mark-lines)
-(global-set-key (kbd "M-w m c") 'markmacro-mark-chars)
-(global-set-key (kbd "M-w m i") 'markmacro-mark-imenus)
-(global-set-key (kbd "M-w a") 'markmacro-apply-all)
-(global-set-key (kbd "M-w e") 'markmacro-apply-all-except-first)
-(global-set-key (kbd "M-w r s") 'markmacro-rect-set)
-(global-set-key (kbd "M-w r d") 'markmacro-rect-delete)
-(global-set-key (kbd "M-w r r") 'markmacro-rect-replace)
-(global-set-key (kbd "M-w r i") 'markmacro-rect-insert)
-(global-set-key (kbd "M-w m o") 'markmacro-rect-mark-columns)
-(global-set-key (kbd "M-w m s") 'markmacro-rect-mark-symbols)
+;; (unless (eq system-type 'windows-nt)
+;;   (progn
+;;     (add-to-list 'load-path "~/emacs-packages/blink-search")
+;;     (add-to-list 'load-path "~/emacs-packages/holo-layer")
+;;     (require 'blink-search)
+;;     (require 'holo-layer)
+;;     (setq holo-layer-enable-cursor-animation t)
+;;     ;; (setq holo-layer-enable-indent-rainbow t) ;; 这行会导致 emacs 启动时卡死
+;;     (setq holo-layer-cursor-color "#FF7145")
+;;     (holo-layer-enable)))
+
+;; 看过文档再定义键位
+;; (require 'markmacro)
+;; (global-set-key (kbd "M-w m w") 'markmacro-mark-words)
+;; (global-set-key (kbd "M-w m l") 'markmacro-mark-lines)
+;; (global-set-key (kbd "M-w m c") 'markmacro-mark-chars)
+;; (global-set-key (kbd "M-w m i") 'markmacro-mark-imenus)
+;; (global-set-key (kbd "M-w a") 'markmacro-apply-all)
+;; (global-set-key (kbd "M-w e") 'markmacro-apply-all-except-first)
+;; (global-set-key (kbd "M-w r s") 'markmacro-rect-set)
+;; (global-set-key (kbd "M-w r d") 'markmacro-rect-delete)
+;; (global-set-key (kbd "M-w r r") 'markmacro-rect-replace)
+;; (global-set-key (kbd "M-w r i") 'markmacro-rect-insert)
+;; (global-set-key (kbd "M-w m o") 'markmacro-rect-mark-columns)
+;; (global-set-key (kbd "M-w m s") 'markmacro-rect-mark-symbols)
 
 ;; ========================== basic setting =============================
 (custom-set-faces
@@ -180,12 +219,25 @@
 
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "RET") '(lambda ()
-                                          (newline 1)
-                                          (xah-shrink-whitespaces)))))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (local-set-key (kbd "RET") '(lambda ()
+;;                                           (newline 1)
+;;                                           (xah-shrink-whitespaces)))))
 
+(setq hippie-expand-try-functions-list
+      '(
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        ;; try-expand-dabbrev-from-kill
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol
+        try-complete-file-name-partially
+        try-complete-file-name
+        ;; try-expand-all-abbrevs
+        ;; try-expand-list
+        ;; try-expand-line
+        ))
 
 ;; set language environment
 (set-language-environment 'UTF-8)
@@ -195,6 +247,7 @@
   :ensure t
   :config
   (load-theme 'material-light t)
+  (set-cursor-color "#0011ff"); 蓝色
   (setq-default mode-line-format nil))
 
 
@@ -212,9 +265,6 @@
 
 (sp-local-pair 'emacs-lisp-mode "`" nil :actions nil)
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-
-(use-package exec-path-from-shell
-  :ensure t)
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -273,13 +323,12 @@
 (use-package yasnippet
   :ensure t
   :config
-  (add-to-list 'load-path "~/.emacs.d/yasnippet")
   (yas-global-mode 1))
 
 (use-package youdao-dictionary
   :ensure t)
-(setq youdao-dictionary-app-key "28f71e17f86bb677")
-(setq youdao-dictionary-secret-key "3pa8HCD0cpAobIcvGtDqjZgivZ1FoOjH")
+(setq youdao-dictionary-app-key "69da6938ff66ae77")
+(setq youdao-dictionary-secret-key "MVCHnxojn19AFwUpyiuHUtaQcbHj9s1b")
 
 (setq url-automatic-caching t)
 
@@ -294,20 +343,17 @@
   :bind ("C-a" . mwim-beginning)
   :bind ("C-e" . mwim-end))
 
+
+(define-key xah-fly-command-map (kbd "m") nil)
+(define-key xah-fly-command-map (kbd "v") nil)
 (use-package symbol-overlay
   :ensure t
   :config
-  :bind ("M-i" . symbol-overlay-put)
-  :bind ("M-t" . symbol-overlay-jump-next)
-  :bind ("M-c" . symbol-overlay-jump-prev))
-(let ((map (make-sparse-keymap)))
-  (define-key map (kbd "p") 'nil)
-  (define-key map (kbd "n") 'nil)
-  (define-key map (kbd "h") 'nil)
-  (setq symbol-overlay-map map))
-;; (define-key symbol-overlay-map (kbd "p") 'nil)
-;; (define-key symbol-overlay-map (kbd "n") 'nil)
-;; (define-key symbol-overlay-map (kbd "h") 'nil)
+  (setq symbol-overlay-map (make-sparse-keymap)) ; 直接清空键映射
+  :bind
+  (:map xah-fly-command-map
+        ("m" . symbol-overlay-jump-prev)
+        ("v" . symbol-overlay-jump-next)))
 
 (use-package swiper
   :ensure t
@@ -344,11 +390,19 @@
     (set-face-foreground 'git-gutter:added "green")
     (set-face-foreground 'git-gutter:deleted "#cc0000")
     ))
-
-
 (when (eq system-type 'windows-nt)
   (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
   (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk))
+
+;; (use-package diff-hl
+;;   :ensure
+;;   :config (global-diff-hl-mode))
+;; (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+;; 显示函数签名
+;; (use-package eldoc-overlay
+;;   :ensure t
+;;   :init (eldoc-overlay-mode 1))
 
 (when (eq system-type 'darwin)
   (require 'mac-key-mode)
@@ -392,25 +446,13 @@
 (use-package posframe
   :ensure t)
 
-(if (file-exists-p "~/AppData/Roaming/lsp-bridge")
-    (add-to-list 'load-path "~/AppData/Roaming/lsp-bridge")
-  (add-to-list 'load-path "~/emacs-packages/lsp-bridge"))
-(require 'lsp-bridge)
-(global-lsp-bridge-mode)
-;; 当光标悬停在诊断位置时显示诊断工具提示，默认禁用
-(setq lsp-bridge-enable-hover-diagnostic t)
-(setq acm-enable-tabnine nil)
-(setq acm-enable-yas nil)
-(setq acm-backend-search-file-words-candidate-min-length 3)
-;; (setq acm-backend-lsp-block-kind-list '("Snippet" "Enum"))
-
-;; (setq lsp-bridge-enable-log t)
 
 ;; (use-package company
 ;;   :ensure)
 ;; (global-company-mode t)
 ;; (setq company-idle-delay 0)
 ;; (setq company-minimum-prefix-length 1)
+
 ;; (use-package flycheck
 ;;   :ensure t
 ;;   :config
@@ -418,14 +460,14 @@
 ;; (setq lsp-ui-sideline-show-diagnostics t)
 
 ;; scheme-mode
-(use-package geiser
-  :ensure t
-  :config
-  (setq scheme-program-name "chez")
-  (setq geiser-default-implementation 'chez)
-  (setq geiser-active-implementations '(chez))
-  (setq geiser-chez-binary "chez")
-  (add-hook 'scheme-mode-hook 'geiser-mode))
+;; (use-package geiser
+;;   :ensure t
+;;   :config
+;;   (setq scheme-program-name "chez")
+;;   (setq geiser-default-implementation 'chez)
+;;   (setq geiser-active-implementations '(chez))
+;;   (setq geiser-chez-binary "chez")
+;;   (add-hook 'scheme-mode-hook 'geiser-mode))
 
 ;; (define-key geiser-repl-mode-map (kbd "C-8") 'geiser-repl--newline-and-indent)
 
@@ -448,9 +490,10 @@
          '(("\\.js\\'" . javascript-mode))
          '(("\\.html\\'" . web-mode))
          '(("\\.wxml\\'" . web-mode))
-         '(("\\.css\\'" . scss-mode))
+         '(("\\.css\\'" . css-mode))
          '(("\\.vue\\'" . web-mode))
          '(("\\.tsx\\'" . web-mode))
+         '(("\\.hbs\\'" . web-mode))
          auto-mode-alist)))
 
 (setq js-indent-level 2)
@@ -462,14 +505,6 @@
   ;; (add-hook 'web-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook 'emmet-mode))
 (define-key web-mode-map (kbd "C-c c") 'emmet-expand-yas)
-
-(use-package scss-mode
-  :ensure t
-  :config
-  (setq css-indent-offset 2)
-  (add-hook 'css-mode-hook
-            '(lambda()
-               (setq tab-width 4))))
 
 (use-package smex
   :ensure t)
@@ -508,6 +543,15 @@
 
 (add-hook 'dired-mode-hook 'org-download-enable)
 
+;; 代替 dired-mode
+;; (use-package dirvish
+;;   :ensure)
+
+;; (use-package all-the-icons
+;;   :if (display-graphic-p)
+;;   :config (setq inhibit-compacting-font-caches t))
+
+;; ********************************************
 
 (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
   "Workaround sgml-mode and follow airbnb component style."
@@ -535,16 +579,132 @@
                                           js-indent-level 2
                                           js2-strict-missing-semi-warning nil)))
 
-;; (add-hook 'xah-fly-insert-mode-activate-hook #'remember-init)
+(defun mzy/wrap-with-html-tag (tag-name)
+  "Wrap the selected region with specified HTML tag.
+If region is not active, do nothing.
+TAG-NAME is the HTML tag name without angle brackets."
+  (interactive "sEnter tag name (without <>): ")
+  (if (use-region-p)
+      (let* ((region-beginning (region-beginning))
+             (region-end (region-end))
+             (tag-name (downcase (string-trim tag-name)))
+             (has-attributes (string-match-p "\\s-+" tag-name))
+             (base-tag (if has-attributes
+                          (car (split-string tag-name "\\s-+"))
+                        tag-name))
+             (attributes (if has-attributes
+                           (concat " " (mapconcat 'identity (cdr (split-string tag-name "\\s-+")) " "))
+                         ""))
+             (opening-tag (format "<%s%s>" base-tag attributes))
+             (closing-tag (format "</%s>" base-tag)))
+        ;; Insert tags around region
+        (save-excursion
+          (goto-char region-end)
+          (insert closing-tag)
+          (goto-char region-beginning)
+          (insert opening-tag)))
+    (message "No region selected!")))
 
-;; (defun mzy/lsp-bridge-is-xah-command-state ()
-;;   "If `xah-command' mode is enable, only show completion when xah-fly-keys is in insert mode."
-;;   (interactive)
-;;   (if xah-fly-insert-state-p
-;;       t
-;;     nil)
-;;   )
-;; (setq lsp-bridge-completion-popup-predicates '(mzy/lsp-bridge-is-xah-command-state lsp-bridge-not-follow-complete lsp-bridge-not-match-stop-commands lsp-bridge-not-match-hide-characters lsp-bridge-not-only-blank-before-cursor lsp-bridge-not-in-string lsp-bridge-not-in-org-table lsp-bridge-not-execute-macro lsp-bridge-not-in-multiple-cursors lsp-bridge-not-in-mark-macro lsp-bridge-is-evil-state lsp-bridge-is-meow-state lsp-bridge-not-complete-manually))
+(defun mzy/wrap-line-with-li ()
+  "Wrap the current line with <li> tags.
+Removes leading and trailing whitespace before wrapping.
+If the line is empty or contains only whitespace, do nothing."
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (let* ((line-start (point))
+           ;; Get end of line position
+           (line-end (progn (end-of-line) (point)))
+           ;; Get line content
+           (line-content (buffer-substring-no-properties line-start line-end))
+           ;; Trim whitespace and check if line is empty
+           (trimmed-content (string-trim line-content))
+           (line-empty (string-empty-p trimmed-content)))
+      (if (not line-empty)
+          (progn
+            ;; Delete the original line content
+            (delete-region line-start line-end)
+            ;; Insert the trimmed content with li tags
+            (insert (concat "<li>" trimmed-content "</li>")))
+        (message "Current line is empty!")))))
+
+(defun wrap-line-with-li ()
+  "Wrap the current line with <li> tags.
+Removes leading and trailing whitespace before wrapping.
+If the line is empty or contains only whitespace, skip it."
+  (save-excursion
+    (beginning-of-line)
+    (let* ((line-start (point))
+           (line-end (progn (end-of-line) (point)))
+           (line-content (buffer-substring-no-properties line-start line-end))
+           (trimmed-content (string-trim line-content))
+           (line-empty (string-empty-p trimmed-content)))
+      (unless line-empty
+        (delete-region line-start line-end)
+        (insert (concat "<li>" trimmed-content "</li>"))))))
+
+
+(defun mzy/wrap-region-with-li ()
+  "Wrap each non-empty line in the selected region with <li> tags.
+If no region is selected, operate on current line only."
+  (interactive)
+  (if (use-region-p)
+      (let ((start-line (line-number-at-pos (region-beginning)))
+            (end-line (line-number-at-pos (region-end))))
+        (save-excursion
+          ;; Go to first line of region
+          (goto-char (region-beginning))
+          (beginning-of-line)
+          ;; Process each line in region
+          (while (<= (line-number-at-pos) end-line)
+            (wrap-line-with-li)
+            (forward-line 1))))
+    ;; If no region selected, just process current line
+    (wrap-line-with-li)))
+
+;; Optional: Bind the functions to keys
+;; (global-set-key (kbd "C-c l") 'wrap-line-with-li)      ; 单行
+;; (global-set-key (kbd "C-c L") 'wrap-region-with-li)    ; 多行
+
+
+(defun remove-html-tags-and-colons ()
+  "Remove HTML tags and colons from the selected region."
+  (interactive)
+  (when (use-region-p)
+    (let ((start (region-beginning))
+          (end (region-end)))
+      (save-excursion
+        ;; 去除 HTML 标签
+        (goto-char start)
+        (while (re-search-forward "<[^>]*>" end t)
+          (replace-match "" nil nil))
+
+        ;; 去除冒号
+        (goto-char start)
+        (while (re-search-forward ":" end t)
+          (replace-match "" nil nil))
+
+        ;; 去除多余的空白
+        (goto-char start)
+        (while (re-search-forward "[ \t]+" end t)
+          (replace-match " " nil nil))))))
+
+(defun remove-newlines-and-spaces ()
+  "Remove all newlines and spaces from the selected region."
+  (interactive)
+  (when (use-region-p)
+    (let ((start (region-beginning))
+          (end (region-end)))
+      (save-excursion
+        ;; 去除所有换行
+        (goto-char start)
+        (while (re-search-forward "\n" end t)
+          (replace-match "" nil nil))
+
+        ;; 去除所有空格（包括空白字符）
+        (goto-char start)
+        (while (re-search-forward "[ \t]+" end t)
+          (replace-match "" nil nil))))))
 
 
 ;; ****************** key binding *********************
@@ -554,16 +714,9 @@
   (delete-char 1)
   (xah-fly-insert-mode-activate))
 
-(define-key xah-fly-command-map (kbd "'") nil)
-(define-key xah-fly-command-map (kbd "e") nil)
-(define-key xah-fly-command-map (kbd "m") nil)
-(define-key xah-fly-command-map (kbd "v") nil)
-(define-key xah-fly-command-map (kbd "l") nil)
 
+;; ************ 键位映射
 (define-key xah-fly-command-map (kbd "l") 'mzy/xah-fly-l-key)
-(define-key xah-fly-command-map (kbd "m") 'symbol-overlay-jump-prev)
-(define-key xah-fly-command-map (kbd "v") 'symbol-overlay-jump-next)
-
 (define-key xah-fly-command-map (kbd "e d") 'symbol-overlay-jump-to-definition)
 (define-key xah-fly-command-map (kbd "e l") 'mzy/kill-and-edit-line)
 (define-key xah-fly-command-map (kbd "e m") 'remember-init)
@@ -576,6 +729,16 @@
 ;; (define-key xah-fly-command-map (kbd "' r") 'xah-reformat-lines)
 (define-key xah-fly-command-map (kbd "e c c") 'thing-copy-parentheses)
 (define-key xah-fly-command-map (kbd "e c x") 'thing-cut-parentheses)
+(define-key xah-fly-command-map (kbd "e c t") 'mzy/wrap-with-html-tag)
+(define-key xah-fly-command-map (kbd "e c l") 'mzy/wrap-line-with-li)
+(define-key xah-fly-command-map (kbd "e c a") 'mzy/wrap-region-with-li)
+(define-key xah-fly-command-map (kbd "e c a") 'mzy/wrap-region-with-li)
+(define-key xah-fly-command-map (kbd "e c m") 'remove-html-tags-and-colons)
+(define-key xah-fly-command-map (kbd "e c r") 'remove-newlines-and-spaces)
+
+
+
+
 (define-key xah-fly-command-map (kbd "e <DEL>") 'thing-cut-word)
 (define-key xah-fly-command-map (kbd "e w") 'mzy/edit-at-point-word)
 (define-key xah-fly-command-map (kbd "e r") 'symbol-overlay-query-replace)
@@ -643,7 +806,13 @@
 
 ;; (fset 'delete-empty-lines (kbd "M-x flush-lines RET ^\s-*$ RET"))
 
-
+(global-set-key (kbd "C-8") 'nil)
+(define-key xah-fly-insert-map (kbd "C-8 d") 'lsp-bridge-find-def)
+(define-key xah-fly-insert-map (kbd "C-8 t") 'lsp-bridge-find-type-def)
+(define-key xah-fly-insert-map (kbd "C-8 n") 'lsp-bridge-diagnostic-jump-next)
+(define-key xah-fly-insert-map (kbd "C-8 p") 'lsp-bridge-diagnostic-jump-prev)
+(define-key xah-fly-insert-map (kbd "C-8 l") 'lsp-bridge-diagnostic-list)
+(define-key xah-fly-insert-map (kbd "C-8 c") 'lsp-bridge-diagnostic-copy)
 
 (setq treesit-language-source-alist
       '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))

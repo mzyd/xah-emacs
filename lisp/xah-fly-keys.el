@@ -3147,7 +3147,7 @@ Version 2022-10-31"
        ;; `
 
        ("3" . delete-window)
-       ("4" . split-window-right)
+       ("4" . split-window-below)
        ("5" . balance-windows)
        ("6" . xah-upcase-sentence)
 
@@ -3423,7 +3423,7 @@ Version 2022-10-31"
        ("1" . undefined)
        ("2" . undefined)
        ("3" . delete-other-windows)
-       ("4" . split-window-below)
+       ("4" . split-window-right)
        ("5" . delete-char)
        ("6" . xah-select-block)
        ("7" . xah-select-line)

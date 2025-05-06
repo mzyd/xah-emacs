@@ -123,7 +123,7 @@ that SEARCH-STRING is visible."
         (let* ((display-start (cons nil nil))
                (display-tail display-start)
                (no-match-yet (null first-line)))
-          (while (and lines (or (>= (decf max-lines) 0)
+          (while (and lines (or (>= (cl-decf max-lines) 0)
                                 no-match-yet))
             (let* ((line (pop lines))
                    (pos (kill-ring-search-substring search-string line)))
