@@ -28,6 +28,11 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+;; (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
+;; (require 'eaf)
+;; (require 'eaf-pdf-viewer)
+;; (require 'eaf-browser)
+
 (add-to-list 'load-path "~/.emacs.d/config/")
 (require 'mzy-fuss)
 
@@ -36,6 +41,24 @@
 
 (require 'thing-edit)
 (require 'xah-fly-keys)
+
+
+(use-package yasnippet
+  :defer t
+  :ensure t
+  :config
+  (yas-global-mode 1))
+
+(use-package markdown-mode
+  :defer t
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do)))
+
+(use-package posframe
+  :ensure t)
 
 ;; (desktop-save-mode 1)
 (add-to-list 'load-path "~/emacs-packages/lsp-bridge")
@@ -68,9 +91,26 @@
 (when (not (string= system-type 'gnu/linux))
   (setq awesome-tray-second-line nil)
   (setq awesome-tray-position nil))
-(setq awesome-tray-separator "🔺")
+;; (setq awesome-tray-separator " 🐸 ")
+;; (setq awesome-tray-separator " 🍄 ")
+(setq awesome-tray-separator " 🌱 ")
+;; 🔧  🍀 🌱 🐞 🍄 🀅 🐸 ❖ ♦
+
+(defface my-module-hello-face
+  ;; '((t (:italic t))) ;; 斜体
+  '((t))
+  "Hello module face."
+  :group 'awesome-tray)
+
+(defun my-buffer-modified-status ()
+  (if (buffer-modified-p) " 🌈 " ""))
+
+(add-to-list 'awesome-tray-module-alist
+           '("my-buffer-modified" . (my-buffer-modified-status my-module-hello-face)))
+
 (setq awesome-tray-active-modules
-      '("location" "git" "belong" "date" "mode-name"))
+      '("my-buffer-modified" "location" "git" "date" "mode-name"))
+
 (require 'color-rg)
 
 ;; (require 'insert-translated-name)
@@ -170,16 +210,21 @@
 (add-to-list 'holo-layer-cursor-block-commands "self-insert-command")
 (holo-layer-enable)
 
-;; (unless (eq system-type 'windows-nt)
-;;   (progn
-;;     (add-to-list 'load-path "~/emacs-packages/blink-search")
-;;     (add-to-list 'load-path "~/emacs-packages/holo-layer")
-;;     (require 'blink-search)
-;;     (require 'holo-layer)
-;;     (setq holo-layer-enable-cursor-animation t)
-;;     ;; (setq holo-layer-enable-indent-rainbow t) ;; 这行会导致 emacs 启动时卡死
-;;     (setq holo-layer-cursor-color "#FF7145")
-;;     (holo-layer-enable)))
+(unless (eq system-type 'windows-nt)
+  (progn
+    (add-to-list 'load-path "~/emacs-packages/blink-search")
+    (require 'blink-search)
+    (setq blink-search-enable-posframe t)
+    (define-key blink-search-mode-map (kbd "<up>") 'blink-search-candidate-select-prev)
+    (define-key blink-search-mode-map (kbd "<down>") 'blink-search-candidate-select-next)
+    (define-key blink-search-mode-map (kbd "C-b") 'blink-search-parent)
+    ))
+
+(defun my-blink-search ()
+    (interactive)
+    (blink-search)
+    (xah-fly-insert-mode-activate))
+
 
 ;; 看过文档再定义键位
 ;; (require 'markmacro)
@@ -320,10 +365,6 @@
 ;; (use-package avy
 ;;   :ensure t)
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode 1))
 
 (use-package youdao-dictionary
   :ensure t)
@@ -436,16 +477,6 @@
 (require 'zone)
 (zone-when-idle 6000)
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
-
-(use-package posframe
-  :ensure t)
-
 
 ;; (use-package company
 ;;   :ensure)
@@ -512,10 +543,6 @@
 ;; (use-package copilot
 ;;   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
 ;;   :ensure t)
-
-;; (add-to-list 'load-path "~/emacs-application-framework/")
-;; (require 'eaf)
-;; (require 'eaf-browser)
 
 (use-package edit-at-point
   :ensure)
@@ -813,35 +840,3 @@ If no region is selected, operate on current line only."
 (define-key xah-fly-insert-map (kbd "C-8 p") 'lsp-bridge-diagnostic-jump-prev)
 (define-key xah-fly-insert-map (kbd "C-8 l") 'lsp-bridge-diagnostic-list)
 (define-key xah-fly-insert-map (kbd "C-8 c") 'lsp-bridge-diagnostic-copy)
-
-(setq treesit-language-source-alist
-      '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
-        (c . ("https://github.com/tree-sitter/tree-sitter-c"))
-        (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
-        (css . ("https://github.com/tree-sitter/tree-sitter-css"))
-        (cmake . ("https://github.com/uyha/tree-sitter-cmake"))
-        (csharp     . ("https://github.com/tree-sitter/tree-sitter-c-sharp.git"))
-        (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile"))
-        (elisp . ("https://github.com/Wilfred/tree-sitter-elisp"))
-        (go . ("https://github.com/tree-sitter/tree-sitter-go"))
-        (gomod      . ("https://github.com/camdencheek/tree-sitter-go-mod.git"))
-        (html . ("https://github.com/tree-sitter/tree-sitter-html"))
-        (java       . ("https://github.com/tree-sitter/tree-sitter-java.git"))
-        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
-        (json . ("https://github.com/tree-sitter/tree-sitter-json"))
-        (lua . ("https://github.com/Azganoth/tree-sitter-lua"))
-        (make . ("https://github.com/alemuller/tree-sitter-make"))
-        (markdown . ("https://github.com/MDeiml/tree-sitter-markdown" nil "tree-sitter-markdown/src"))
-        (ocaml . ("https://github.com/tree-sitter/tree-sitter-ocaml" nil "ocaml/src"))
-        (org . ("https://github.com/milisims/tree-sitter-org"))
-        (python . ("https://github.com/tree-sitter/tree-sitter-python"))
-        (php . ("https://github.com/tree-sitter/tree-sitter-php"))
-        (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src"))
-        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src"))
-        (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby"))
-        (rust . ("https://github.com/tree-sitter/tree-sitter-rust"))
-        (sql . ("https://github.com/m-novikov/tree-sitter-sql"))
-        (vue . ("https://github.com/merico-dev/tree-sitter-vue"))
-        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
-        (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
-        (zig . ("https://github.com/GrayJack/tree-sitter-zig"))))

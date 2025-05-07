@@ -3091,7 +3091,7 @@ Version 2022-10-31"
      ;; '(("SPC" . counsel-command-history)
      '(("SPC" . smex)
        ;; ("RET" . counsel-git)
-       ("RET" . blink-search)
+       ("RET" . my-blink-search)
        ;; This keymap I've not used. things are here experimentally.
        ;; The TAB key is not in a very good ergonomic position on average keyboards, so 【leader tab ‹somekey›】 probably should not be used much.
        ;; Currently (2018-03-13), these are commands related to completion or indent, and I basically never use any of these (except sometimes complete-symbol).
