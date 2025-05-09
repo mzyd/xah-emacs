@@ -37,11 +37,18 @@
 (require 'mzy-fuss)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'init-org)
 ;; (require 'git-timemachine)
 
 (require 'thing-edit)
 (require 'xah-fly-keys)
 
+;; specify a layout
+(xah-fly-keys-set-layout "dvorak")
+;; possible values
+;; adnw , azerty , azerty-be , beopy , bepo , carpalx-qfmlwy , carpalx-qgmlwb , carpalx-qgmlwy , colemak , colemak-dhm , colemak-dhm-angle , colemak-dhk , dvorak , koy , neo2 , norman , programer-dvorak , pt-nativo , qwerty , qwerty-abnt , qwerty-no (qwerty Norwegian) , qwertz , workman
+
+(xah-fly-keys 1)
 
 (use-package yasnippet
   :defer t
@@ -72,19 +79,12 @@
 (setq acm-enable-tabnine nil)
 (setq acm-enable-yas nil)
 (setq acm-backend-search-file-words-candidate-min-length 3)
-;; (setq lsp-bridge-python-command "/opt/homebrew/bin/python3")
 ;; (setq acm-backend-lsp-block-kind-list '("Snippet" "Enum"))
-
 ;; (setq lsp-bridge-enable-log t)
 
 (require 'sort-tab)
 (setq sort-tab-hide-function '(lambda (buf) (with-current-buffer buf (derived-mode-p 'dired-mode))))
 (sort-tab-mode 1)
-
-;; (require 'lazy-load)
-;; (lazy-load-global-keys
-;;  '(("b" . swiper))
-;;  "swiper")
 
 (require 'awesome-tray)
 (awesome-tray-mode 1)
@@ -114,13 +114,6 @@
 (require 'color-rg)
 
 ;; (require 'insert-translated-name)
-
-;; specify a layout
-(xah-fly-keys-set-layout "dvorak")
-;; possible values
-;; adnw , azerty , azerty-be , beopy , bepo , carpalx-qfmlwy , carpalx-qgmlwb , carpalx-qgmlwy , colemak , colemak-dhm , colemak-dhm-angle , colemak-dhk , dvorak , koy , neo2 , norman , programer-dvorak , pt-nativo , qwerty , qwerty-abnt , qwerty-no (qwerty Norwegian) , qwertz , workman
-
-(xah-fly-keys 1)
 
 (global-set-key (kbd "<escape>") 'xah-fly-command-mode-activate)
 (define-key xah-fly-insert-map (kbd "C-w") 'backward-kill-word)
@@ -160,7 +153,6 @@
           (lambda ()
             (local-set-key (kbd "RET") 'my-web-mode-enter)))
 
-;; (define-key git-timemachine-mode-map (kbd "C-p") git-timemachine-visit)
 ;; auto save
 (require 'auto-save)
 (auto-save-enable)
@@ -251,7 +243,9 @@
 ;; '(default ((t (:height 160 :weight normal :family "DinaRemaster")))))
 ;; '(default ((t (:height 160 :weight normal :family "Anonymous Pro")))))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(fringe-mode 0)
+;; (fringe-mode 0)
+
+;; 高亮当前行
 (global-hl-line-mode 1)
 (setq ring-bell-function 'ignore)
 ;; (set-background-color "#F0FFF2")
@@ -264,11 +258,6 @@
 
 ;; org 中文换行问题
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "RET") '(lambda ()
-;;                                           (newline 1)
-;;                                           (xah-shrink-whitespaces)))))
 
 (setq hippie-expand-try-functions-list
       '(
@@ -412,38 +401,48 @@
 (use-package find-file-in-project
   :ensure t)
 
-(use-package git-gutter
-  :ensure t
-  ;; :bind ("M-<up>" . git-gutter:previous-hunk)
-  ;; :bind ("M-<down>" . git-gutter:next-hunk)
-  :config
-  (progn
-    (global-git-gutter-mode +1)
-    (custom-set-variables
-     '(git-gutter:window-width 2)
-     '(git-gutter:modified-sign "♣ ")
-     '(git-gutter:added-sign "♦ ")
-     '(git-gutter:deleted-sign "✘ ")
-     ;; ♥
-     '(git-gutter:lighter " ✡"))
-    ;; (set-face-background 'git-gutter:modified "yellow") ;; background color
-    (set-face-foreground 'git-gutter:modified "black")
-    (set-face-foreground 'git-gutter:added "green")
-    (set-face-foreground 'git-gutter:deleted "#cc0000")
-    ))
-(when (eq system-type 'windows-nt)
-  (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
-  (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk))
+;; (use-package git-gutter
+;;   :ensure t
+;;   ;; :bind ("M-<up>" . git-gutter:previous-hunk)
+;;   ;; :bind ("M-<down>" . git-gutter:next-hunk)
+;;   :config
+;;   (progn
+;;     (global-git-gutter-mode -1)
+;;     (custom-set-variables
+;;      '(git-gutter:window-width 2)
+;;      '(git-gutter:modified-sign "♣ ")
+;;      '(git-gutter:added-sign "♦ ")
+;;      '(git-gutter:deleted-sign "✘ ")
+;;      ;; ♥
+;;      '(git-gutter:lighter " ✡"))
+;;     ;; (set-face-background 'git-gutter:modified "yellow") ;; background color
+;;     (set-face-foreground 'git-gutter:modified "black")
+;;     (set-face-foreground 'git-gutter:added "green")
+;;     (set-face-foreground 'git-gutter:deleted "#cc0000")
+;;     ))
+;; (when (eq system-type 'windows-nt)
+  ;; (global-set-key (kbd "M-<up>") 'git-gutter:previous-hunk)
+  ;; (global-set-key (kbd "M-<down>") 'git-gutter:next-hunk))
 
-;; (use-package diff-hl
-;;   :ensure
-;;   :config (global-diff-hl-mode))
+(use-package diff-hl
+  :ensure t
+  :bind (("M-<up>" . diff-hl-previous-hunk)
+         ("M-<down>" . diff-hl-next-hunk)
+         ("C-c C-g" . diff-hl-update))
+  :hook ((after-save . diff-hl-update)
+         (magit-post-refresh . diff-hl-update))
+  :config
+  (global-diff-hl-mode 1)
+  (diff-hl-dired-mode t)
+  (diff-hl-flydiff-mode t)
+  (diff-hl-show-hunk-mouse-mode t)
+  ;; 如果使用 terminal，启用 diff-hl-margin-mode
+  (unless (display-graphic-p)
+    (diff-hl-margin-mode 1)))
+(global-set-key (kbd "C-c C-s") 'diff-hl-show-hunk)
+
 ;; (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
-;; 显示函数签名
-;; (use-package eldoc-overlay
-;;   :ensure t
-;;   :init (eldoc-overlay-mode 1))
 
 (when (eq system-type 'darwin)
   (require 'mac-key-mode)
@@ -462,13 +461,6 @@
 ;; the global-linum-mode must be placed behind git-gutter
 ;; even that, there's still have a problem: when you changed something, you have to move your cursor over the screen
 ;; and the git-gutter will refresh its state, else, it won't fucking do anything. of course, this is the god damn linum-mode's problem.
-;; (global-linum-mode 1)
-;; (setq linum-format " %d ")
-
-;; (use-package powerline
-;;   :ensure t
-;;   :config
-;;   (powerline-default-theme))
 
 ;; (use-package nyan-mode
 ;;   :ensure t
@@ -489,18 +481,6 @@
 ;;   :config
 ;;   (add-hook 'after-init-hook #'global-flycheck-mode))
 ;; (setq lsp-ui-sideline-show-diagnostics t)
-
-;; scheme-mode
-;; (use-package geiser
-;;   :ensure t
-;;   :config
-;;   (setq scheme-program-name "chez")
-;;   (setq geiser-default-implementation 'chez)
-;;   (setq geiser-active-implementations '(chez))
-;;   (setq geiser-chez-binary "chez")
-;;   (add-hook 'scheme-mode-hook 'geiser-mode))
-
-;; (define-key geiser-repl-mode-map (kbd "C-8") 'geiser-repl--newline-and-indent)
 
 (use-package typescript-mode
   :ensure t
@@ -540,10 +520,6 @@
 (use-package smex
   :ensure t)
 
-;; (use-package copilot
-;;   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
-;;   :ensure t)
-
 (use-package edit-at-point
   :ensure)
 
@@ -559,24 +535,19 @@
   :ensure
   :config
   (setq-default org-download-heading-lvl nil)
-  (setq-default org-download-image-dir "./note-images")
+  (setq-default org-download-image-dir "./images")
   (setq org-download-backend "wget")
   (setq org-download-abbreviate-filename-function (lambda (fn) fn)) ; use original filename
   (defun dummy-org-download-annotate-function (link)
     "")
   (setq org-download-annotate-function
-      #'dummy-org-download-annotate-function)
-  )
+      #'dummy-org-download-annotate-function))
 
 (add-hook 'dired-mode-hook 'org-download-enable)
 
 ;; 代替 dired-mode
 ;; (use-package dirvish
 ;;   :ensure)
-
-;; (use-package all-the-icons
-;;   :if (display-graphic-p)
-;;   :config (setq inhibit-compacting-font-caches t))
 
 ;; ********************************************
 
@@ -587,17 +558,7 @@
     (if (looking-at-p "^ +\/?> *$")
         (delete-char sgml-basic-offset))))
 
-;; (when (eq system-type 'darwin)
-;;   (add-to-list 'load-path "~/org-ai")
-;;   (require 'org)
-;;   (require 'org-ai)
-;;   (add-hook 'org-mode-hook #'org-ai-mode)
-;;   (org-ai-global-mode)
-;;   (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
-;;   (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
-;;   ;; (setq org-ai-openai-api-token "w0q5UCuXjCeyYA5I124mT3BlbkFJNUPlGrrHgOiGX3zp7M29")
-;;   (setq org-ai-openai-api-token "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"))
-
+;; 在 insert-mode 里刷键 nh 即可退出 insert-mode
 (add-hook 'xah-fly-insert-mode-activate-hook (lambda ()
                                                (define-key xah-fly-insert-map (kbd first-key) 'mzy/escape)
                                                (define-key xah-fly-insert-map (kbd second-key) 'mzy/monitor-escape-trigger-key)))

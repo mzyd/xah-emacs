@@ -3607,7 +3607,7 @@ Version 2022-10-31"
   ;; (global-set-key (kbd "C-q") nil)
   ;; (global-set-key (kbd "C-r") nil)
   (global-set-key (kbd "C-s") #'save-buffer)
-  (global-set-key (kbd "C-t") #'hippie-expand)
+  ;; (global-set-key (kbd "C-t") #'hippie-expand)
   ;; (global-set-key (kbd "C-u") nil)
   (global-set-key (kbd "C-v") #'yank)
   (global-set-key (kbd "C-w") #'xah-save-close-current-buffer)
