@@ -243,7 +243,12 @@
 ;; '(default ((t (:height 160 :weight normal :family "DinaRemaster")))))
 ;; '(default ((t (:height 160 :weight normal :family "Anonymous Pro")))))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; (fringe-mode 0)
+
+;; 启用 fringe, 这里 3 是像素宽度
+(fringe-mode 4)
+
+(setq tool-bar-mode nil)
+(setq menu-bar-mode nil)
 
 ;; 高亮当前行
 (global-hl-line-mode 1)
@@ -430,15 +435,17 @@
          ("M-<down>" . diff-hl-next-hunk)
          ("C-c C-g" . diff-hl-update))
   :hook ((after-save . diff-hl-update)
-         (magit-post-refresh . diff-hl-update))
+         (magit-post-refresh . diff-hl-update)
+         (find-file . (lambda ()
+                       (when (vc-git-root default-directory)
+                         (diff-hl-update))))
+         (dired-mode . diff-hl-dired-mode))
   :config
   (global-diff-hl-mode 1)
-  (diff-hl-dired-mode t)
   (diff-hl-flydiff-mode t)
-  (diff-hl-show-hunk-mouse-mode t)
-  ;; 如果使用 terminal，启用 diff-hl-margin-mode
   (unless (display-graphic-p)
     (diff-hl-margin-mode 1)))
+
 (global-set-key (kbd "C-c C-s") 'diff-hl-show-hunk)
 
 ;; (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
