@@ -37,6 +37,7 @@
 (require 'mzy-fuss)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'cache-path-from-shell)
 (require 'init-org)
 ;; (require 'git-timemachine)
 
@@ -437,16 +438,29 @@
   :hook ((after-save . diff-hl-update)
          (magit-post-refresh . diff-hl-update)
          (find-file . (lambda ()
-                       (when (vc-git-root default-directory)
-                         (diff-hl-update))))
+                        (when (vc-git-root default-directory)
+                          (diff-hl-update))))
          (dired-mode . diff-hl-dired-mode))
   :config
-  (global-diff-hl-mode 1)
+  (global-diff-hl-mode)
   (diff-hl-flydiff-mode t)
+  ;; 修改修改部分的颜色（例如浅黄色背景）
+  (set-face-attribute 'diff-hl-change nil
+                      :background "#0800ff"
+                      :foreground "#0800ff")
+  ;; 修改新增部分的颜色（例如浅绿色背景）
+  (set-face-attribute 'diff-hl-insert nil
+                      :background "#00ff19"
+                      :foreground "#00ff19")
+  ;; 删除为红色
+  (set-face-attribute 'diff-hl-delete nil
+                      :background "#ff0000"
+                      :foreground "#ff0000")
+  (global-set-key (kbd "C-c C-s") 'diff-hl-show-hunk)
+
   (unless (display-graphic-p)
     (diff-hl-margin-mode 1)))
 
-(global-set-key (kbd "C-c C-s") 'diff-hl-show-hunk)
 
 ;; (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
