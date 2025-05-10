@@ -434,7 +434,7 @@
   :ensure t
   :bind (("M-<up>" . diff-hl-previous-hunk)
          ("M-<down>" . diff-hl-next-hunk)
-         ("C-c C-g" . diff-hl-update))
+         ("C-c C-g" . update-diff-hl))
   :hook ((after-save . diff-hl-update)
          (magit-post-refresh . diff-hl-update)
          (find-file . (lambda ()
@@ -442,6 +442,9 @@
                           (diff-hl-update))))
          (dired-mode . diff-hl-dired-mode))
   :config
+  (defun update-diff-hl ()
+    (interactive)
+    (diff-hl-update))
   (global-diff-hl-mode)
   (diff-hl-flydiff-mode t)
   ;; 修改修改部分的颜色（例如浅黄色背景）
