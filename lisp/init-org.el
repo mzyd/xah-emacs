@@ -73,12 +73,12 @@ it can be passed in POS."
   (before-save . pv/org-set-last-modified))
 
 
-;; 自定义默认模板
-;; (setq org-roam-capture-templates
-;;    '(("d" "default" plain "%?"
-;;       :if-new
-;;       (file+head "${slug}-%<%Y%m%d%H%M%S>.org"
-;;                  "#+title: ${title}\n#+date: %u\n#+last_modified: \n\n")
-;;       :immediate-finish t)))
+
+(setq org-roam-capture-templates
+      '(("d" "default" plain "%?"
+         :if-new
+         (file+head "${slug}-%<%Y%m%d%H%M%S>.org"
+                    "#+title: ${title}\n#+date: %u\n#+last_modified: \n#+roam_tags: \n\n")
+         :immediate-finish t)))
 
 (provide 'init-org)

@@ -3147,7 +3147,8 @@ Version 2022-10-31"
        ;; `
 
        ("3" . delete-window)
-       ("4" . split-window-below)
+       ("2" . split-window-below)
+       ("4" . split-window-right)
        ("5" . balance-windows)
        ("6" . xah-upcase-sentence)
 

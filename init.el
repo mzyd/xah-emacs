@@ -79,7 +79,8 @@
 (setq lsp-bridge-enable-hover-diagnostic t)
 (setq acm-enable-tabnine nil)
 (setq acm-enable-yas nil)
-(setq acm-backend-search-file-words-candidate-min-length 3)
+(setq acm-backend-search-file-words-candidate-min-length 2)
+(setq acm-backend-lsp-match-mode "prefix")
 ;; (setq acm-backend-lsp-block-kind-list '("Snippet" "Enum"))
 ;; (setq lsp-bridge-enable-log t)
 
@@ -283,13 +284,22 @@
 (set-language-environment 'UTF-8)
 (set-locale-environment "UTF-8")
 
-(use-package material-theme
-  :ensure t
-  :config
-  (load-theme 'material-light t)
-  (set-cursor-color "#0011ff"); 蓝色
-  (setq-default mode-line-format nil))
+;; set theme
+;; (use-package material-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'material-light t)
+;;   (set-cursor-color "#0011ff"); 蓝色
+;;   (setq-default mode-line-format nil))
 
+(use-package zenburn-theme
+  :ensure t)
+;; (load-theme 'zenburn t)
+
+(use-package anti-zenburn-theme
+  :ensure
+  :config
+  (load-theme 'anti-zenburn t))
 
 ;; =================== packages ===================
 
@@ -335,7 +345,16 @@
   (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t)))
   (add-hook 'typescript-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t))))
 
+(defun my-org-return-smart ()
+  "在列表项后插入新列表项，在标题后只换行。"
+  (interactive)
+  (if (org-at-item-p)  ; 判断当前行是否为列表项
+      (org-meta-return)
+    (org-return)))
+
 ;; (define-key org-mode-map (kbd "<return>") 'org-meta-return)
+;; (define-key org-mode-map (kbd "<return>") 'org-return)
+(define-key org-mode-map (kbd "<return>") 'my-org-return-smart)
 
 (use-package keyfreq
   :ensure t
@@ -747,7 +766,7 @@ If no region is selected, operate on current line only."
 (define-key xah-fly-command-map (kbd "e c a") 'mzy/wrap-region-with-li)
 (define-key xah-fly-command-map (kbd "e c m") 'remove-html-tags-and-colons)
 (define-key xah-fly-command-map (kbd "e c r") 'remove-newlines-and-spaces)
-
+(define-key xah-fly-command-map (kbd "e c l") 'thing-copy-line)
 
 
 
