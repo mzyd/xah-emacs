@@ -299,7 +299,10 @@
 (use-package anti-zenburn-theme
   :ensure
   :config
-  (load-theme 'anti-zenburn t))
+  (load-theme 'anti-zenburn t)
+  ;; 设置选中的背景色, 不污染主题配置，Emacs 会单独存储这个覆盖设置，即便更新 Zenburn 也不影响。
+  (custom-set-faces
+ '(region ((t (:background "#DFE6E6"))))))
 
 ;; =================== packages ===================
 
