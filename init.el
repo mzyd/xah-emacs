@@ -28,6 +28,9 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+
+
+
 ;; (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
 ;; (require 'eaf)
 ;; (require 'eaf-pdf-viewer)
@@ -335,10 +338,33 @@
   :ensure t)
 
 ;; org-mode stuff
-(use-package org-bullets
+;; (use-package org-bullets
+;;   :ensure t
+;;   :config
+;;   (add-hook 'org-mode-hook #'org-bullets-mode))
+
+(use-package org)
+(use-package org-superstar
   :ensure t
   :config
-  (add-hook 'org-mode-hook #'org-bullets-mode))
+  (add-hook 'org-mode-hook (lambda ()
+                             (org-superstar-mode 1)
+                             (org-indent-mode 1))))
+
+(with-eval-after-load 'org-superstar
+  (set-face-attribute 'org-superstar-item nil :height 1.2)
+  (set-face-attribute 'org-superstar-header-bullet nil :height 1.2)
+  (set-face-attribute 'org-superstar-leading nil :height 1.3))
+;; Set different bullets, with one getting a terminal fallback.
+(setq org-superstar-headline-bullets-list
+      '("◉" ("⬧" ?◈) "○" "▷"))
+(setq org-adapt-indentation t)
+
+;; Stop cycling bullets to emphasize hierarchy of headlines.
+(setq org-superstar-cycle-headline-bullets nil)
+;; Hide away leading stars on terminal.
+(setq org-superstar-leading-fallback ?\s)
+
 
 (use-package eslint-fix
   :ensure t
